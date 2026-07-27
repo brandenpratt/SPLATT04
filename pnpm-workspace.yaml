@@ -1,0 +1,7 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+# pnpm 11 requires explicit opt-in for dependency build scripts.
+allowBuilds:
+  esbuild: true

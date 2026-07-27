@@ -1,0 +1,22 @@
+{
+  "name": "SPLAT 04",
+  "short_name": "SPLAT 04",
+  "description": "Click. Splat. Win. Stay if you want. 4v4 online paintball at VICE ESTATE 04.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#0a1424",
+  "theme_color": "#0a1424",
+  "categories": ["games", "sports"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
