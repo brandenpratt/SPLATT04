@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import {
@@ -22,6 +22,15 @@ import { Projectiles } from './Projectiles.js';
 import { Scenery } from './Scenery.js';
 import { TargetDummies } from './TargetDummies.js';
 import { ViewModel } from './ViewModel.js';
+import {
+  configureViceEstateRenderer,
+  VICE_ESTATE_CAMERA_FAR,
+  ViceEstateEnvironment,
+  ViceEstateLighting,
+} from './ViceEstateEnvironment.js';
+import { ViceEstateVisualLayer, type ViceEstateVisualStatus } from './ViceEstateVisualLayer.js';
+import { resolveViceEstateRendererMode, type ViceEstateRendererMode } from './viceEstateMode.js';
+import { resolveViceEstateInitialYaw } from './viceEstateVisual.js';
 
 export interface SceneProps {
   world: GameWorld;
@@ -42,26 +51,36 @@ export function GameScene(props: SceneProps) {
     () => (props.quality === 'low' ? [1, 1] : [1, Math.min(2, window.devicePixelRatio || 1)]),
     [props.quality],
   );
+  const requestedRendererMode = useMemo(resolveViceEstateRendererMode, []);
+  const [rendererMode, setRendererMode] = useState<ViceEstateRendererMode>(requestedRendererMode);
+
+  const handleVisualStatus = useCallback((status: ViceEstateVisualStatus) => {
+    // A total GLB failure must not blank production gameplay. Partial failures stay visible
+    // and are reported by the layer; zero placed assets falls back to the preserved legacy.
+    if (status === 'error') setRendererMode('legacy');
+  }, []);
 
   return (
     <Canvas
       dpr={dpr}
       shadows={props.quality === 'high'}
       gl={{ antialias: true, powerPreference: 'high-performance' }}
-      camera={{ fov: 70, near: 0.12, far: 700, position: [0, 3, 6] }}
-      onCreated={({ gl, scene }) => {
-        gl.setClearColor('#0a0f1a');
-        // Filmic tone mapping keeps the bright Miami palette from clipping to flat white,
-        // which is most of what made the old look feel like untextured plastic.
-        gl.toneMapping = THREE.ACESFilmicToneMapping;
-        gl.toneMappingExposure = 1.0;
-        // Light atmospheric haze around the distant skyline, tinted to the dusk sky.
-        scene.fog = new THREE.Fog('#2a2f47', 120, 420);
+      camera={{
+        fov: 70,
+        near: 0.12,
+        far: VICE_ESTATE_CAMERA_FAR,
+        position: [0, 3, 6],
       }}
+      onCreated={({ gl, scene }) => configureViceEstateRenderer(gl, scene)}
     >
-      <SceneContents {...props} />
+      <SceneContents {...props} rendererMode={rendererMode} onVisualStatus={handleVisualStatus} />
     </Canvas>
   );
+}
+
+interface SceneContentsProps extends SceneProps {
+  rendererMode: ViceEstateRendererMode;
+  onVisualStatus: (status: ViceEstateVisualStatus) => void;
 }
 
 function SceneContents({
@@ -75,11 +94,16 @@ function SceneContents({
   onQualitySample,
   onFire,
   onBoost,
-}: SceneProps) {
+  rendererMode,
+  onVisualStatus,
+}: SceneContentsProps) {
+  const cameraTarget = useCallback(() => world.local, [world]);
+
   return (
     <>
-      <SunsetEnvironment />
-      <Lights quality={quality} />
+      <ViceEstateEnvironment />
+      <ViceEstateLighting quality={quality} />
+      {rendererMode === 'gltf' && <InitialEstateAim world={world} input={input} />}
       <CameraRig
         world={world}
         input={input}
@@ -99,8 +123,19 @@ function SceneContents({
       />
 
       <PaintFloor world={world} highContrast={settings.highContrast} />
-      <Arena quality={quality} />
-      <Scenery quality={quality} />
+      {rendererMode === 'legacy' ? (
+        <>
+          <Arena quality={quality} />
+          <Scenery quality={quality} />
+        </>
+      ) : (
+        <ViceEstateVisualLayer
+          purpose="gameplay"
+          quality={quality}
+          cameraTarget={cameraTarget}
+          onStatus={onVisualStatus}
+        />
+      )}
       <Players world={world} quality={quality} cameraMode={cameraMode} />
       <Projectiles world={world} />
       <ViewModel
@@ -113,117 +148,17 @@ function SceneContents({
   );
 }
 
-/**
- * A procedurally generated sunset environment map.
- *
- * Chrome and glossy vinyl need something to reflect — without it they render as flat
- * shaded blobs, which is most of what made the arena look like untextured plastic. This
- * builds a small equirectangular gradient in memory and prefilters it, so there is still
- * no downloaded asset anywhere.
- */
-function SunsetEnvironment() {
-  const gl = useThree((state) => state.gl);
-  const scene = useThree((state) => state.scene);
+/** Aim once per game mode down the open fountain lane; respawns keep the chosen view. */
+function InitialEstateAim({ world, input }: { world: GameWorld; input: InputController }) {
+  const aimedMode = useRef<GameWorld['mode'] | null>(null);
 
-  // Developer handle for live profiling from the console.
-  useEffect(() => {
-    const hook = ((window as unknown as Record<string, unknown>).__splat04 ?? {}) as Record<
-      string,
-      unknown
-    >;
-    hook.gl = gl;
-    hook.scene = scene;
-    (window as unknown as Record<string, unknown>).__splat04 = hook;
-  }, [gl, scene]);
-
-  useEffect(() => {
-    const width = 128;
-    const height = 64;
-    const data = new Uint8Array(width * height * 4);
-
-    // Kept cool and dark on purpose. This map lights *every* surface through image-based
-    // lighting, so a saturated orange horizon tints the entire estate pink no matter what
-    // the material colours say. Only a narrow band near the horizon stays warm.
-    const sky = new THREE.Color('#141d33');
-    const horizon = new THREE.Color('#4a4358');
-    const warm = new THREE.Color('#a86a4a');
-    const ground = new THREE.Color('#1a1d24');
-    const colour = new THREE.Color();
-
-    for (let y = 0; y < height; y++) {
-      // v runs 0 at the top of the sphere to 1 at the bottom.
-      const v = y / (height - 1);
-      for (let x = 0; x < width; x++) {
-        const u = x / (width - 1);
-        if (v < 0.5) {
-          colour.copy(sky).lerp(horizon, Math.pow(v / 0.5, 3.0));
-          // A narrow warm glow low in the west, nowhere near full strength.
-          const glow = Math.max(0, 1 - Math.abs(u - 0.25) * 6) * Math.pow(v / 0.5, 6);
-          colour.lerp(warm, glow * 0.55);
-        } else {
-          colour.copy(horizon).lerp(ground, Math.pow((v - 0.5) / 0.5, 0.7));
-        }
-        const offset = (y * width + x) * 4;
-        data[offset] = Math.round(colour.r * 255);
-        data[offset + 1] = Math.round(colour.g * 255);
-        data[offset + 2] = Math.round(colour.b * 255);
-        data[offset + 3] = 255;
-      }
-    }
-
-    const source = new THREE.DataTexture(data, width, height, THREE.RGBAFormat);
-    source.mapping = THREE.EquirectangularReflectionMapping;
-    source.colorSpace = THREE.SRGBColorSpace;
-    source.needsUpdate = true;
-
-    const pmrem = new THREE.PMREMGenerator(gl);
-    pmrem.compileEquirectangularShader();
-    const environment = pmrem.fromEquirectangular(source).texture;
-    scene.environment = environment;
-
-    source.dispose();
-    pmrem.dispose();
-
-    return () => {
-      scene.environment = null;
-      environment.dispose();
-    };
-  }, [gl, scene]);
+  useFrame(() => {
+    if (aimedMode.current === world.mode) return;
+    aimedMode.current = world.mode;
+    input.yaw = resolveViceEstateInitialYaw(world.local.x, world.local.z);
+  });
 
   return null;
-}
-
-/** Key sun, sky fill and a cool rim so silhouettes separate from the background. */
-function Lights({ quality }: { quality: 'low' | 'high' }) {
-  return (
-    <>
-      {/*
-        Balance matters more than any single light here: a strong coral key with almost no
-        fill washes every surface salmon, which is the opposite of the intended 55%
-        graphite. The key is warm but restrained, and the aqua fill carries the shadows.
-      */}
-      <hemisphereLight args={['#93b4d6', '#1d2430', 1.15]} />
-      <directionalLight
-        position={[-34, 30, -46]}
-        intensity={0.95}
-        color="#ffc9a8"
-        castShadow={quality === 'high'}
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-        shadow-camera-left={-55}
-        shadow-camera-right={55}
-        shadow-camera-top={42}
-        shadow-camera-bottom={-42}
-        shadow-camera-far={170}
-        shadow-normalBias={0.035}
-        shadow-bias={-0.0006}
-      />
-      {/* Strong cool rim so characters separate from dark scenery. */}
-      <directionalLight position={[26, 20, 40]} intensity={0.75} color="#8fc0ff" />
-      {/* Deep ambient: blacks stay black rather than washing to grey. */}
-      <ambientLight intensity={0.22} color="#6b7c9c" />
-    </>
-  );
 }
 
 /**

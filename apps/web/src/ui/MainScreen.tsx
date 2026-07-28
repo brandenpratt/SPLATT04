@@ -1,4 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
+import {
+  getViceEstateLoadSnapshot,
+  preloadViceEstateKit,
+  subscribeViceEstateLoad,
+} from '../game/viceEstateAssets.js';
+import { viceEstateLoadFraction } from '../scene/ViceEstateVisualLayer.js';
 import './MainScreen.css';
 
 export type MainScreenMode = 'coverage' | 'coreball' | 'practice';
@@ -40,26 +46,31 @@ export function MainScreen({
   const [mode, setMode] = useState<MainScreenMode>('coverage');
   const [failed, setFailed] = useState(false);
   const peak = useRef(0);
+  const estateLoad = useSyncExternalStore(
+    subscribeViceEstateLoad,
+    getViceEstateLoadSnapshot,
+    getViceEstateLoadSnapshot,
+  );
 
-  const complete = (key: StageKey) =>
-    setDone((prev) => (prev.includes(key) ? prev : [...prev, key]));
+  const complete = useCallback(
+    (key: StageKey) => setDone((prev) => (prev.includes(key) ? prev : [...prev, key])),
+    [],
+  );
 
   useEffect(() => {
     complete('shell');
     const raf = requestAnimationFrame(() => complete('ui'));
 
-    // Each of these resolves when the real work behind it has happened. The arena tables
-    // and the scene modules are genuine imports, so a slow parse shows up here honestly
-    // instead of being hidden behind a timer.
+    // Arena art is the real page-wide GLB preload used by the scene, not a module-import
+    // proxy. Its 31 fetch/decode completions feed the weighted percentage below.
     let cancelled = false;
+    void preloadViceEstateKit();
     (async () => {
       try {
         await import('@splat04/shared');
         if (!cancelled) complete('collision');
         await import('../scene/materials.js');
         if (!cancelled) complete('player');
-        await import('../scene/Arena.js');
-        if (!cancelled) complete('estate');
         await new Promise((r) => requestAnimationFrame(() => r(null)));
         if (!cancelled) complete('lighting');
       } catch {
@@ -70,23 +81,35 @@ export function MainScreen({
       cancelled = true;
       cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [complete]);
+
+  useEffect(() => {
+    if (estateLoad.status === 'ready' || estateLoad.status === 'degraded') complete('estate');
+    if (estateLoad.status === 'error') setFailed(true);
+  }, [complete, estateLoad.status]);
 
   useEffect(() => {
     if (connected) complete('sync');
-  }, [connected]);
+  }, [complete, connected]);
 
   const progress = useMemo(() => {
     const total = STAGES.reduce((sum, s) => sum + s.weight, 0);
-    const got = STAGES.filter((s) => done.includes(s.key)).reduce((sum, s) => sum + s.weight, 0);
+    const estateFraction = viceEstateLoadFraction(estateLoad);
+    const got = STAGES.reduce((sum, stage) => {
+      if (stage.key === 'estate') return sum + stage.weight * estateFraction;
+      return done.includes(stage.key) ? sum + stage.weight : sum;
+    }, 0);
     peak.current = Math.max(peak.current, got / total);
     return peak.current;
-  }, [done]);
+  }, [done, estateLoad]);
 
   const ready = progress >= 1;
+  const pendingStage = STAGES.find((stage) => !done.includes(stage.key));
   const status = ready
     ? 'READY'
-    : (STAGES.find((s) => !done.includes(s.key))?.label ?? 'STARTING');
+    : pendingStage?.key === 'estate' && estateLoad.total > 0
+      ? `${pendingStage.label} ${estateLoad.loaded}/${estateLoad.total}`
+      : (pendingStage?.label ?? 'STARTING');
 
   return (
     <div className="ms" role="dialog" aria-modal="true" aria-label="SPLAT 04 main menu">

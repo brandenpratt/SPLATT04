@@ -1,0 +1,428 @@
+{
+  "cacheNames": [
+    "splat04-v2",
+    "splat04-v2-assets"
+  ],
+  "capturedAt": "2026-07-28T01:49:12.415Z",
+  "page": "http://localhost:8787/play/vice-estate-04",
+  "production": {
+    "entryBundle": "/assets/index-C4P2Q4Bw.js",
+    "serviceWorkerCache": "splat04-v2"
+  },
+  "rows": [
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 22240,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 3.7,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/villa-west.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 22236,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 3.7,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/villa-east.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 125964,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 5.9,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/villa-roof-west.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 125964,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 6.4,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/villa-roof-east.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 36888,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 7.5,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/glass-bridge.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 53356,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 8.2,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/flamingo-fountain-lod1.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 279668,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 10.5,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/flamingo-fountain.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 198428,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 10.5,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/planter-curved.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 68724,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 9.5,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/bunker-dome.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 8316,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 7.6,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/bunker-wedge.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 15816,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 8.2,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/bunker-block.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 28604,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 8.1,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/perimeter-straight.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 39172,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 8.4,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/perimeter-corner.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 28196,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 9.2,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/ground-court.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 20004,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 9.2,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/dock.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 8712,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 9,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/yacht.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 56660,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 9.2,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/palm-lod1.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 69188,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 9.4,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/palm.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 10768,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 9.1,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/floodlight.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 44064,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 9.1,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/skyline-far.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 39024,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 9.2,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/skyline-near.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 94780,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 10.3,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/chrome-sphere.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 190464,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 10.3,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/planter-straight.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 3588,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 9.4,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/bench-low.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 24368,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 9.4,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/patio-set.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 6420,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 9.3,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/bunker-ramp.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 40704,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 9.2,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/bunker-can.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 2004,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 9.2,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/ocean.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 3564,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 9.3,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/seawall.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 49564,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 9.3,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/paint-splat-cyan.glb?v=kit-9d41bdf69d21"
+    },
+    {
+      "cache": {
+        "cacheName": "splat04-v2-assets",
+        "encodedBodySize": 49576,
+        "source": "cache-storage",
+        "transferSize": 0
+      },
+      "durationMs": 9.7,
+      "initiatorType": "fetch",
+      "mimeType": "application/octet-stream",
+      "status": 200,
+      "url": "http://localhost:8787/assets/vice-estate/paint-splat-magenta.glb?v=kit-9d41bdf69d21"
+    }
+  ],
+  "serviceWorkerController": "http://localhost:8787/sw.js",
+  "summary": {
+    "uniqueVersionedGlbs": 31,
+    "allStatus200": true,
+    "mimeTypes": [
+      "application/octet-stream"
+    ],
+    "cacheSources": [
+      "cache-storage"
+    ]
+  }
+}

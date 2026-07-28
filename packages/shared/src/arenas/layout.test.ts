@@ -5,6 +5,7 @@ import {
   VICE_ESTATE_ASSETS,
   VICE_ESTATE_LAYOUT,
   assetIds,
+  enumerateAssetVariantUrls,
   gameplayColliders,
   isLayoutApproved,
   landmarks,
@@ -39,6 +40,19 @@ describe('asset manifest', () => {
     for (const asset of VICE_ESTATE_ASSETS.assets) {
       if (asset.decorative) expect(asset.paintReceiver).toBe(false);
     }
+  });
+
+  it('enumerates all 31 content-versioned GLB variants without duplicates', () => {
+    const variants = enumerateAssetVariantUrls(VICE_ESTATE_ASSETS);
+    expect(variants).toHaveLength(31);
+    expect(new Set(variants.map((variant) => variant.url)).size).toBe(31);
+    expect(
+      variants.every((variant) => variant.url.includes(`v=${VICE_ESTATE_ASSETS.contentVersion}`)),
+    ).toBe(true);
+    expect(variants.some((variant) => variant.url.includes('flamingo-fountain-lod1.glb'))).toBe(
+      true,
+    );
+    expect(variants.some((variant) => variant.url.includes('palm-lod1.glb'))).toBe(true);
   });
 
   it('covers the reference composition', () => {

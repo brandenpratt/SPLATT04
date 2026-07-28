@@ -4,18 +4,18 @@
  * Caches the app shell and Vite's content-hashed assets so a repeat visit starts fast and
  * an offline visit gets a useful page. Deliberately conservative:
  *   - it never caches /api or /ws;
- *   - it never takes over an open tab mid-round (no skipWaiting, no clients.claim), so a
- *     new version activates on the next navigation instead of reloading during play.
+ *   - updates activate only through the existing explicit intermission message (or after
+ *     all old clients close); activation removes every older SPLAT 04 cache.
  */
 
-const VERSION = 'splat04-v1';
+const VERSION = 'splat04-v2';
 /**
  * GLBs live in their own cache and are keyed by the `?v=` content version the asset
  * manifest stamps onto every URL. A rebuilt kit changes that version, so the old entries
  * become unreachable and are swept below — the service worker can never permanently serve
  * a stale model, which is the failure mode plain cache-first would create.
  */
-const ASSET_CACHE = 'splat04-assets';
+const ASSET_CACHE = `${VERSION}-assets`;
 const SHELL = ['/', '/offline.html', '/manifest.webmanifest', '/icons/icon-192.png'];
 
 self.addEventListener('install', (event) => {
@@ -95,6 +95,22 @@ self.addEventListener('fetch', (event) => {
         }
         return response;
       }),
+    );
+    return;
+  }
+
+  // UI plates are not content-hashed. Network-first prevents an old loading/menu image
+  // from surviving a release; the current version cache remains the offline fallback.
+  if (url.pathname.startsWith('/ui/')) {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response.ok) {
+            caches.open(VERSION).then((cache) => cache.put(request, response.clone()));
+          }
+          return response;
+        })
+        .catch(async () => (await caches.open(VERSION)).match(request)),
     );
     return;
   }
