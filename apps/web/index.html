@@ -17,6 +17,26 @@
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="icon" href="/icons/icon-192.png" sizes="192x192" />
     <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <link
+      rel="preload"
+      as="image"
+      href="/ui/loading-screen-placeholder-v3.jpg"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/ui/loading-screen-mobile-v3.jpg"
+      media="(max-aspect-ratio: 1/1)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/ui/loading-screen-v3.jpg"
+      media="(min-aspect-ratio: 1/1)"
+      fetchpriority="high"
+    />
   </head>
   <body>
     <div id="root"></div>

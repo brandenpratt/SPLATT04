@@ -5,6 +5,7 @@ import { VICE_ESTATE_ASSETS, VICE_ESTATE_LAYOUT } from '@splat04/shared';
 import { isLowPowerDevice } from '../game/assets.js';
 import {
   findViceEstateAsset,
+  isMinimumPlayableViceEstateAsset,
   preloadViceEstateKit,
   type ViceEstateLoadSnapshot,
 } from '../game/viceEstateAssets.js';
@@ -14,13 +15,22 @@ import {
 } from './viceEstateVisual.js';
 
 export type ViceEstateVisualPurpose = 'gameplay' | 'art-review';
-export type ViceEstateVisualStatus = 'loading' | 'ready' | 'error';
+export type ViceEstateVisualStatus =
+  | 'gltf-loading'
+  | 'gltf-minimum-ready'
+  | 'gltf-full-ready'
+  | 'legacy-ready'
+  | 'gltf-failed-legacy'
+  | 'error';
 
 interface Props {
   purpose: ViceEstateVisualPurpose;
   quality?: 'low' | 'high';
   cameraTarget?: () => { x: number; z: number };
-  onStatus?: (status: ViceEstateVisualStatus) => void;
+  /** Backward-compatible art-review status contract. */
+  onStatus?: (status: 'loading' | 'ready' | 'error') => void;
+  /** Phase-aware gameplay readiness contract. */
+  onReadiness?: (status: ViceEstateVisualStatus) => void;
   onErrors?: (errors: string[]) => void;
 }
 
@@ -44,6 +54,7 @@ export function ViceEstateVisualLayer({
   quality = 'high',
   cameraTarget,
   onStatus,
+  onReadiness,
   onErrors,
 }: Props) {
   const group = useRef<THREE.Group>(null);
@@ -82,36 +93,51 @@ export function ViceEstateVisualLayer({
     let cancelled = false;
     const lowPower = quality === 'low' || isLowPowerDevice();
     onStatus?.('loading');
+    onReadiness?.('gltf-loading');
     for (const error of validationErrors) reportDevelopmentError(error);
 
-    void preloadViceEstateKit().then((library) => {
-      if (cancelled) return;
-      const root = group.current;
-      if (!root) return;
-      root.clear();
-      cameraObstructions.current = [];
+    const preload = preloadViceEstateKit({ lowPower, purpose });
+    const selectedLowPower = preload.lowPower;
+    const root = group.current;
+    if (!root) return;
+    root.clear();
+    cameraObstructions.current = [];
 
-      let placed = 0;
-      let intentionallyOmitted = 0;
-      const placementErrors = [...validationErrors];
+    let placed = 0;
+    let intentionallyOmitted = 0;
+    const placedIds = new Set<string>();
+    const placementErrors = new Set(validationErrors);
 
+    const syncLibraryErrors = () => {
+      for (const failure of preload.library.errors) {
+        const message = `${failure.assetId}: ${failure.url} — ${failure.error}`;
+        placementErrors.add(message);
+        reportDevelopmentError(message);
+      }
+    };
+
+    const mountPhase = (phase: 'minimum' | 'optional') => {
+      let phasePlaced = 0;
       for (const placement of VICE_ESTATE_LAYOUT.placements) {
+        if (placedIds.has(placement.id)) continue;
+        const asset = findViceEstateAsset(placement.asset);
+        if (!asset) continue;
+        const minimum = isMinimumPlayableViceEstateAsset(asset.id);
+        if ((phase === 'minimum') !== minimum) continue;
+
         if (!shouldRenderViceEstatePlacement(placement, VICE_ESTATE_ASSETS, purpose)) {
           intentionallyOmitted += 1;
           continue;
         }
 
-        const asset = findViceEstateAsset(placement.asset);
-        if (!asset) continue;
-
-        const instance = library.instance(asset, { lowPower });
+        const instance = preload.library.instance(asset, { lowPower: selectedLowPower });
         if (!instance) {
-          if (lowPower && asset.mobileFallback === null) {
+          if (selectedLowPower && asset.mobileFallback === null) {
             intentionallyOmitted += 1;
             continue;
           }
-          const message = `${placement.id}: GLB "${asset.id}" was not available after preload`;
-          placementErrors.push(message);
+          const message = `${placement.id}: GLB "${asset.id}" was not available after ${phase} preload`;
+          placementErrors.add(message);
           reportDevelopmentError(message);
           continue;
         }
@@ -133,6 +159,7 @@ export function ViceEstateVisualLayer({
           });
         }
         root.add(instance);
+        placedIds.add(placement.id);
         // The provisional GLB footprint overlaps some legacy spawn/camera paths. Hide only
         // solid cover caught between camera and player; landmarks and scenery stay visible.
         if (
@@ -146,18 +173,19 @@ export function ViceEstateVisualLayer({
           });
         }
         placed += 1;
+        phasePlaced += 1;
       }
+      return phasePlaced;
+    };
 
-      for (const failure of library.errors) {
-        const message = `${failure.assetId}: ${failure.url} — ${failure.error}`;
-        placementErrors.push(message);
-        reportDevelopmentError(message);
+    const reportStatus = (status: ViceEstateVisualStatus) => {
+      onErrors?.([...placementErrors]);
+      onReadiness?.(status);
+      if (status === 'error') onStatus?.('error');
+      else if (status === 'gltf-full-ready') onStatus?.('ready');
+      else if (status === 'gltf-loading' || status === 'gltf-minimum-ready') {
+        onStatus?.('loading');
       }
-
-      const status: ViceEstateVisualStatus = placed === 0 ? 'error' : 'ready';
-      onErrors?.(placementErrors);
-      onStatus?.(status);
-
       const hook = ((window as unknown as Record<string, unknown>).__splat04 ?? {}) as Record<
         string,
         unknown
@@ -171,6 +199,27 @@ export function ViceEstateVisualLayer({
         rendererMode: 'gltf',
       };
       (window as unknown as Record<string, unknown>).__splat04 = hook;
+    };
+
+    void preload.minimumReady.then((ready) => {
+      if (cancelled) return;
+      syncLibraryErrors();
+      if (!ready || mountPhase('minimum') === 0) {
+        reportStatus('error');
+        return;
+      }
+
+      reportStatus('gltf-minimum-ready');
+      void preload.fullReady.then((fullReady) => {
+        if (cancelled) return;
+        syncLibraryErrors();
+        if (!fullReady) {
+          reportStatus('error');
+          return;
+        }
+        mountPhase('optional');
+        reportStatus('gltf-full-ready');
+      });
     });
 
     return () => {
@@ -178,12 +227,12 @@ export function ViceEstateVisualLayer({
       cameraObstructions.current = [];
       group.current?.clear();
     };
-  }, [onErrors, onStatus, purpose, quality, validationErrors]);
+  }, [onErrors, onReadiness, onStatus, purpose, quality, validationErrors]);
 
   return <group ref={group} name="ViceEstateVisualLayer" />;
 }
 
-/** Convert load state to the percentage displayed by the existing main-screen plumbing. */
+/** Convert selected-path load state to a stable fraction for loading UI and diagnostics. */
 export function viceEstateLoadFraction(snapshot: ViceEstateLoadSnapshot): number {
   if (snapshot.total <= 0) return 0;
   return Math.min(1, Math.max(0, snapshot.loaded / snapshot.total));

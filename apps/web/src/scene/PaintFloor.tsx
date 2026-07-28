@@ -115,7 +115,10 @@ interface Props {
 }
 
 export function PaintFloor({ world, highContrast }: Props) {
-  const lastVersion = useRef(-1);
+  const uploadCache = useRef<{ world: GameWorld | null; version: number }>({
+    world: null,
+    version: -1,
+  });
 
   const { texture, data } = useMemo(() => {
     const bytes = new Uint8Array(GRID_COLS * GRID_ROWS * 4);
@@ -152,9 +155,16 @@ export function PaintFloor({ world, highContrast }: Props) {
 
   useFrame((_, delta) => {
     uniforms.uTime.value += delta;
+    // Range, online and local Practice use distinct GameWorld instances. A new world may
+    // have the same numeric gridVersion as the previous one, so identity must invalidate
+    // the upload cache before the version fast path is evaluated.
+    if (uploadCache.current.world !== world) {
+      uploadCache.current.world = world;
+      uploadCache.current.version = -1;
+    }
     // Only re-upload when the grid actually changed.
-    if (lastVersion.current === world.gridVersion) return;
-    lastVersion.current = world.gridVersion;
+    if (uploadCache.current.version === world.gridVersion) return;
+    uploadCache.current.version = world.gridVersion;
 
     const grid = world.grid;
     for (let i = 0; i < grid.length; i++) {

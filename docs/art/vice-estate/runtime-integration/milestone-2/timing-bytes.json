@@ -1,0 +1,538 @@
+{
+  "generatedAt": "2026-07-28T03:40:00-04:00",
+  "build": {
+    "javascript": "index-J4J-T4rS.js",
+    "css": "index-D8cZ9BAJ.css"
+  },
+  "conditions": {
+    "origin": "http://localhost:8787",
+    "network": "80 ms latency and 400000 bytes/sec download",
+    "cache": "HTTP cache disabled and service worker bypassed",
+    "resourceTimingCaveat": "transferSize can include response headers and may be zero on cached runs; decoded asset-event bytes use encodedBodySize/transferSize when available."
+  },
+  "desktop": {
+    "devicePath": "full",
+    "metrics": {
+      "appStartedAt": 3502.7000000476837,
+      "appStartedMsFromAppStart": 0,
+      "splashVisibleAt": 3525,
+      "splashVisibleMsFromAppStart": 22.299999952316284,
+      "runtimeReadyAt": 3525.2000000476837,
+      "runtimeReadyMsFromAppStart": 22.5,
+      "networkStartedAt": 3525.399999976158,
+      "networkStartedMsFromAppStart": 22.699999928474426,
+      "fullAssetsAt": 9798.5,
+      "fullAssetsMsFromAppStart": 6295.799999952316,
+      "imageReadyAt": 10176.700000047684,
+      "imageReadyMsFromAppStart": 6674,
+      "minimumPlayableAt": 10184.700000047684,
+      "minimumPlayableMsFromAppStart": 6682,
+      "fullReadyAt": 10184.700000047684,
+      "fullReadyMsFromAppStart": 6682
+    },
+    "assetPhase": {
+      "startedAt": 3634.8000000715256,
+      "minimumReadyAt": 7374.200000047684,
+      "minimumReadyMsFromAssetStart": 3739.399999976158,
+      "fullReadyAt": 9798.5,
+      "fullReadyMsFromAssetStart": 6163.699999928474
+    },
+    "decodedAssetBytes": 1557868,
+    "selectedAssetCount": 27,
+    "resourceTimingBytes": 2250565,
+    "resources": [
+      {
+        "name": "http://localhost:8787/ui/loading-screen-v3.jpg",
+        "startTime": 3512.600000023842,
+        "duration": 6659.299999952316,
+        "transferSize": 684597,
+        "encodedBodySize": 684297,
+        "decodedBodySize": 684297,
+        "initiatorType": "img"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/villa-west.glb?v=kit-9d41bdf69d21",
+        "startTime": 3635.7000000476837,
+        "duration": 468.60000002384186,
+        "transferSize": 22540,
+        "encodedBodySize": 22240,
+        "decodedBodySize": 22240,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/villa-east.glb?v=kit-9d41bdf69d21",
+        "startTime": 3636.100000023842,
+        "duration": 464.39999997615814,
+        "transferSize": 22536,
+        "encodedBodySize": 22236,
+        "decodedBodySize": 22236,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/villa-roof-west.glb?v=kit-9d41bdf69d21",
+        "startTime": 3636.399999976158,
+        "duration": 2238.9000000953674,
+        "transferSize": 126264,
+        "encodedBodySize": 125964,
+        "decodedBodySize": 125964,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/villa-roof-east.glb?v=kit-9d41bdf69d21",
+        "startTime": 3636.600000023842,
+        "duration": 2249.2999999523163,
+        "transferSize": 126264,
+        "encodedBodySize": 125964,
+        "decodedBodySize": 125964,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/planter-curved.glb?v=kit-9d41bdf69d21",
+        "startTime": 3636.7000000476837,
+        "duration": 3434.1999999284744,
+        "transferSize": 198728,
+        "encodedBodySize": 198428,
+        "decodedBodySize": 198428,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/flamingo-fountain.glb?v=kit-9d41bdf69d21",
+        "startTime": 3636.7000000476837,
+        "duration": 3734.6999999284744,
+        "transferSize": 279968,
+        "encodedBodySize": 279668,
+        "decodedBodySize": 279668,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/bunker-dome.glb?v=kit-9d41bdf69d21",
+        "startTime": 3636.899999976158,
+        "duration": 1755,
+        "transferSize": 69024,
+        "encodedBodySize": 68724,
+        "decodedBodySize": 68724,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/bunker-wedge.glb?v=kit-9d41bdf69d21",
+        "startTime": 3637.100000023842,
+        "duration": 1990.2999999523163,
+        "transferSize": 8616,
+        "encodedBodySize": 8316,
+        "decodedBodySize": 8316,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/bunker-block.glb?v=kit-9d41bdf69d21",
+        "startTime": 3639.100000023842,
+        "duration": 2594.600000023842,
+        "transferSize": 16116,
+        "encodedBodySize": 15816,
+        "decodedBodySize": 15816,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/perimeter-corner.glb?v=kit-9d41bdf69d21",
+        "startTime": 3639.2000000476837,
+        "duration": 2719.2999999523163,
+        "transferSize": 39472,
+        "encodedBodySize": 39172,
+        "decodedBodySize": 39172,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/perimeter-straight.glb?v=kit-9d41bdf69d21",
+        "startTime": 3639.2000000476837,
+        "duration": 2815.899999976158,
+        "transferSize": 28904,
+        "encodedBodySize": 28604,
+        "decodedBodySize": 28604,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/ground-court.glb?v=kit-9d41bdf69d21",
+        "startTime": 3639.3000000715256,
+        "duration": 3049.2999999523163,
+        "transferSize": 28496,
+        "encodedBodySize": 28196,
+        "decodedBodySize": 28196,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/glass-bridge.glb?v=kit-9d41bdf69d21",
+        "startTime": 7374.700000047684,
+        "duration": 653.3999999761581,
+        "transferSize": 37188,
+        "encodedBodySize": 36888,
+        "decodedBodySize": 36888,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/yacht.glb?v=kit-9d41bdf69d21",
+        "startTime": 7374.800000071526,
+        "duration": 214.59999990463257,
+        "transferSize": 9012,
+        "encodedBodySize": 8712,
+        "decodedBodySize": 8712,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/dock.glb?v=kit-9d41bdf69d21",
+        "startTime": 7374.800000071526,
+        "duration": 389.89999997615814,
+        "transferSize": 20304,
+        "encodedBodySize": 20004,
+        "decodedBodySize": 20004,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/palm.glb?v=kit-9d41bdf69d21",
+        "startTime": 7374.899999976158,
+        "duration": 1157.5,
+        "transferSize": 69488,
+        "encodedBodySize": 69188,
+        "decodedBodySize": 69188,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/floodlight.glb?v=kit-9d41bdf69d21",
+        "startTime": 7375,
+        "duration": 277.2000000476837,
+        "transferSize": 11068,
+        "encodedBodySize": 10768,
+        "decodedBodySize": 10768,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/skyline-near.glb?v=kit-9d41bdf69d21",
+        "startTime": 7375,
+        "duration": 921.8000000715256,
+        "transferSize": 39324,
+        "encodedBodySize": 39024,
+        "decodedBodySize": 39024,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/skyline-far.glb?v=kit-9d41bdf69d21",
+        "startTime": 7375,
+        "duration": 1849.1000000238419,
+        "transferSize": 44364,
+        "encodedBodySize": 44064,
+        "decodedBodySize": 44064,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/chrome-sphere.glb?v=kit-9d41bdf69d21",
+        "startTime": 7375.200000047684,
+        "duration": 1795.7999999523163,
+        "transferSize": 95080,
+        "encodedBodySize": 94780,
+        "decodedBodySize": 94780,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/planter-straight.glb?v=kit-9d41bdf69d21",
+        "startTime": 7375.200000047684,
+        "duration": 2421.6999999284744,
+        "transferSize": 190764,
+        "encodedBodySize": 190464,
+        "decodedBodySize": 190464,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/bench-low.glb?v=kit-9d41bdf69d21",
+        "startTime": 7375.300000071526,
+        "duration": 805.0999999046326,
+        "transferSize": 3888,
+        "encodedBodySize": 3588,
+        "decodedBodySize": 3588,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/patio-set.glb?v=kit-9d41bdf69d21",
+        "startTime": 7375.300000071526,
+        "duration": 1258.3999999761581,
+        "transferSize": 24668,
+        "encodedBodySize": 24368,
+        "decodedBodySize": 24368,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/bunker-ramp.glb?v=kit-9d41bdf69d21",
+        "startTime": 7375.399999976158,
+        "duration": 1124.3000000715256,
+        "transferSize": 6720,
+        "encodedBodySize": 6420,
+        "decodedBodySize": 6420,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/bunker-can.glb?v=kit-9d41bdf69d21",
+        "startTime": 7375.399999976158,
+        "duration": 1844.2000000476837,
+        "transferSize": 41004,
+        "encodedBodySize": 40704,
+        "decodedBodySize": 40704,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/ocean.glb?v=kit-9d41bdf69d21",
+        "startTime": 7375.5,
+        "duration": 1390.6000000238419,
+        "transferSize": 2304,
+        "encodedBodySize": 2004,
+        "decodedBodySize": 2004,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/seawall.glb?v=kit-9d41bdf69d21",
+        "startTime": 7375.5,
+        "duration": 1544.3000000715256,
+        "transferSize": 3864,
+        "encodedBodySize": 3564,
+        "decodedBodySize": 3564,
+        "initiatorType": "fetch"
+      }
+    ]
+  },
+  "mobile": {
+    "devicePath": "low-power",
+    "environment": {
+      "memory": 8,
+      "cores": 4,
+      "coarse": true,
+      "touch": 0
+    },
+    "metrics": {
+      "appStartedAt": 3491.7000000476837,
+      "appStartedMsFromAppStart": 0,
+      "splashVisibleAt": 3506.600000023842,
+      "splashVisibleMsFromAppStart": 14.899999976158142,
+      "runtimeReadyAt": 3506.7000000476837,
+      "runtimeReadyMsFromAppStart": 15,
+      "networkStartedAt": 3506.8000000715256,
+      "networkStartedMsFromAppStart": 15.100000023841858,
+      "fullAssetsAt": 9189.200000047684,
+      "fullAssetsMsFromAppStart": 5697.5,
+      "imageReadyAt": 9630.600000023842,
+      "imageReadyMsFromAppStart": 6138.899999976158,
+      "minimumPlayableAt": 9630.900000095367,
+      "minimumPlayableMsFromAppStart": 6139.200000047684,
+      "fullReadyAt": 9631,
+      "fullReadyMsFromAppStart": 6139.299999952316
+    },
+    "assetPhase": {
+      "startedAt": 3594.4000000953674,
+      "minimumReadyAt": 7291.200000047684,
+      "minimumReadyMsFromAssetStart": 3696.7999999523163,
+      "fullReadyAt": 9189.200000047684,
+      "fullReadyMsFromAssetStart": 5594.799999952316
+    },
+    "decodedAssetBytes": 1405576,
+    "selectedAssetCount": 21,
+    "resourceTimingBytes": 2096473,
+    "lodUrls": [
+      "/assets/vice-estate/palm-lod1.glb?v=kit-9d41bdf69d21"
+    ],
+    "resources": [
+      {
+        "name": "http://localhost:8787/ui/loading-screen-v3.jpg",
+        "startTime": 3502.600000023842,
+        "duration": 6120.600000023842,
+        "transferSize": 684597,
+        "encodedBodySize": 684297,
+        "decodedBodySize": 684297,
+        "initiatorType": "img"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/villa-west.glb?v=kit-9d41bdf69d21",
+        "startTime": 3594.9000000953674,
+        "duration": 447.09999990463257,
+        "transferSize": 22540,
+        "encodedBodySize": 22240,
+        "decodedBodySize": 22240,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/villa-east.glb?v=kit-9d41bdf69d21",
+        "startTime": 3595.100000023842,
+        "duration": 890.8999999761581,
+        "transferSize": 22536,
+        "encodedBodySize": 22236,
+        "decodedBodySize": 22236,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/villa-roof-west.glb?v=kit-9d41bdf69d21",
+        "startTime": 3595.4000000953674,
+        "duration": 2203,
+        "transferSize": 126264,
+        "encodedBodySize": 125964,
+        "decodedBodySize": 125964,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/villa-roof-east.glb?v=kit-9d41bdf69d21",
+        "startTime": 3595.5,
+        "duration": 2213.100000023842,
+        "transferSize": 126264,
+        "encodedBodySize": 125964,
+        "decodedBodySize": 125964,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/flamingo-fountain.glb?v=kit-9d41bdf69d21",
+        "startTime": 3595.600000023842,
+        "duration": 3693.7000000476837,
+        "transferSize": 279968,
+        "encodedBodySize": 279668,
+        "decodedBodySize": 279668,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/planter-curved.glb?v=kit-9d41bdf69d21",
+        "startTime": 3595.7000000476837,
+        "duration": 3451,
+        "transferSize": 198728,
+        "encodedBodySize": 198428,
+        "decodedBodySize": 198428,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/bunker-wedge.glb?v=kit-9d41bdf69d21",
+        "startTime": 3595.8000000715256,
+        "duration": 256.6999999284744,
+        "transferSize": 8616,
+        "encodedBodySize": 8316,
+        "decodedBodySize": 8316,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/bunker-dome.glb?v=kit-9d41bdf69d21",
+        "startTime": 3595.8000000715256,
+        "duration": 2160.399999976158,
+        "transferSize": 69024,
+        "encodedBodySize": 68724,
+        "decodedBodySize": 68724,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/bunker-block.glb?v=kit-9d41bdf69d21",
+        "startTime": 3595.9000000953674,
+        "duration": 597.6999999284744,
+        "transferSize": 16116,
+        "encodedBodySize": 15816,
+        "decodedBodySize": 15816,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/perimeter-straight.glb?v=kit-9d41bdf69d21",
+        "startTime": 3595.9000000953674,
+        "duration": 2722.0999999046326,
+        "transferSize": 28904,
+        "encodedBodySize": 28604,
+        "decodedBodySize": 28604,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/ground-court.glb?v=kit-9d41bdf69d21",
+        "startTime": 3596.100000023842,
+        "duration": 2778.899999976158,
+        "transferSize": 28496,
+        "encodedBodySize": 28196,
+        "decodedBodySize": 28196,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/perimeter-corner.glb?v=kit-9d41bdf69d21",
+        "startTime": 3596.100000023842,
+        "duration": 2913.7000000476837,
+        "transferSize": 39472,
+        "encodedBodySize": 39172,
+        "decodedBodySize": 39172,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/skyline-far.glb?v=kit-9d41bdf69d21",
+        "startTime": 7291.600000023842,
+        "duration": 808.6000000238419,
+        "transferSize": 44364,
+        "encodedBodySize": 44064,
+        "decodedBodySize": 44064,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/palm-lod1.glb?v=kit-9d41bdf69d21",
+        "startTime": 7291.600000023842,
+        "duration": 974.5,
+        "transferSize": 56960,
+        "encodedBodySize": 56660,
+        "decodedBodySize": 56660,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/bench-low.glb?v=kit-9d41bdf69d21",
+        "startTime": 7291.700000047684,
+        "duration": 141.60000002384186,
+        "transferSize": 3888,
+        "encodedBodySize": 3588,
+        "decodedBodySize": 3588,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/chrome-sphere.glb?v=kit-9d41bdf69d21",
+        "startTime": 7291.700000047684,
+        "duration": 1349.1000000238419,
+        "transferSize": 95080,
+        "encodedBodySize": 94780,
+        "decodedBodySize": 94780,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/planter-straight.glb?v=kit-9d41bdf69d21",
+        "startTime": 7291.700000047684,
+        "duration": 1895.7000000476837,
+        "transferSize": 190764,
+        "encodedBodySize": 190464,
+        "decodedBodySize": 190464,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/bunker-ramp.glb?v=kit-9d41bdf69d21",
+        "startTime": 7291.800000071526,
+        "duration": 346.5,
+        "transferSize": 6720,
+        "encodedBodySize": 6420,
+        "decodedBodySize": 6420,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/ocean.glb?v=kit-9d41bdf69d21",
+        "startTime": 7291.900000095367,
+        "duration": 932,
+        "transferSize": 2304,
+        "encodedBodySize": 2004,
+        "decodedBodySize": 2004,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/seawall.glb?v=kit-9d41bdf69d21",
+        "startTime": 7291.900000095367,
+        "duration": 1075,
+        "transferSize": 3864,
+        "encodedBodySize": 3564,
+        "decodedBodySize": 3564,
+        "initiatorType": "fetch"
+      },
+      {
+        "name": "http://localhost:8787/assets/vice-estate/bunker-can.glb?v=kit-9d41bdf69d21",
+        "startTime": 7291.900000095367,
+        "duration": 1082.5999999046326,
+        "transferSize": 41004,
+        "encodedBodySize": 40704,
+        "decodedBodySize": 40704,
+        "initiatorType": "fetch"
+      }
+    ]
+  }
+}

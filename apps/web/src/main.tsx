@@ -1,8 +1,13 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App.js';
+import { serviceWorkerLifecycle } from './serviceWorkerLifecycle.js';
 import { Compatibility } from './ui/Compatibility.js';
 import './styles.css';
+
+// Every document starts outside gameplay. GameApp raises this guard before an arena match;
+// art review and compatibility pages remain safe activation points.
+serviceWorkerLifecycle.setMatchActive(false);
 
 /** WebGL is non-negotiable for the 3D arena; fail with something useful instead of a blank page. */
 function hasWebGL(): boolean {
@@ -27,7 +32,7 @@ if (container) {
 // Service worker: shell caching only, and it never activates mid-round.
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => {
+    serviceWorkerLifecycle.register().catch(() => {
       // Offline support is optional; the game works without it.
     });
   });

@@ -1,0 +1,24 @@
+{
+  "generatedAt": "2026-07-28T03:40:00-04:00",
+  "build": {
+    "javascript": "index-J4J-T4rS.js",
+    "css": "index-D8cZ9BAJ.css"
+  },
+  "captures": [
+    {
+      "scope": "responsive root and portrait blocker-retest sessions",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "scope": "final v1-to-v3 service-worker controlled root",
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "caveat": "Route-flow tabs were closed before a separate per-tab log export; no console errors or warnings were observed during their live snapshots, but those buffers are not independently preserved here.",
+  "summary": {
+    "capturedErrorCount": 0,
+    "capturedWarningCount": 0
+  }
+}

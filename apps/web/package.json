@@ -8,6 +8,7 @@
     "build": "node ../../scripts/generate-icons.mjs && tsc -p tsconfig.json --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
+    "test:sw": "node scripts/test-service-worker-upgrade.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {

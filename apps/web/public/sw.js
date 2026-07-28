@@ -4,11 +4,11 @@
  * Caches the app shell and Vite's content-hashed assets so a repeat visit starts fast and
  * an offline visit gets a useful page. Deliberately conservative:
  *   - it never caches /api or /ws;
- *   - updates activate only through the existing explicit intermission message (or after
+ *   - updates activate only through an explicit page message outside active matches (or after
  *     all old clients close); activation removes every older SPLAT 04 cache.
  */
 
-const VERSION = 'splat04-v2';
+const VERSION = 'splat04-v3';
 /**
  * GLBs live in their own cache and are keyed by the `?v=` content version the asset
  * manifest stamps onto every URL. A rebuilt kit changes that version, so the old entries
@@ -34,10 +34,14 @@ self.addEventListener('activate', (event) => {
       .then((keys) =>
         Promise.all(
           keys
-            .filter((key) => key !== VERSION && key !== ASSET_CACHE)
+            .filter((key) => key.startsWith('splat04-') && key !== VERSION && key !== ASSET_CACHE)
             .map((key) => caches.delete(key)),
         ),
-      ),
+      )
+      // Activation remains explicit (the page messages skipWaiting at intermission). Once
+      // that safe activation happens, claim the reload immediately so v1/v2 cannot keep
+      // serving old UI or GLBs for another navigation.
+      .then(() => self.clients.claim()),
   );
 });
 
@@ -54,7 +58,7 @@ async function sweepStaleAssets(currentVersion) {
 }
 
 self.addEventListener('message', (event) => {
-  // The page asks for this explicitly, during intermission only.
+  // The page lifecycle asks explicitly only while no match is active.
   if (event.data === 'splat04:activate-update') self.skipWaiting();
 });
 

@@ -1,4 +1,12 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from 'react';
 import {
   ARENA_NAME,
   GuestProfile,
@@ -35,19 +43,32 @@ import {
 import { DebugPanel } from './ui/DebugPanel.js';
 import { Crosshair } from './ui/Crosshair.js';
 import { SaturationOverlay } from './ui/SaturationOverlay.js';
-import { MainScreen } from './ui/MainScreen.js';
 import { Hud } from './ui/Hud.js';
 import { Intermission } from './ui/Intermission.js';
 import { SettingsOverlay } from './ui/Settings.js';
 import { ClaimPrompt } from './ui/ClaimPrompt.js';
 import { TouchControls } from './ui/TouchControls.js';
-
-type Stage = 'range' | 'online' | 'practice';
+import {
+  initialAppFlow,
+  loadOnboardingComplete,
+  reduceAppFlow,
+  resolveAppStage,
+  saveOnboardingComplete,
+  selectSceneRuntime,
+  shouldHandleOnlineRoundEnd,
+  shouldRenderArenaIntermission,
+  type GameModeSelection,
+} from './appFlow.js';
+import { getViceEstateLoadSnapshot, subscribeViceEstateLoad } from './game/viceEstateAssets.js';
+import { preloadDecodedImage } from './game/imagePreload.js';
+import { recordLoadingMetric } from './game/loadingMetrics.js';
+import { calculateLoadingProgress, LoadingSplash } from './ui/LoadingSplash.js';
+import { HOME_MENU_ASSET, HomeMenu } from './ui/HomeMenu.js';
+import { serviceWorkerLifecycle } from './serviceWorkerLifecycle.js';
+import type { ViceEstateVisualStatus } from './scene/ViceEstateVisualLayer.js';
 
 const SEARCH = typeof location !== 'undefined' ? new URLSearchParams(location.search) : null;
 const UNLOCK_ALL = SEARCH?.get('unlockAll') === '1';
-/** Hard ceiling on the tutorial: nobody is stuck in the range waiting for a perfect shot. */
-const RANGE_FALLBACK_MS = 16_000;
 const CONNECT_GRACE_MS = 6_000;
 const DEBUG_FLAGS = readDebugFlags();
 
@@ -64,14 +85,24 @@ export function App() {
 }
 
 function GameApp() {
+  const route = useMemo(
+    () => parseRoute(typeof location !== 'undefined' ? location.pathname : '/'),
+    [],
+  );
   const world = useMemo(() => new GameWorld(), []);
+  const rangeWorld = useMemo(() => new GameWorld(), []);
+  const rangeGame = useMemo(() => new LocalGame(rangeWorld, 'range'), [rangeWorld]);
   const input = useMemo(() => new InputController(), []);
   const hostRef = useRef<HTMLDivElement>(null);
+  const [flow, dispatchFlow] = useReducer(reduceAppFlow, undefined, () =>
+    initialAppFlow(
+      route,
+      loadOnboardingComplete(typeof localStorage === 'undefined' ? null : localStorage),
+    ),
+  );
 
   const [profile, setProfile] = useState<GuestProfile>(() => loadProfileSync());
   const [settings, setSettings] = useState<Settings>(() => loadSettings());
-  const [stage, setStage] = useState<Stage>('range');
-  const [booting, setBooting] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
   const [showClaim, setShowClaim] = useState(false);
   const [callout, setCallout] = useState<string | null>(null);
@@ -81,7 +112,15 @@ function GameApp() {
   const [touch, setTouch] = useState(() => isTouchDevice());
   const [autoQuality, setAutoQuality] = useState<'low' | 'high'>('high');
   const [installPrompt, setInstallPrompt] = useState<Event | null>(null);
-  const [targetsLeft, setTargetsLeft] = useState(3);
+  const [targetsLeft, setTargetsLeft] = useState(() => rangeGame.targetsRemaining);
+  const [practiceGame, setPracticeGame] = useState<LocalGame | null>(null);
+  const [imageSettled, setImageSettled] = useState(false);
+  const [homeImageSettled, setHomeImageSettled] = useState(
+    () => flow.loadingDestination !== 'home',
+  );
+  const [runtimeReady, setRuntimeReady] = useState(false);
+  const [visualStatus, setVisualStatus] = useState<ViceEstateVisualStatus>('gltf-loading');
+  const [networkStarted, setNetworkStarted] = useState(false);
   const [debug, setDebug] = useState<DebugState>(() => ({
     ...DEFAULT_DEBUG_STATE,
     god: DEBUG_FLAGS.god,
@@ -98,25 +137,71 @@ function GameApp() {
   );
 
   const netRef = useRef<NetClient | null>(null);
-  const localRef = useRef<LocalGame | null>(null);
   const claimShown = useRef(false);
+  const flowRef = useRef(flow);
+  const profileRef = useRef(profile);
+  const settingsRef = useRef(settings);
+  flowRef.current = flow;
+  profileRef.current = profile;
+  settingsRef.current = settings;
 
-  const route = useMemo(
-    () => parseRoute(typeof location !== 'undefined' ? location.pathname : '/'),
-    [],
+  const estateLoad = useSyncExternalStore(
+    subscribeViceEstateLoad,
+    getViceEstateLoadSnapshot,
+    getViceEstateLoadSnapshot,
   );
+
+  const stage = resolveAppStage(flow);
+  const activeWorld = stage === 'range' ? rangeWorld : world;
+  const localSimulation = stage === 'range' ? rangeGame : practiceGame;
+  const sceneRuntime = selectSceneRuntime(stage, netRef.current, localSimulation);
 
   const quality: 'low' | 'high' =
     settings.quality === 'auto' ? autoQuality : settings.quality === 'low' ? 'low' : 'high';
 
-  // --- boot: start the playable target range immediately -------------------
-
+  // Session/profile setup is independent from loading and route transitions.
   useEffect(() => {
-    localRef.current = new LocalGame(world, 'range');
     input.marker = profile.selectedMarker;
     world.local.marker = profile.selectedMarker;
+    rangeWorld.local.marker = profile.selectedMarker;
     setProfile((current) => bumpSession(current));
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // The range simulation is constructed in render state before the range can become visible.
+  useEffect(() => {
+    if (flow.screen !== 'target-range') return;
+    rangeWorld.local.marker = profile.selectedMarker;
+    setTargetsLeft(rangeGame.targetsRemaining);
+  }, [flow.screen, profile.selectedMarker, rangeGame, rangeWorld]);
+
+  // Root loading decodes the clean home plate in parallel with GLBs. Direct-play routes
+  // have no home destination and therefore do not pay this decode gate.
+  useEffect(() => {
+    if (flow.loadingDestination !== 'home') return;
+    let cancelled = false;
+    void preloadDecodedImage(HOME_MENU_ASSET).then(() => {
+      if (!cancelled) setHomeImageSettled(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [flow.loadingDestination]);
+
+  // The canvas exists only after React Three Fiber has created the runtime renderer.
+  useEffect(() => {
+    let frame = 0;
+    const inspect = () => {
+      const canvas = hostRef.current?.querySelector('canvas');
+      if (canvas) {
+        recordLoadingMetric('runtimeReadyAt');
+        setRuntimeReady(true);
+        return;
+      }
+      frame = requestAnimationFrame(inspect);
+    };
+    inspect();
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {
@@ -144,38 +229,34 @@ function GameApp() {
     };
   }, [settings.sound]);
 
-  // Track tutorial progress and hand off to the live arena.
+  // Track tutorial progress and hand off to the requested arena. Completion, not a timer,
+  // is the durable onboarding gate.
   useEffect(() => {
     if (stage !== 'range') return;
-    const started = Date.now();
     const id = setInterval(() => {
-      const game = localRef.current;
-      if (!game) return;
-      setTargetsLeft(game.targetsRemaining);
-      const done = game.targetsRemaining === 0;
-      const timedOut = Date.now() - started > RANGE_FALLBACK_MS;
-      if (done || timedOut) {
+      setTargetsLeft(rangeGame.targetsRemaining);
+      if (rangeGame.targetsRemaining === 0) {
         clearInterval(id);
-        goOnline();
+        saveOnboardingComplete(typeof localStorage === 'undefined' ? null : localStorage);
+        dispatchFlow({ type: 'ONBOARDING_COMPLETE' });
       }
     }, 200);
     return () => clearInterval(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stage]);
+  }, [rangeGame, stage]);
 
-  const goOnline = useCallback(() => {
+  const startNetwork = useCallback(() => {
     if (netRef.current) return;
-    localRef.current = null;
-    world.reset();
-    setStage('online');
+    recordLoadingMetric('networkStartedAt');
+    setNetworkStarted(true);
+    const initialProfile = profileRef.current;
 
     const client = new NetClient(
       world,
       {
-        guestId: profile.guestId,
-        displayName: profile.displayName,
-        marker: profile.selectedMarker,
-        matchesCompleted: profile.matchesCompleted,
+        guestId: initialProfile.guestId,
+        displayName: initialProfile.displayName,
+        marker: initialProfile.selectedMarker,
+        matchesCompleted: initialProfile.matchesCompleted,
         unlockAll: UNLOCK_ALL,
         crewCode: route.kind === 'crew' ? route.code : undefined,
         challengeId: route.kind === 'challenge' ? route.id : undefined,
@@ -201,7 +282,7 @@ function GameApp() {
         },
         onHit: () => {
           audio.play('thump', 0.4);
-          vibrate(18, settings.haptics);
+          vibrate(18, settingsRef.current.haptics);
         },
         onCallout: (text) => {
           setCallout(text);
@@ -210,7 +291,7 @@ function GameApp() {
             () => setCallout((current) => (current === text ? null : current)),
             1800,
           );
-          if (settings.speech && 'speechSynthesis' in window) {
+          if (settingsRef.current.speech && 'speechSynthesis' in window) {
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.rate = 1.15;
             speechSynthesis.speak(utterance);
@@ -227,6 +308,9 @@ function GameApp() {
           }
         },
         onRoundEnd: (result) => {
+          // Networking warms behind loading/home/range. Those background rooms must not
+          // award progression or raise intermission/claim UI before online play begins.
+          if (!shouldHandleOnlineRoundEnd(flowRef.current)) return;
           setRoundEnd(result);
           audio.play('buzzer');
           const mine = result.summaries.find((s) => s.playerId === world.localId);
@@ -262,22 +346,58 @@ function GameApp() {
       input,
       flags: readDebugFlags(),
       debugAllowed: () => isDebugAllowed(),
+      selectedMode: () => flowRef.current.selectedMode,
+      requestedArena: flowRef.current.requestedArena,
     });
     (window as unknown as Record<string, unknown>).__splat04 = hook;
     client.connect();
 
     // Graceful degradation: if the socket never opens, offer local practice.
     window.setTimeout(() => {
-      if (netRef.current && !netRef.current.connected) setOfferPractice(true);
+      if (netRef.current && !netRef.current.connected && flowRef.current.screen === 'arena') {
+        setOfferPractice(true);
+      }
     }, CONNECT_GRACE_MS);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    profile.guestId,
-    profile.displayName,
-    profile.selectedMarker,
-    profile.matchesCompleted,
-    route,
-  ]);
+  }, [input, route, world]);
+
+  // Network initialization begins during loading, before target-range completion. The
+  // onboarding simulation has its own GameWorld, so authoritative packets cannot corrupt it.
+  useEffect(() => {
+    startNetwork();
+    return () => {
+      netRef.current?.close();
+      netRef.current = null;
+    };
+  }, [startNetwork]);
+
+  const loading = calculateLoadingProgress({
+    assets: estateLoad,
+    imageSettled,
+    runtimeReady,
+    visualStatus,
+    networkStarted,
+    destinationReady: homeImageSettled,
+  });
+  useEffect(() => {
+    if (loading.minimumPlayable) recordLoadingMetric('minimumPlayableAt');
+    if (estateLoad.fullReadyAt !== null) {
+      recordLoadingMetric('fullAssetsAt', estateLoad.fullReadyAt);
+    }
+    if (flow.screen === 'loading' && loading.fullReady) {
+      recordLoadingMetric('fullReadyAt');
+      dispatchFlow({ type: 'LOADING_COMPLETE' });
+    }
+  }, [estateLoad.fullReadyAt, flow.screen, loading.fullReady, loading.minimumPlayable]);
+
+  useEffect(() => {
+    if (
+      flow.screen === 'arena' &&
+      flow.selectedMode !== 'practice' &&
+      (netStatus === 'failed' || netStatus === 'closed')
+    ) {
+      setOfferPractice(true);
+    }
+  }, [flow.screen, flow.selectedMode, netStatus]);
 
   const startPractice = useCallback(() => {
     netRef.current?.close();
@@ -285,10 +405,33 @@ function GameApp() {
     setOfferPractice(false);
     setNetStatus(null);
     world.reset();
-    localRef.current = new LocalGame(world, 'practice');
+    setPracticeGame(new LocalGame(world, 'practice'));
     world.local.marker = profile.selectedMarker;
-    setStage('practice');
+    dispatchFlow({ type: 'START_LOCAL_PRACTICE' });
   }, [profile.selectedMarker, world]);
+
+  const handlePlay = useCallback(
+    (mode: GameModeSelection) => {
+      if (mode === 'practice') {
+        startPractice();
+      } else {
+        dispatchFlow({ type: 'PLAY', mode });
+      }
+    },
+    [startPractice],
+  );
+
+  const intermissionOpen = shouldRenderArenaIntermission(flow, roundEnd !== null);
+
+  useEffect(() => {
+    serviceWorkerLifecycle.setMatchActive(flow.screen === 'arena' && !intermissionOpen);
+  }, [flow.screen, intermissionOpen]);
+
+  // Ignore and clear authoritative round-end messages outside the arena. The network starts
+  // behind the front door, so a background room event must never cover loading, home or range.
+  useEffect(() => {
+    if (flow.screen !== 'arena' && roundEnd !== null) setRoundEnd(null);
+  }, [flow.screen, roundEnd]);
 
   // Esc opens settings; V swaps camera; F3/backtick and F4 are developer tools.
   useEffect(() => {
@@ -333,7 +476,9 @@ function GameApp() {
     });
   }, [input]);
 
-  const overlayOpen = showSettings || showClaim || Boolean(roundEnd) || offerPractice || booting;
+  const frontDoorOpen = flow.screen === 'loading' || flow.screen === 'home';
+  const overlayOpen =
+    showSettings || showClaim || intermissionOpen || offerPractice || frontDoorOpen;
   useEffect(() => {
     input.enabled = !overlayOpen;
     if (overlayOpen) {
@@ -401,13 +546,17 @@ function GameApp() {
       if (!markerUnlocked(marker, profile.matchesCompleted, UNLOCK_ALL)) return;
       input.marker = marker;
       world.local.marker = marker;
+      rangeWorld.local.marker = marker;
       netRef.current?.updateOptions({ marker });
       setProfile((current) => persistMarker(current, marker));
     },
-    [input, profile.matchesCompleted, world],
+    [input, profile.matchesCompleted, rangeWorld, world],
   );
 
   const effectiveCamera: CameraMode = debug.overheadCamera ? 'overhead' : cameraMode;
+  const handleVisualStatus = useCallback((status: ViceEstateVisualStatus) => {
+    setVisualStatus(status);
+  }, []);
 
   // Mouse-look is meaningless for the overhead debug camera, which aims with the cursor.
   useEffect(() => {
@@ -424,19 +573,29 @@ function GameApp() {
   }, [settings.cameraMode]);
 
   const practice = stage === 'practice';
-  const boostReady = world.now() >= world.local.boostReadyAt;
+  const boostReady = activeWorld.now() >= activeWorld.local.boostReadyAt;
+  const gameVisible = flow.screen === 'target-range' || flow.screen === 'arena';
+  const networkLabel =
+    netStatus === 'open'
+      ? 'Online'
+      : netStatus === 'failed' || netStatus === 'closed'
+        ? 'Offline fallback available'
+        : networkStarted
+          ? 'Connecting'
+          : 'Network pending';
 
   return (
     <div className="app" ref={hostRef}>
       <div className="canvas-host">
         <GameScene
-          world={world}
+          world={activeWorld}
           input={input}
-          net={stage === 'online' ? netRef.current : null}
-          local={stage === 'online' ? null : localRef.current}
+          net={sceneRuntime.network}
+          local={sceneRuntime.local}
           settings={settings}
           quality={quality}
           cameraMode={effectiveCamera}
+          onVisualStatus={handleVisualStatus}
           onQualitySample={handleQualitySample}
           onFire={() => audio.play('splat', 0.5)}
           onBoost={() => {
@@ -449,7 +608,7 @@ function GameApp() {
       <div className="vignette" />
       {!settings.reducedMotion && <div className="scanlines" />}
 
-      {stage === 'range' && !booting && (
+      {stage === 'range' && gameVisible && (
         <>
           <div className="targets-left">PAINT THE TARGETS · {targetsLeft} LEFT</div>
           <div className="coach">
@@ -468,11 +627,13 @@ function GameApp() {
         </>
       )}
 
-      {!booting && <Hud world={world} status={netStatus} callout={callout} practice={practice} />}
-      {!booting && <Crosshair world={world} mode={effectiveCamera} />}
-      {!booting && (
+      {gameVisible && (
+        <Hud world={activeWorld} status={netStatus} callout={callout} practice={practice} />
+      )}
+      {gameVisible && <Crosshair world={activeWorld} mode={effectiveCamera} />}
+      {gameVisible && (
         <SaturationOverlay
-          world={world}
+          world={activeWorld}
           onCritical={() => {
             audio.play('splatted', 0.5);
             vibrate([25, 30, 25], settings.haptics);
@@ -505,7 +666,7 @@ function GameApp() {
         />
       )}
 
-      {touch && !overlayOpen && !booting && (
+      {touch && !overlayOpen && gameVisible && (
         <button
           className="camera-toggle"
           onClick={switchCamera}
@@ -526,15 +687,32 @@ function GameApp() {
         />
       )}
 
-      {booting && (
-        <MainScreen
-          guestName={profile.displayName}
-          connected={Boolean(netStatus)}
-          onPlay={() => setBooting(false)}
+      {flow.screen === 'loading' && (
+        <LoadingSplash
+          assets={estateLoad}
+          imageSettled={imageSettled}
+          runtimeReady={runtimeReady}
+          visualStatus={visualStatus}
+          networkStarted={networkStarted}
+          destinationReady={homeImageSettled}
+          networkLabel={networkLabel}
+          onImageSettled={() => setImageSettled(true)}
+          onSkip={() => dispatchFlow({ type: 'SKIP_LOADING' })}
         />
       )}
 
-      {offerPractice && (
+      {flow.screen === 'home' && !showSettings && (
+        <HomeMenu
+          guestName={profile.displayName}
+          selectedMode={flow.selectedMode}
+          networkLabel={networkLabel}
+          onModeChange={(mode) => dispatchFlow({ type: 'SELECT_MODE', mode })}
+          onPlay={handlePlay}
+          onOpenSettings={() => setShowSettings(true)}
+        />
+      )}
+
+      {offerPractice && gameVisible && (
         <div className="overlay" role="dialog" aria-modal="true" aria-label="Connection problem">
           <div className="overlay__card panel" style={{ maxWidth: 480 }}>
             <h2 className="overlay__title chrome-text">NO SIGNAL</h2>
@@ -564,7 +742,7 @@ function GameApp() {
         </div>
       )}
 
-      {roundEnd && (
+      {intermissionOpen && roundEnd && (
         <Intermission
           winner={roundEnd.winner}
           coverage={roundEnd.coverage}
@@ -580,7 +758,7 @@ function GameApp() {
         />
       )}
 
-      {showClaim && !roundEnd && (
+      {flow.screen === 'arena' && showClaim && !intermissionOpen && (
         <ClaimPrompt
           rank={profile.rank}
           displayName={profile.displayName}

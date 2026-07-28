@@ -1,0 +1,1464 @@
+{
+  "generatedAt": "2026-07-28T03:40:00-04:00",
+  "productionOrigin": "http://localhost:8787",
+  "build": {
+    "javascript": "index-J4J-T4rS.js",
+    "css": "index-D8cZ9BAJ.css"
+  },
+  "method": {
+    "cache": "browser HTTP cache disabled; service worker bypassed",
+    "network": "80 ms latency, 400000 bytes/sec download, 200000 bytes/sec upload",
+    "notes": [
+      "Progress samples are live DOM and window.__splat04 runtime-hook observations.",
+      "Asset events are emitted only after GLTFLoader download and decode settle.",
+      "Cold throttled runs did not expose Skip because the decoded splash image became ready after optional GLBs; a warm returning run separately observed 99% Mounting estate with Skip before arena release."
+    ]
+  },
+  "desktop": {
+    "devicePath": "full",
+    "stateChanges": [
+      {
+        "atMs": 3533.100000023842,
+        "loading": true,
+        "percent": "12",
+        "status": [
+          "12% · Preparing broadcast",
+          "Connecting"
+        ],
+        "skipVisible": false,
+        "assetStatus": null,
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 3669.8000000715256,
+        "loading": true,
+        "percent": "12",
+        "status": [
+          "12% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 0,
+          "total": 27,
+          "minimumLoaded": 0,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 0
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 4157.399999976158,
+        "loading": true,
+        "percent": "18",
+        "status": [
+          "18% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 2,
+          "total": 27,
+          "minimumLoaded": 2,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 44476
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 5417.300000071526,
+        "loading": true,
+        "percent": "20",
+        "status": [
+          "20% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 3,
+          "total": 27,
+          "minimumLoaded": 3,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 113200
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 5665.700000047684,
+        "loading": true,
+        "percent": "23",
+        "status": [
+          "23% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 4,
+          "total": 27,
+          "minimumLoaded": 4,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 121516
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 5911,
+        "loading": true,
+        "percent": "29",
+        "status": [
+          "29% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 6,
+          "total": 27,
+          "minimumLoaded": 6,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 373444
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 6288,
+        "loading": true,
+        "percent": "32",
+        "status": [
+          "32% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 7,
+          "total": 27,
+          "minimumLoaded": 7,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 389260
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 6407.899999976158,
+        "loading": true,
+        "percent": "35",
+        "status": [
+          "35% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 8,
+          "total": 27,
+          "minimumLoaded": 8,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 428432
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 6529.600000023842,
+        "loading": true,
+        "percent": "37",
+        "status": [
+          "37% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 9,
+          "total": 27,
+          "minimumLoaded": 9,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 457036
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 6773.600000023842,
+        "loading": true,
+        "percent": "40",
+        "status": [
+          "40% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 10,
+          "total": 27,
+          "minimumLoaded": 10,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 485232
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 7140.600000023842,
+        "loading": true,
+        "percent": "43",
+        "status": [
+          "43% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 11,
+          "total": 27,
+          "minimumLoaded": 11,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 683660
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 7421,
+        "loading": true,
+        "percent": "46",
+        "status": [
+          "46% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 12,
+          "total": 27,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 963328
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 7659,
+        "loading": true,
+        "percent": "51",
+        "status": [
+          "51% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 14,
+          "total": 27,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 982808
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 7781.700000047684,
+        "loading": true,
+        "percent": "54",
+        "status": [
+          "54% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 15,
+          "total": 27,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1002812
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 8140.899999976158,
+        "loading": true,
+        "percent": "57",
+        "status": [
+          "57% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 16,
+          "total": 27,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1039700
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 8264.100000023842,
+        "loading": true,
+        "percent": "60",
+        "status": [
+          "60% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 17,
+          "total": 27,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1043288
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 8383.300000071526,
+        "loading": true,
+        "percent": "63",
+        "status": [
+          "63% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 18,
+          "total": 27,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1082312
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 8504.5,
+        "loading": true,
+        "percent": "65",
+        "status": [
+          "65% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 19,
+          "total": 27,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1088732
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 8622.100000023842,
+        "loading": true,
+        "percent": "68",
+        "status": [
+          "68% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 20,
+          "total": 27,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1157920
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 8742.899999976158,
+        "loading": true,
+        "percent": "71",
+        "status": [
+          "71% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 21,
+          "total": 27,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1182288
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 8864.200000047684,
+        "loading": true,
+        "percent": "74",
+        "status": [
+          "74% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 22,
+          "total": 27,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1184292
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 8983.399999976158,
+        "loading": true,
+        "percent": "77",
+        "status": [
+          "77% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 23,
+          "total": 27,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1187856
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 9226,
+        "loading": true,
+        "percent": "85",
+        "status": [
+          "85% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 26,
+          "total": 27,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1367404
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 9829.700000047684,
+        "loading": true,
+        "percent": "88",
+        "status": [
+          "88% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "ready",
+          "loaded": 27,
+          "total": 27,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1557868
+        },
+        "visualStatus": "gltf-full-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 10198.399999976158,
+        "loading": false,
+        "percent": null,
+        "status": [],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "ready",
+          "loaded": 27,
+          "total": 27,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1557868
+        },
+        "visualStatus": "gltf-full-ready",
+        "hudVisible": true
+      }
+    ],
+    "assetEvents": [
+      {
+        "assetId": "villa-east",
+        "url": "/assets/vice-estate/villa-east.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 4104.399999976158,
+        "bytes": 22236
+      },
+      {
+        "assetId": "villa-west",
+        "url": "/assets/vice-estate/villa-west.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 4106.800000071526,
+        "bytes": 22240
+      },
+      {
+        "assetId": "bunker-dome",
+        "url": "/assets/vice-estate/bunker-dome.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 5393.200000047684,
+        "bytes": 68724
+      },
+      {
+        "assetId": "bunker-wedge",
+        "url": "/assets/vice-estate/bunker-wedge.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 5629.899999976158,
+        "bytes": 8316
+      },
+      {
+        "assetId": "villa-roof-west",
+        "url": "/assets/vice-estate/villa-roof-west.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 5876.899999976158,
+        "bytes": 125964
+      },
+      {
+        "assetId": "villa-roof-east",
+        "url": "/assets/vice-estate/villa-roof-east.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 5888.300000071526,
+        "bytes": 125964
+      },
+      {
+        "assetId": "bunker-block",
+        "url": "/assets/vice-estate/bunker-block.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 6234.700000047684,
+        "bytes": 15816
+      },
+      {
+        "assetId": "perimeter-corner",
+        "url": "/assets/vice-estate/perimeter-corner.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 6359.5,
+        "bytes": 39172
+      },
+      {
+        "assetId": "perimeter-straight",
+        "url": "/assets/vice-estate/perimeter-straight.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 6456.700000047684,
+        "bytes": 28604
+      },
+      {
+        "assetId": "ground-court",
+        "url": "/assets/vice-estate/ground-court.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 6689.399999976158,
+        "bytes": 28196
+      },
+      {
+        "assetId": "planter-curved",
+        "url": "/assets/vice-estate/planter-curved.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 7073,
+        "bytes": 198428
+      },
+      {
+        "assetId": "flamingo-fountain",
+        "url": "/assets/vice-estate/flamingo-fountain.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 7373.800000071526,
+        "bytes": 279668
+      },
+      {
+        "assetId": "yacht",
+        "url": "/assets/vice-estate/yacht.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 7590.300000071526,
+        "bytes": 8712
+      },
+      {
+        "assetId": "floodlight",
+        "url": "/assets/vice-estate/floodlight.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 7655,
+        "bytes": 10768
+      },
+      {
+        "assetId": "dock",
+        "url": "/assets/vice-estate/dock.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 7765.5,
+        "bytes": 20004
+      },
+      {
+        "assetId": "glass-bridge",
+        "url": "/assets/vice-estate/glass-bridge.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 8029.600000023842,
+        "bytes": 36888
+      },
+      {
+        "assetId": "bench-low",
+        "url": "/assets/vice-estate/bench-low.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 8181.100000023842,
+        "bytes": 3588
+      },
+      {
+        "assetId": "skyline-near",
+        "url": "/assets/vice-estate/skyline-near.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 8298,
+        "bytes": 39024
+      },
+      {
+        "assetId": "bunker-ramp",
+        "url": "/assets/vice-estate/bunker-ramp.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 8501,
+        "bytes": 6420
+      },
+      {
+        "assetId": "palm",
+        "url": "/assets/vice-estate/palm.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 8533.600000023842,
+        "bytes": 69188
+      },
+      {
+        "assetId": "patio-set",
+        "url": "/assets/vice-estate/patio-set.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 8634.5,
+        "bytes": 24368
+      },
+      {
+        "assetId": "ocean",
+        "url": "/assets/vice-estate/ocean.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 8766.800000071526,
+        "bytes": 2004
+      },
+      {
+        "assetId": "seawall",
+        "url": "/assets/vice-estate/seawall.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 8921.700000047684,
+        "bytes": 3564
+      },
+      {
+        "assetId": "chrome-sphere",
+        "url": "/assets/vice-estate/chrome-sphere.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 9172.100000023842,
+        "bytes": 94780
+      },
+      {
+        "assetId": "bunker-can",
+        "url": "/assets/vice-estate/bunker-can.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 9222.200000047684,
+        "bytes": 40704
+      },
+      {
+        "assetId": "skyline-far",
+        "url": "/assets/vice-estate/skyline-far.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 9224.899999976158,
+        "bytes": 44064
+      },
+      {
+        "assetId": "planter-straight",
+        "url": "/assets/vice-estate/planter-straight.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 9798.200000047684,
+        "bytes": 190464
+      }
+    ],
+    "selectedUrls": [
+      "/assets/vice-estate/villa-west.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/villa-east.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/villa-roof-west.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/villa-roof-east.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/glass-bridge.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/flamingo-fountain.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/planter-curved.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bunker-dome.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bunker-wedge.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bunker-block.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/perimeter-straight.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/perimeter-corner.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/ground-court.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/dock.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/yacht.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/palm.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/floodlight.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/skyline-far.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/skyline-near.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/chrome-sphere.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/planter-straight.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bench-low.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/patio-set.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bunker-ramp.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bunker-can.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/ocean.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/seawall.glb?v=kit-9d41bdf69d21"
+    ],
+    "summary": {
+      "status": "ready",
+      "loaded": 27,
+      "total": 27,
+      "failed": 0,
+      "minimumLoaded": 12,
+      "minimumTotal": 12,
+      "bytesLoaded": 1557868
+    }
+  },
+  "mobile": {
+    "devicePath": "low-power emulation (coarse pointer plus 4 hardware threads)",
+    "environment": {
+      "memory": 8,
+      "cores": 4,
+      "coarse": true,
+      "touch": 0
+    },
+    "stateChanges": [
+      {
+        "atMs": 3520.3000000715256,
+        "loading": true,
+        "percent": "12",
+        "status": [
+          "12% · Preparing broadcast",
+          "Connecting"
+        ],
+        "skipVisible": false,
+        "assetStatus": null,
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 3755.8000000715256,
+        "loading": true,
+        "percent": "12",
+        "status": [
+          "12% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 0,
+          "total": 21,
+          "minimumLoaded": 0,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 0
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 3883,
+        "loading": true,
+        "percent": "16",
+        "status": [
+          "16% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 1,
+          "total": 21,
+          "minimumLoaded": 1,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 8316
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 4129.600000023842,
+        "loading": true,
+        "percent": "19",
+        "status": [
+          "19% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 2,
+          "total": 21,
+          "minimumLoaded": 2,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 30556
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 4249.800000071526,
+        "loading": true,
+        "percent": "23",
+        "status": [
+          "23% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 3,
+          "total": 21,
+          "minimumLoaded": 3,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 46372
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 4505.300000071526,
+        "loading": true,
+        "percent": "26",
+        "status": [
+          "26% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 4,
+          "total": 21,
+          "minimumLoaded": 4,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 68608
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 5857.200000047684,
+        "loading": true,
+        "percent": "37",
+        "status": [
+          "37% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 7,
+          "total": 21,
+          "minimumLoaded": 7,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 389260
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 6351.5,
+        "loading": true,
+        "percent": "41",
+        "status": [
+          "41% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 8,
+          "total": 21,
+          "minimumLoaded": 8,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 417864
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 6472.700000047684,
+        "loading": true,
+        "percent": "45",
+        "status": [
+          "45% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 9,
+          "total": 21,
+          "minimumLoaded": 9,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 446060
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 6591.700000047684,
+        "loading": true,
+        "percent": "48",
+        "status": [
+          "48% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 10,
+          "total": 21,
+          "minimumLoaded": 10,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 485232
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 7095.5,
+        "loading": true,
+        "percent": "52",
+        "status": [
+          "52% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 11,
+          "total": 21,
+          "minimumLoaded": 11,
+          "minimumTotal": 12,
+          "minimumReady": false,
+          "bytesLoaded": 683660
+        },
+        "visualStatus": null,
+        "hudVisible": false
+      },
+      {
+        "atMs": 7329.300000071526,
+        "loading": true,
+        "percent": "55",
+        "status": [
+          "55% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 12,
+          "total": 21,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 963328
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 7461.700000047684,
+        "loading": true,
+        "percent": "59",
+        "status": [
+          "59% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 13,
+          "total": 21,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 966916
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 7704.300000071526,
+        "loading": true,
+        "percent": "63",
+        "status": [
+          "63% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 14,
+          "total": 21,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 973336
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 8203.700000047684,
+        "loading": true,
+        "percent": "66",
+        "status": [
+          "66% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 15,
+          "total": 21,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1017400
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 8325.300000071526,
+        "loading": true,
+        "percent": "74",
+        "status": [
+          "74% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 17,
+          "total": 21,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1076064
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 8447.800000071526,
+        "loading": true,
+        "percent": "81",
+        "status": [
+          "81% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 19,
+          "total": 21,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1120332
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 8706.600000023842,
+        "loading": true,
+        "percent": "84",
+        "status": [
+          "84% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "loading",
+          "loaded": 20,
+          "total": 21,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1215112
+        },
+        "visualStatus": "gltf-minimum-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 9324.5,
+        "loading": true,
+        "percent": "88",
+        "status": [
+          "88% · Preparing broadcast",
+          "Online"
+        ],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "ready",
+          "loaded": 21,
+          "total": 21,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1405576
+        },
+        "visualStatus": "gltf-full-ready",
+        "hudVisible": false
+      },
+      {
+        "atMs": 9692.200000047684,
+        "loading": false,
+        "percent": null,
+        "status": [],
+        "skipVisible": false,
+        "assetStatus": {
+          "status": "ready",
+          "loaded": 21,
+          "total": 21,
+          "minimumLoaded": 12,
+          "minimumTotal": 12,
+          "minimumReady": true,
+          "bytesLoaded": 1405576
+        },
+        "visualStatus": "gltf-full-ready",
+        "hudVisible": true
+      }
+    ],
+    "assetEvents": [
+      {
+        "assetId": "bunker-wedge",
+        "url": "/assets/vice-estate/bunker-wedge.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 3855.3000000715256,
+        "bytes": 8316
+      },
+      {
+        "assetId": "villa-west",
+        "url": "/assets/vice-estate/villa-west.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 4042.9000000953674,
+        "bytes": 22240
+      },
+      {
+        "assetId": "bunker-block",
+        "url": "/assets/vice-estate/bunker-block.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 4195.900000095367,
+        "bytes": 15816
+      },
+      {
+        "assetId": "villa-east",
+        "url": "/assets/vice-estate/villa-east.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 4487.400000095367,
+        "bytes": 22236
+      },
+      {
+        "assetId": "bunker-dome",
+        "url": "/assets/vice-estate/bunker-dome.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 5757.5,
+        "bytes": 68724
+      },
+      {
+        "assetId": "villa-roof-west",
+        "url": "/assets/vice-estate/villa-roof-west.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 5799.700000047684,
+        "bytes": 125964
+      },
+      {
+        "assetId": "villa-roof-east",
+        "url": "/assets/vice-estate/villa-roof-east.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 5809.5,
+        "bytes": 125964
+      },
+      {
+        "assetId": "perimeter-straight",
+        "url": "/assets/vice-estate/perimeter-straight.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 6318.900000095367,
+        "bytes": 28604
+      },
+      {
+        "assetId": "ground-court",
+        "url": "/assets/vice-estate/ground-court.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 6375.600000023842,
+        "bytes": 28196
+      },
+      {
+        "assetId": "perimeter-corner",
+        "url": "/assets/vice-estate/perimeter-corner.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 6510.800000071526,
+        "bytes": 39172
+      },
+      {
+        "assetId": "planter-curved",
+        "url": "/assets/vice-estate/planter-curved.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 7047.700000047684,
+        "bytes": 198428
+      },
+      {
+        "assetId": "flamingo-fountain",
+        "url": "/assets/vice-estate/flamingo-fountain.glb?v=kit-9d41bdf69d21",
+        "phase": "minimum",
+        "ok": true,
+        "at": 7290.900000095367,
+        "bytes": 279668
+      },
+      {
+        "assetId": "bench-low",
+        "url": "/assets/vice-estate/bench-low.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 7434.300000071526,
+        "bytes": 3588
+      },
+      {
+        "assetId": "bunker-ramp",
+        "url": "/assets/vice-estate/bunker-ramp.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 7639.400000095367,
+        "bytes": 6420
+      },
+      {
+        "assetId": "skyline-far",
+        "url": "/assets/vice-estate/skyline-far.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 8100.800000071526,
+        "bytes": 44064
+      },
+      {
+        "assetId": "ocean",
+        "url": "/assets/vice-estate/ocean.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 8224.600000023842,
+        "bytes": 2004
+      },
+      {
+        "assetId": "palm",
+        "url": "/assets/vice-estate/palm-lod1.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 8266.800000071526,
+        "bytes": 56660
+      },
+      {
+        "assetId": "seawall",
+        "url": "/assets/vice-estate/seawall.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 8367.600000023842,
+        "bytes": 3564
+      },
+      {
+        "assetId": "bunker-can",
+        "url": "/assets/vice-estate/bunker-can.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 8375.400000095367,
+        "bytes": 40704
+      },
+      {
+        "assetId": "chrome-sphere",
+        "url": "/assets/vice-estate/chrome-sphere.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 8641.900000095367,
+        "bytes": 94780
+      },
+      {
+        "assetId": "planter-straight",
+        "url": "/assets/vice-estate/planter-straight.glb?v=kit-9d41bdf69d21",
+        "phase": "optional",
+        "ok": true,
+        "at": 9188.700000047684,
+        "bytes": 190464
+      }
+    ],
+    "selectedUrls": [
+      "/assets/vice-estate/villa-west.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/villa-east.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/villa-roof-west.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/villa-roof-east.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/flamingo-fountain.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/planter-curved.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bunker-dome.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bunker-wedge.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bunker-block.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/perimeter-straight.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/perimeter-corner.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/ground-court.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/palm-lod1.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/skyline-far.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/chrome-sphere.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/planter-straight.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bench-low.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bunker-ramp.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bunker-can.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/ocean.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/seawall.glb?v=kit-9d41bdf69d21"
+    ],
+    "networkGlbRequests": [
+      "http://localhost:8787/assets/vice-estate/villa-west.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/villa-east.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/villa-roof-west.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/villa-roof-east.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/flamingo-fountain.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/planter-curved.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/bunker-dome.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/bunker-wedge.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/bunker-block.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/perimeter-straight.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/perimeter-corner.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/ground-court.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/palm-lod1.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/skyline-far.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/chrome-sphere.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/planter-straight.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/bench-low.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/bunker-ramp.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/bunker-can.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/ocean.glb?v=kit-9d41bdf69d21",
+      "http://localhost:8787/assets/vice-estate/seawall.glb?v=kit-9d41bdf69d21"
+    ],
+    "summary": {
+      "status": "ready",
+      "loaded": 21,
+      "total": 21,
+      "failed": 0,
+      "minimumLoaded": 12,
+      "minimumTotal": 12,
+      "bytesLoaded": 1405576
+    }
+  },
+  "skipObservation": {
+    "run": "warm returning direct play",
+    "sequence": [
+      {
+        "sample": 0,
+        "loading": true,
+        "range": false,
+        "hud": false,
+        "text": "SPLAT 04 24% · Loading arena 0/0 Online"
+      },
+      {
+        "sample": 1,
+        "loading": true,
+        "range": false,
+        "hud": false,
+        "text": "SPLAT 04 99% · Mounting estate Online SKIP"
+      },
+      {
+        "sample": 2,
+        "loading": false,
+        "range": false,
+        "hud": true,
+        "text": "27% 0:58 28% SLIMEWIRE VOLT JUICE AQUA CASH ◤ COMPRESSOR BOOST READY 2MS"
+      }
+    ],
+    "observed": true
+  }
+}

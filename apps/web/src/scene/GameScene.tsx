@@ -43,6 +43,7 @@ export interface SceneProps {
   onQualitySample?: (fps: number) => void;
   onFire?: () => void;
   onBoost?: () => void;
+  onVisualStatus?: (status: ViceEstateVisualStatus) => void;
 }
 
 export function GameScene(props: SceneProps) {
@@ -54,11 +55,22 @@ export function GameScene(props: SceneProps) {
   const requestedRendererMode = useMemo(resolveViceEstateRendererMode, []);
   const [rendererMode, setRendererMode] = useState<ViceEstateRendererMode>(requestedRendererMode);
 
-  const handleVisualStatus = useCallback((status: ViceEstateVisualStatus) => {
-    // A total GLB failure must not blank production gameplay. Partial failures stay visible
-    // and are reported by the layer; zero placed assets falls back to the preserved legacy.
-    if (status === 'error') setRendererMode('legacy');
-  }, []);
+  const handleVisualStatus = useCallback(
+    (status: ViceEstateVisualStatus) => {
+      // A critical GLB failure must not blank or deadlock production gameplay.
+      if (status === 'error') {
+        setRendererMode('legacy');
+        props.onVisualStatus?.('gltf-failed-legacy');
+        return;
+      }
+      props.onVisualStatus?.(status);
+    },
+    [props.onVisualStatus],
+  );
+
+  useEffect(() => {
+    if (requestedRendererMode === 'legacy') props.onVisualStatus?.('legacy-ready');
+  }, [props.onVisualStatus, requestedRendererMode]);
 
   return (
     <Canvas
@@ -133,7 +145,7 @@ function SceneContents({
           purpose="gameplay"
           quality={quality}
           cameraTarget={cameraTarget}
-          onStatus={onVisualStatus}
+          onReadiness={onVisualStatus}
         />
       )}
       <Players world={world} quality={quality} cameraMode={cameraMode} />
