@@ -22,6 +22,16 @@ export interface AssetLoadFailure {
   error: string;
 }
 
+/** Exact authored chrome convention, tolerant of Blender's MAT_ prefix and numeric suffixes. */
+export function isAuthoredChromeMaterialName(name: string): boolean {
+  const normalised = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+  return (
+    normalised === 'chrome' ||
+    normalised.startsWith('chrome0') ||
+    normalised.startsWith('matchrome')
+  );
+}
+
 export class AssetLibrary {
   private readonly loader = new GLTFLoader();
   /** Resolved URL -> the template scene, kept for cloning. */
@@ -53,7 +63,17 @@ export class AssetLibrary {
     const url = this.urlFor(asset, options);
     // A null URL is a deliberate decision — scenery excluded on low-power devices.
     if (url === null) return null;
+    return this.loadUrl(asset, url);
+  }
 
+  /**
+   * Load a specific content-versioned variant for an asset.
+   *
+   * Normal placement uses `load()`. Whole-kit preload uses this method so LOD files are
+   * genuinely fetched and decoded too, rather than being counted without network work.
+   */
+  async loadUrl(asset: AssetEntry, url: string): Promise<THREE.Group | null> {
+    if (this.disposed) return null;
     const cached = this.cache.get(url);
     if (cached) return cached;
 
@@ -114,6 +134,24 @@ export class AssetLibrary {
     );
   }
 
+  /** Warm a concrete set of versioned URLs, reporting after each decode succeeds or fails. */
+  async preloadUrls(
+    variants: readonly { asset: AssetEntry; url: string }[],
+    onProgress?: (loaded: number, total: number, failed: number) => void,
+  ): Promise<void> {
+    let loaded = 0;
+    let failed = 0;
+    const total = variants.length;
+    await Promise.all(
+      variants.map(async ({ asset, url }) => {
+        const scene = await this.loadUrl(asset, url);
+        loaded += 1;
+        if (!scene) failed += 1;
+        onProgress?.(loaded, total, failed);
+      }),
+    );
+  }
+
   /**
    * An independent instance of a loaded asset.
    *
@@ -149,6 +187,27 @@ function applyAssetFlags(root: THREE.Object3D, asset: AssetEntry): void {
     mesh.userData.decorative = asset.decorative === true;
     mesh.userData.paintReceiver = asset.paintReceiver;
     mesh.userData.assetId = asset.id;
+    const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+    for (const material of materials) {
+      if (
+        material instanceof THREE.MeshStandardMaterial ||
+        material instanceof THREE.MeshPhysicalMaterial
+      ) {
+        if (isAuthoredChromeMaterialName(material.name)) {
+          // Color.set interprets CSS hex as sRGB and converts it to Three's working space.
+          // The current chrome has no texture; keep any future colour map explicit.
+          material.color.set('#edf2f7');
+          if (material.map) material.map.colorSpace = THREE.SRGBColorSpace;
+          material.metalness = 1;
+          material.roughness = 0.16;
+          material.envMapIntensity = 2.4;
+        } else {
+          material.envMapIntensity = 1.1;
+        }
+        material.toneMapped = true;
+        material.needsUpdate = true;
+      }
+    }
   });
 }
 

@@ -1,0 +1,63 @@
+{
+  "generatedAt": "2026-07-28T03:46:00-04:00",
+  "origin": "http://localhost:8787",
+  "build": {
+    "javascript": "index-yhMuFr9A.js",
+    "css": "index-qGlUiXZo.css"
+  },
+  "conditions": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "network": "80 ms latency, 400000 bytes/sec download, 200000 bytes/sec upload",
+    "httpCache": "disabled",
+    "serviceWorker": "blocked"
+  },
+  "coldFirstFrame": {
+    "progress": 12,
+    "status": "Preparing broadcast",
+    "network": "Connecting",
+    "fullImageSelected": false,
+    "placeholderBackgroundSelected": true,
+    "document": {
+      "scrollWidth": 390,
+      "scrollHeight": 844
+    },
+    "screenshot": "loading-mobile-cold-first-frame-390x844.png"
+  },
+  "decodedResponsiveFrame": {
+    "progress": 47,
+    "status": "Loading arena 8/12",
+    "network": "Online",
+    "currentSrc": "/ui/loading-screen-mobile-v3.jpg",
+    "naturalWidth": 1200,
+    "naturalHeight": 675,
+    "complete": true,
+    "document": {
+      "scrollWidth": 390,
+      "scrollHeight": 844
+    },
+    "screenshot": "loading-mobile-390x844.png"
+  },
+  "responses": [
+    {
+      "path": "/ui/loading-screen-placeholder-v3.jpg",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "encodedBytes": 2397
+    },
+    {
+      "path": "/ui/loading-screen-mobile-v3.jpg",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "encodedBytes": 230760
+    }
+  ],
+  "console": {
+    "method": "separate current-build production navigation with service worker enabled",
+    "errors": 0,
+    "warnings": 0,
+    "serviceWorkerController": true
+  }
+}

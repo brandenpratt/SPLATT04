@@ -1,0 +1,1105 @@
+{
+  "generatedAt": "2026-07-28T03:40:00-04:00",
+  "build": {
+    "javascript": "index-J4J-T4rS.js",
+    "css": "index-D8cZ9BAJ.css"
+  },
+  "method": {
+    "viewportOverride": "Browser capability outer viewport; screenshots clipped and normalized to requested pixel dimensions.",
+    "browserZoomNote": "Chrome profile reported devicePixelRatio 0.8, so DOM inner dimensions were 1.25x requested outer dimensions. Overflow is assessed against the observed DOM layout viewport; repository tests separately exercise the declared exact viewport matrix.",
+    "touchTolerancePx": 0.11
+  },
+  "viewports": [
+    {
+      "requested": {
+        "width": 1672,
+        "height": 941
+      },
+      "observedInner": {
+        "height": 1176,
+        "width": 2090
+      },
+      "observedOuter": {
+        "height": 941,
+        "width": 1672
+      },
+      "devicePixelRatio": 0.800000011920929,
+      "document": {
+        "horizontalOverflow": false,
+        "scrollHeight": 1176,
+        "scrollWidth": 2090,
+        "verticalOverflow": false
+      },
+      "coreball": {
+        "visible": true,
+        "disabled": true
+      },
+      "allVisibleControlsWithinViewport": true,
+      "enabledVisibleTargetsAtLeast44WithinRoundingTolerance": true,
+      "controls": [
+        {
+          "bottom": 79.9,
+          "disabled": false,
+          "height": 44,
+          "label": "Play",
+          "left": 574.5,
+          "right": 653.5,
+          "role": "button",
+          "top": 35.9,
+          "touch44": false,
+          "visible": true,
+          "width": 79,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 79.9,
+          "disabled": true,
+          "height": 44,
+          "label": "Locker Coming soon",
+          "left": 653.5,
+          "right": 756.5,
+          "role": "button",
+          "top": 35.9,
+          "touch44": true,
+          "visible": true,
+          "width": 103,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 79.9,
+          "disabled": true,
+          "height": 44,
+          "label": "Crew Coming soon",
+          "left": 756.5,
+          "right": 855.2,
+          "role": "button",
+          "top": 35.9,
+          "touch44": true,
+          "visible": true,
+          "width": 98.6,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 79.9,
+          "disabled": false,
+          "height": 44,
+          "label": "Open settings",
+          "left": 1395.7,
+          "right": 1515.5,
+          "role": "button",
+          "top": 35.9,
+          "touch44": false,
+          "visible": true,
+          "width": 119.8,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 963.3,
+          "disabled": false,
+          "height": 62,
+          "label": "Coverage4v4 arena control",
+          "left": 142.2,
+          "right": 272.8,
+          "role": "radio",
+          "top": 901.3,
+          "touch44": true,
+          "visible": true,
+          "width": 130.5,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 963.3,
+          "disabled": true,
+          "height": 62,
+          "label": "CoreballComing soon",
+          "left": 280.8,
+          "right": 411.3,
+          "role": "radio",
+          "top": 901.3,
+          "touch44": true,
+          "visible": true,
+          "width": 130.5,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 963.3,
+          "disabled": false,
+          "height": 62,
+          "label": "PracticeLocal bots",
+          "left": 419.3,
+          "right": 549.9,
+          "role": "radio",
+          "top": 901.3,
+          "touch44": true,
+          "visible": true,
+          "width": 130.5,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 1045.3,
+          "disabled": false,
+          "height": 68,
+          "label": "▶ Play Coverage",
+          "left": 142.2,
+          "right": 549.9,
+          "role": "button",
+          "top": 977.3,
+          "touch44": true,
+          "visible": true,
+          "width": 407.6,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        }
+      ]
+    },
+    {
+      "requested": {
+        "width": 1600,
+        "height": 900
+      },
+      "observedInner": {
+        "height": 1125,
+        "width": 2000
+      },
+      "observedOuter": {
+        "height": 900,
+        "width": 1600
+      },
+      "devicePixelRatio": 0.800000011920929,
+      "document": {
+        "horizontalOverflow": false,
+        "scrollHeight": 1125,
+        "scrollWidth": 2000,
+        "verticalOverflow": false
+      },
+      "coreball": {
+        "visible": true,
+        "disabled": true
+      },
+      "allVisibleControlsWithinViewport": true,
+      "enabledVisibleTargetsAtLeast44WithinRoundingTolerance": true,
+      "controls": [
+        {
+          "bottom": 78.7,
+          "disabled": false,
+          "height": 44,
+          "label": "Play",
+          "left": 550.6,
+          "right": 629.6,
+          "role": "button",
+          "top": 34.7,
+          "touch44": false,
+          "visible": true,
+          "width": 79,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 78.7,
+          "disabled": true,
+          "height": 44,
+          "label": "Locker Coming soon",
+          "left": 629.6,
+          "right": 732.7,
+          "role": "button",
+          "top": 34.7,
+          "touch44": true,
+          "visible": true,
+          "width": 103,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 78.7,
+          "disabled": true,
+          "height": 44,
+          "label": "Crew Coming soon",
+          "left": 732.7,
+          "right": 831.3,
+          "role": "button",
+          "top": 34.7,
+          "touch44": true,
+          "visible": true,
+          "width": 98.6,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 78.7,
+          "disabled": false,
+          "height": 44,
+          "label": "Open settings",
+          "left": 1329.6,
+          "right": 1449.4,
+          "role": "button",
+          "top": 34.7,
+          "touch44": false,
+          "visible": true,
+          "width": 119.8,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 915.1,
+          "disabled": false,
+          "height": 62,
+          "label": "Coverage4v4 arena control",
+          "left": 137.7,
+          "right": 268.3,
+          "role": "radio",
+          "top": 853.2,
+          "touch44": true,
+          "visible": true,
+          "width": 130.5,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 915.1,
+          "disabled": true,
+          "height": 62,
+          "label": "CoreballComing soon",
+          "left": 276.3,
+          "right": 406.8,
+          "role": "radio",
+          "top": 853.2,
+          "touch44": true,
+          "visible": true,
+          "width": 130.5,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 915.1,
+          "disabled": false,
+          "height": 62,
+          "label": "PracticeLocal bots",
+          "left": 414.8,
+          "right": 545.4,
+          "role": "radio",
+          "top": 853.2,
+          "touch44": true,
+          "visible": true,
+          "width": 130.5,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 997.1,
+          "disabled": false,
+          "height": 68,
+          "label": "▶ Play Coverage",
+          "left": 137.7,
+          "right": 545.4,
+          "role": "button",
+          "top": 929.1,
+          "touch44": true,
+          "visible": true,
+          "width": 407.6,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        }
+      ]
+    },
+    {
+      "requested": {
+        "width": 1440,
+        "height": 900
+      },
+      "observedInner": {
+        "height": 1125,
+        "width": 1800
+      },
+      "observedOuter": {
+        "height": 900,
+        "width": 1440
+      },
+      "devicePixelRatio": 0.800000011920929,
+      "document": {
+        "horizontalOverflow": false,
+        "scrollHeight": 1125,
+        "scrollWidth": 1800,
+        "verticalOverflow": false
+      },
+      "coreball": {
+        "visible": true,
+        "disabled": true
+      },
+      "allVisibleControlsWithinViewport": true,
+      "enabledVisibleTargetsAtLeast44WithinRoundingTolerance": true,
+      "controls": [
+        {
+          "bottom": 78.7,
+          "disabled": false,
+          "height": 44,
+          "label": "Play",
+          "left": 497.6,
+          "right": 576.6,
+          "role": "button",
+          "top": 34.7,
+          "touch44": false,
+          "visible": true,
+          "width": 79,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 78.7,
+          "disabled": true,
+          "height": 44,
+          "label": "Locker Coming soon",
+          "left": 576.6,
+          "right": 679.7,
+          "role": "button",
+          "top": 34.7,
+          "touch44": true,
+          "visible": true,
+          "width": 103,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 78.7,
+          "disabled": true,
+          "height": 44,
+          "label": "Crew Coming soon",
+          "left": 679.7,
+          "right": 778.3,
+          "role": "button",
+          "top": 34.7,
+          "touch44": true,
+          "visible": true,
+          "width": 98.6,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 78.7,
+          "disabled": false,
+          "height": 44,
+          "label": "Open settings",
+          "left": 1182.6,
+          "right": 1302.4,
+          "role": "button",
+          "top": 34.7,
+          "touch44": false,
+          "visible": true,
+          "width": 119.8,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 915.1,
+          "disabled": false,
+          "height": 62,
+          "label": "Coverage4v4 arena control",
+          "left": 127.7,
+          "right": 258.3,
+          "role": "radio",
+          "top": 853.2,
+          "touch44": true,
+          "visible": true,
+          "width": 130.5,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 915.1,
+          "disabled": true,
+          "height": 62,
+          "label": "CoreballComing soon",
+          "left": 266.3,
+          "right": 396.8,
+          "role": "radio",
+          "top": 853.2,
+          "touch44": true,
+          "visible": true,
+          "width": 130.5,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 915.1,
+          "disabled": false,
+          "height": 62,
+          "label": "PracticeLocal bots",
+          "left": 404.8,
+          "right": 535.4,
+          "role": "radio",
+          "top": 853.2,
+          "touch44": true,
+          "visible": true,
+          "width": 130.5,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 997.1,
+          "disabled": false,
+          "height": 68,
+          "label": "▶ Play Coverage",
+          "left": 127.7,
+          "right": 535.4,
+          "role": "button",
+          "top": 929.1,
+          "touch44": true,
+          "visible": true,
+          "width": 407.6,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        }
+      ]
+    },
+    {
+      "requested": {
+        "width": 844,
+        "height": 390
+      },
+      "observedInner": {
+        "height": 487,
+        "width": 1055
+      },
+      "observedOuter": {
+        "height": 390,
+        "width": 844
+      },
+      "devicePixelRatio": 0.800000011920929,
+      "document": {
+        "horizontalOverflow": false,
+        "scrollHeight": 487,
+        "scrollWidth": 1055,
+        "verticalOverflow": false
+      },
+      "coreball": {
+        "visible": true,
+        "disabled": true
+      },
+      "allVisibleControlsWithinViewport": true,
+      "enabledVisibleTargetsAtLeast44WithinRoundingTolerance": true,
+      "controls": [
+        {
+          "bottom": 62,
+          "disabled": false,
+          "height": 44,
+          "label": "Play",
+          "left": 164.3,
+          "right": 234.1,
+          "role": "button",
+          "top": 18,
+          "touch44": false,
+          "visible": true,
+          "width": 69.8,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 62,
+          "disabled": true,
+          "height": 44,
+          "label": "Locker Coming soon",
+          "left": 234.1,
+          "right": 332.7,
+          "role": "button",
+          "top": 18,
+          "touch44": true,
+          "visible": true,
+          "width": 98.6,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 62,
+          "disabled": true,
+          "height": 44,
+          "label": "Crew Coming soon",
+          "left": 332.7,
+          "right": 431.3,
+          "role": "button",
+          "top": 18,
+          "touch44": true,
+          "visible": true,
+          "width": 98.6,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 62,
+          "disabled": false,
+          "height": 44,
+          "label": "Open settings",
+          "left": 916.8,
+          "right": 1018.7,
+          "role": "button",
+          "top": 18,
+          "touch44": false,
+          "visible": true,
+          "width": 101.9,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 388.1,
+          "disabled": false,
+          "height": 48,
+          "label": "Coverage4v4 arena control",
+          "left": 33.7,
+          "right": 158.3,
+          "role": "radio",
+          "top": 340.1,
+          "touch44": true,
+          "visible": true,
+          "width": 124.5,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 388.1,
+          "disabled": true,
+          "height": 48,
+          "label": "CoreballComing soon",
+          "left": 166.3,
+          "right": 290.8,
+          "role": "radio",
+          "top": 340.1,
+          "touch44": true,
+          "visible": true,
+          "width": 124.5,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 388.1,
+          "disabled": false,
+          "height": 48,
+          "label": "PracticeLocal bots",
+          "left": 298.8,
+          "right": 423.4,
+          "role": "radio",
+          "top": 340.1,
+          "touch44": true,
+          "visible": true,
+          "width": 124.5,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 444.1,
+          "disabled": false,
+          "height": 48,
+          "label": "▶ Play Coverage",
+          "left": 33.7,
+          "right": 423.4,
+          "role": "button",
+          "top": 396.1,
+          "touch44": true,
+          "visible": true,
+          "width": 389.6,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        }
+      ]
+    },
+    {
+      "requested": {
+        "width": 768,
+        "height": 1024
+      },
+      "observedInner": {
+        "height": 1280,
+        "width": 960
+      },
+      "observedOuter": {
+        "height": 1024,
+        "width": 768
+      },
+      "devicePixelRatio": 0.800000011920929,
+      "document": {
+        "horizontalOverflow": false,
+        "scrollHeight": 1280,
+        "scrollWidth": 960,
+        "verticalOverflow": false
+      },
+      "coreball": {
+        "visible": true,
+        "disabled": true
+      },
+      "allVisibleControlsWithinViewport": true,
+      "enabledVisibleTargetsAtLeast44WithinRoundingTolerance": true,
+      "controls": [
+        {
+          "bottom": 119.8,
+          "disabled": false,
+          "height": 44,
+          "label": "Play",
+          "left": 33.4,
+          "right": 840.7,
+          "role": "button",
+          "top": 75.8,
+          "touch44": false,
+          "visible": true,
+          "width": 807.2,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 0,
+          "disabled": true,
+          "height": 0,
+          "label": "Locker Coming soon",
+          "left": 0,
+          "right": 0,
+          "role": "button",
+          "top": 0,
+          "touch44": true,
+          "visible": false,
+          "width": 0,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 0,
+          "disabled": true,
+          "height": 0,
+          "label": "Crew Coming soon",
+          "left": 0,
+          "right": 0,
+          "role": "button",
+          "top": 0,
+          "touch44": true,
+          "visible": false,
+          "width": 0,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 119.8,
+          "disabled": false,
+          "height": 44,
+          "label": "Open settings",
+          "left": 840.7,
+          "right": 926.6,
+          "role": "button",
+          "top": 75.8,
+          "touch44": false,
+          "visible": true,
+          "width": 85.9,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 1128,
+          "disabled": false,
+          "height": 60,
+          "label": "Coverage4v4 arena control",
+          "left": 50.5,
+          "right": 333.9,
+          "role": "radio",
+          "top": 1068,
+          "touch44": true,
+          "visible": true,
+          "width": 283.3,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 1128,
+          "disabled": true,
+          "height": 60,
+          "label": "CoreballComing soon",
+          "left": 339.9,
+          "right": 623.2,
+          "role": "radio",
+          "top": 1068,
+          "touch44": true,
+          "visible": true,
+          "width": 283.3,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 1128,
+          "disabled": false,
+          "height": 60,
+          "label": "PracticeLocal bots",
+          "left": 629.2,
+          "right": 912.6,
+          "role": "radio",
+          "top": 1068,
+          "touch44": true,
+          "visible": true,
+          "width": 283.3,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 1210,
+          "disabled": false,
+          "height": 68,
+          "label": "▶ Play Coverage",
+          "left": 50.5,
+          "right": 912.6,
+          "role": "button",
+          "top": 1142,
+          "touch44": true,
+          "visible": true,
+          "width": 862,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        }
+      ]
+    },
+    {
+      "requested": {
+        "width": 430,
+        "height": 932
+      },
+      "observedInner": {
+        "height": 1165,
+        "width": 537
+      },
+      "observedOuter": {
+        "height": 932,
+        "width": 430
+      },
+      "devicePixelRatio": 0.800000011920929,
+      "document": {
+        "horizontalOverflow": false,
+        "scrollHeight": 1165,
+        "scrollWidth": 537,
+        "verticalOverflow": false
+      },
+      "coreball": {
+        "visible": true,
+        "disabled": true
+      },
+      "allVisibleControlsWithinViewport": true,
+      "enabledVisibleTargetsAtLeast44WithinRoundingTolerance": true,
+      "controls": [
+        {
+          "bottom": 118.1,
+          "disabled": false,
+          "height": 44,
+          "label": "Play",
+          "left": 20.7,
+          "right": 430.8,
+          "role": "button",
+          "top": 74.1,
+          "touch44": false,
+          "visible": true,
+          "width": 410.1,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 0,
+          "disabled": true,
+          "height": 0,
+          "label": "Locker Coming soon",
+          "left": 0,
+          "right": 0,
+          "role": "button",
+          "top": 0,
+          "touch44": true,
+          "visible": false,
+          "width": 0,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 0,
+          "disabled": true,
+          "height": 0,
+          "label": "Crew Coming soon",
+          "left": 0,
+          "right": 0,
+          "role": "button",
+          "top": 0,
+          "touch44": true,
+          "visible": false,
+          "width": 0,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 118.1,
+          "disabled": false,
+          "height": 44,
+          "label": "Open settings",
+          "left": 430.8,
+          "right": 516.8,
+          "role": "button",
+          "top": 74.1,
+          "touch44": false,
+          "visible": true,
+          "width": 85.9,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 1015.4,
+          "disabled": false,
+          "height": 60,
+          "label": "Coverage4v4 arena control",
+          "left": 37.9,
+          "right": 188.8,
+          "role": "radio",
+          "top": 955.4,
+          "touch44": true,
+          "visible": true,
+          "width": 151,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 1015.4,
+          "disabled": true,
+          "height": 60,
+          "label": "CoreballComing soon",
+          "left": 194.8,
+          "right": 345.8,
+          "role": "radio",
+          "top": 955.4,
+          "touch44": true,
+          "visible": true,
+          "width": 151,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 1015.4,
+          "disabled": false,
+          "height": 60,
+          "label": "PracticeLocal bots",
+          "left": 351.8,
+          "right": 502.8,
+          "role": "radio",
+          "top": 955.4,
+          "touch44": true,
+          "visible": true,
+          "width": 151,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 1097.3,
+          "disabled": false,
+          "height": 68,
+          "label": "▶ Play Coverage",
+          "left": 37.9,
+          "right": 502.8,
+          "role": "button",
+          "top": 1029.3,
+          "touch44": true,
+          "visible": true,
+          "width": 464.9,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        }
+      ]
+    },
+    {
+      "requested": {
+        "width": 390,
+        "height": 844
+      },
+      "observedInner": {
+        "height": 1055,
+        "width": 487
+      },
+      "observedOuter": {
+        "height": 844,
+        "width": 390
+      },
+      "devicePixelRatio": 0.800000011920929,
+      "document": {
+        "horizontalOverflow": false,
+        "scrollHeight": 1055,
+        "scrollWidth": 487,
+        "verticalOverflow": false
+      },
+      "coreball": {
+        "visible": true,
+        "disabled": true
+      },
+      "allVisibleControlsWithinViewport": true,
+      "enabledVisibleTargetsAtLeast44WithinRoundingTolerance": true,
+      "controls": [
+        {
+          "bottom": 116.4,
+          "disabled": false,
+          "height": 44,
+          "label": "Play",
+          "left": 19.2,
+          "right": 382.3,
+          "role": "button",
+          "top": 72.4,
+          "touch44": false,
+          "visible": true,
+          "width": 363.1,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 0,
+          "disabled": true,
+          "height": 0,
+          "label": "Locker Coming soon",
+          "left": 0,
+          "right": 0,
+          "role": "button",
+          "top": 0,
+          "touch44": true,
+          "visible": false,
+          "width": 0,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 0,
+          "disabled": true,
+          "height": 0,
+          "label": "Crew Coming soon",
+          "left": 0,
+          "right": 0,
+          "role": "button",
+          "top": 0,
+          "touch44": true,
+          "visible": false,
+          "width": 0,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 116.4,
+          "disabled": false,
+          "height": 44,
+          "label": "Open settings",
+          "left": 382.3,
+          "right": 468.3,
+          "role": "button",
+          "top": 72.4,
+          "touch44": false,
+          "visible": true,
+          "width": 85.9,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 907.5,
+          "disabled": false,
+          "height": 60,
+          "label": "Coverage4v4 arena control",
+          "left": 36.4,
+          "right": 171.7,
+          "role": "radio",
+          "top": 847.5,
+          "touch44": true,
+          "visible": true,
+          "width": 135.3,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 907.5,
+          "disabled": true,
+          "height": 60,
+          "label": "CoreballComing soon",
+          "left": 177.7,
+          "right": 313,
+          "role": "radio",
+          "top": 847.5,
+          "touch44": true,
+          "visible": true,
+          "width": 135.3,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 907.5,
+          "disabled": false,
+          "height": 60,
+          "label": "PracticeLocal bots",
+          "left": 319,
+          "right": 454.3,
+          "role": "radio",
+          "top": 847.5,
+          "touch44": true,
+          "visible": true,
+          "width": 135.3,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        },
+        {
+          "bottom": 989.5,
+          "disabled": false,
+          "height": 68,
+          "label": "▶ Play Coverage",
+          "left": 36.4,
+          "right": 454.3,
+          "role": "button",
+          "top": 921.5,
+          "touch44": true,
+          "visible": true,
+          "width": 417.9,
+          "withinViewport": true,
+          "passes44WithTolerance": true
+        }
+      ]
+    }
+  ],
+  "keyboard": {
+    "arrowRightFromCoverage": {
+      "coverageChecked": "false",
+      "practiceChecked": "true",
+      "pass": true
+    },
+    "homeFromPractice": {
+      "coverageChecked": "true",
+      "practiceChecked": "false",
+      "pass": true
+    }
+  },
+  "controls": {
+    "coreball": {
+      "present": true,
+      "disabled": true,
+      "comingSoonLabel": true
+    },
+    "locker": {
+      "desktopPresent": true,
+      "disabled": true,
+      "comingSoonLabel": true,
+      "portraitBehavior": "intentionally hidden by responsive navigation"
+    },
+    "crew": {
+      "desktopPresent": true,
+      "disabled": true,
+      "comingSoonLabel": true,
+      "portraitBehavior": "intentionally hidden by responsive navigation"
+    },
+    "settings": {
+      "enabled": true,
+      "handlerVerified": true,
+      "dialogOpened": true,
+      "dialogClosed": true
+    }
+  },
+  "reducedMotion": {
+    "implementation": "@media (prefers-reduced-motion: reduce) removes loading-bar transition",
+    "runtimeBrowserEmulation": "not separately captured",
+    "coveredBy": "HomeMenu CSS/test suite"
+  },
+  "summary": {
+    "allViewportsNoDocumentOverflow": true,
+    "allVisibleControlsWithinViewport": true,
+    "coreballVisibleAndDisabledEveryViewport": true,
+    "touchTargetsPassWithRoundingTolerance": true
+  }
+}

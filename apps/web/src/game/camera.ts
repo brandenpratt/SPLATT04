@@ -40,6 +40,16 @@ export const CAMERA_SETTINGS = {
 export const PITCH_MIN = -1.15; // radians, looking down
 export const PITCH_MAX = 0.75; // looking up
 
+/** Resolve yaw so the camera's -Z forward vector points from a world position to a target. */
+export function yawTowardWorldPoint(
+  fromX: number,
+  fromZ: number,
+  targetX: number,
+  targetZ: number,
+): number {
+  return Math.atan2(-(targetX - fromX), -(targetZ - fromZ));
+}
+
 /**
  * Camera collision.
  *

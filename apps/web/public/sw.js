@@ -4,18 +4,18 @@
  * Caches the app shell and Vite's content-hashed assets so a repeat visit starts fast and
  * an offline visit gets a useful page. Deliberately conservative:
  *   - it never caches /api or /ws;
- *   - it never takes over an open tab mid-round (no skipWaiting, no clients.claim), so a
- *     new version activates on the next navigation instead of reloading during play.
+ *   - updates activate only through an explicit page message outside active matches (or after
+ *     all old clients close); activation removes every older SPLAT 04 cache.
  */
 
-const VERSION = 'splat04-v1';
+const VERSION = 'splat04-v3';
 /**
  * GLBs live in their own cache and are keyed by the `?v=` content version the asset
  * manifest stamps onto every URL. A rebuilt kit changes that version, so the old entries
  * become unreachable and are swept below — the service worker can never permanently serve
  * a stale model, which is the failure mode plain cache-first would create.
  */
-const ASSET_CACHE = 'splat04-assets';
+const ASSET_CACHE = `${VERSION}-assets`;
 const SHELL = ['/', '/offline.html', '/manifest.webmanifest', '/icons/icon-192.png'];
 
 self.addEventListener('install', (event) => {
@@ -34,10 +34,14 @@ self.addEventListener('activate', (event) => {
       .then((keys) =>
         Promise.all(
           keys
-            .filter((key) => key !== VERSION && key !== ASSET_CACHE)
+            .filter((key) => key.startsWith('splat04-') && key !== VERSION && key !== ASSET_CACHE)
             .map((key) => caches.delete(key)),
         ),
-      ),
+      )
+      // Activation remains explicit (the page messages skipWaiting at intermission). Once
+      // that safe activation happens, claim the reload immediately so v1/v2 cannot keep
+      // serving old UI or GLBs for another navigation.
+      .then(() => self.clients.claim()),
   );
 });
 
@@ -54,7 +58,7 @@ async function sweepStaleAssets(currentVersion) {
 }
 
 self.addEventListener('message', (event) => {
-  // The page asks for this explicitly, during intermission only.
+  // The page lifecycle asks explicitly only while no match is active.
   if (event.data === 'splat04:activate-update') self.skipWaiting();
 });
 
@@ -95,6 +99,22 @@ self.addEventListener('fetch', (event) => {
         }
         return response;
       }),
+    );
+    return;
+  }
+
+  // UI plates are not content-hashed. Network-first prevents an old loading/menu image
+  // from surviving a release; the current version cache remains the offline fallback.
+  if (url.pathname.startsWith('/ui/')) {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response.ok) {
+            caches.open(VERSION).then((cache) => cache.put(request, response.clone()));
+          }
+          return response;
+        })
+        .catch(async () => (await caches.open(VERSION)).match(request)),
     );
     return;
   }

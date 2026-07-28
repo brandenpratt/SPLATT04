@@ -1,0 +1,779 @@
+{
+  "capturedAt": "2026-07-28T01:49:34.840Z",
+  "input": {
+    "pitch": -0.22,
+    "yaw": -1.80318714184662
+  },
+  "page": "http://localhost:8787/play/vice-estate-04",
+  "renderer": {
+    "info": {
+      "memory": {
+        "geometries": 82,
+        "textures": 5
+      },
+      "programs": 19,
+      "render": {
+        "calls": 329,
+        "frame": 15219,
+        "lines": 0,
+        "points": 0,
+        "triangles": 70422
+      }
+    },
+    "outputColorSpace": "srgb",
+    "shadowMapEnabled": true,
+    "shadowMapType": 2,
+    "toneMapping": 4,
+    "toneMappingExposure": 1
+  },
+  "scene": {
+    "backgroundType": 1009,
+    "environment": true,
+    "fog": {
+      "color": "3a3448",
+      "far": 3300,
+      "near": 700
+    },
+    "legacyGroups": [
+      {
+        "name": "Arena",
+        "present": false
+      },
+      {
+        "name": "Scenery",
+        "present": false
+      }
+    ],
+    "placements": [
+      {
+        "assetId": "ground-court",
+        "placementId": "ground",
+        "visible": true
+      },
+      {
+        "assetId": "villa-west",
+        "placementId": "villa-cyan",
+        "visible": true
+      },
+      {
+        "assetId": "villa-roof-west",
+        "placementId": "villa-cyan-roof",
+        "visible": true
+      },
+      {
+        "assetId": "villa-east",
+        "placementId": "villa-magenta",
+        "visible": true
+      },
+      {
+        "assetId": "villa-roof-east",
+        "placementId": "villa-magenta-roof",
+        "visible": true
+      },
+      {
+        "assetId": "glass-bridge",
+        "placementId": "bridge",
+        "visible": true
+      },
+      {
+        "assetId": "flamingo-fountain",
+        "placementId": "fountain",
+        "visible": true
+      },
+      {
+        "assetId": "chrome-sphere",
+        "placementId": "chrome-sphere",
+        "visible": true
+      },
+      {
+        "assetId": "planter-curved",
+        "placementId": "planter-0",
+        "visible": true
+      },
+      {
+        "assetId": "planter-curved",
+        "placementId": "planter-1",
+        "visible": true
+      },
+      {
+        "assetId": "planter-curved",
+        "placementId": "planter-2",
+        "visible": true
+      },
+      {
+        "assetId": "planter-curved",
+        "placementId": "planter-3",
+        "visible": true
+      },
+      {
+        "assetId": "planter-straight",
+        "placementId": "planter-4",
+        "visible": true
+      },
+      {
+        "assetId": "planter-straight",
+        "placementId": "planter-5",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-dome",
+        "placementId": "dome-0",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-dome",
+        "placementId": "dome-1",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-dome",
+        "placementId": "dome-2",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-dome",
+        "placementId": "dome-3",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-dome",
+        "placementId": "dome-4",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-dome",
+        "placementId": "dome-5",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-dome",
+        "placementId": "dome-6",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-dome",
+        "placementId": "dome-7",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-block",
+        "placementId": "block-0",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-block",
+        "placementId": "block-1",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-block",
+        "placementId": "block-2",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-block",
+        "placementId": "block-3",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-block",
+        "placementId": "block-4",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-block",
+        "placementId": "block-5",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-block",
+        "placementId": "block-6",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-block",
+        "placementId": "block-7",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-wedge",
+        "placementId": "wedge-0",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-wedge",
+        "placementId": "wedge-1",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-wedge",
+        "placementId": "wedge-2",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-wedge",
+        "placementId": "wedge-3",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-ramp",
+        "placementId": "ramp-cyan",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-can",
+        "placementId": "can-0",
+        "visible": true
+      },
+      {
+        "assetId": "bunker-can",
+        "placementId": "can-1",
+        "visible": true
+      },
+      {
+        "assetId": "bench-low",
+        "placementId": "bench",
+        "visible": true
+      },
+      {
+        "assetId": "patio-set",
+        "placementId": "patio",
+        "visible": false
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-n-0",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-s-0",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-n-1",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-s-1",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-n-2",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-s-2",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-n-3",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-s-3",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-n-4",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-s-4",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-n-5",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-s-5",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-n-6",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-s-6",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-n-7",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-s-7",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-n-8",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-s-8",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-n-9",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-s-9",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-w-0",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-e-0",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-w-1",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-e-1",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-w-2",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-e-2",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-w-3",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-e-3",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-w-4",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-e-4",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-w-5",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-e-5",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-w-6",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-straight",
+        "placementId": "fence-e-6",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-corner",
+        "placementId": "fence-corner-0",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-corner",
+        "placementId": "fence-corner-1",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-corner",
+        "placementId": "fence-corner-2",
+        "visible": true
+      },
+      {
+        "assetId": "perimeter-corner",
+        "placementId": "fence-corner-3",
+        "visible": true
+      },
+      {
+        "assetId": "ocean",
+        "placementId": "ocean",
+        "visible": true
+      },
+      {
+        "assetId": "seawall",
+        "placementId": "seawall",
+        "visible": true
+      },
+      {
+        "assetId": "dock",
+        "placementId": "dock",
+        "visible": true
+      },
+      {
+        "assetId": "yacht",
+        "placementId": "yacht",
+        "visible": true
+      },
+      {
+        "assetId": "palm",
+        "placementId": "palm-0",
+        "visible": true
+      },
+      {
+        "assetId": "palm",
+        "placementId": "palm-1",
+        "visible": true
+      },
+      {
+        "assetId": "palm",
+        "placementId": "palm-2",
+        "visible": true
+      },
+      {
+        "assetId": "palm",
+        "placementId": "palm-3",
+        "visible": true
+      },
+      {
+        "assetId": "palm",
+        "placementId": "palm-4",
+        "visible": true
+      },
+      {
+        "assetId": "palm",
+        "placementId": "palm-5",
+        "visible": true
+      },
+      {
+        "assetId": "floodlight",
+        "placementId": "floodlight-0",
+        "visible": true
+      },
+      {
+        "assetId": "floodlight",
+        "placementId": "floodlight-1",
+        "visible": true
+      },
+      {
+        "assetId": "floodlight",
+        "placementId": "floodlight-2",
+        "visible": true
+      },
+      {
+        "assetId": "floodlight",
+        "placementId": "floodlight-3",
+        "visible": true
+      },
+      {
+        "assetId": "floodlight",
+        "placementId": "floodlight-4",
+        "visible": true
+      },
+      {
+        "assetId": "skyline-far",
+        "placementId": "skyline-far",
+        "visible": true
+      },
+      {
+        "assetId": "skyline-near",
+        "placementId": "skyline-near",
+        "visible": true
+      }
+    ],
+    "rootChildren": [
+      {
+        "name": null,
+        "type": "HemisphereLight",
+        "visible": true
+      },
+      {
+        "name": null,
+        "type": "DirectionalLight",
+        "visible": true
+      },
+      {
+        "name": null,
+        "type": "DirectionalLight",
+        "visible": true
+      },
+      {
+        "name": null,
+        "type": "AmbientLight",
+        "visible": true
+      },
+      {
+        "name": null,
+        "type": "Mesh",
+        "visible": true
+      },
+      {
+        "name": "ViceEstateVisualLayer",
+        "type": "Group",
+        "visible": true
+      },
+      {
+        "name": null,
+        "type": "Group",
+        "visible": true
+      },
+      {
+        "name": null,
+        "type": "Group",
+        "visible": true
+      }
+    ],
+    "uniqueAssetIds": [
+      "bench-low",
+      "bunker-block",
+      "bunker-can",
+      "bunker-dome",
+      "bunker-ramp",
+      "bunker-wedge",
+      "chrome-sphere",
+      "dock",
+      "flamingo-fountain",
+      "floodlight",
+      "glass-bridge",
+      "ground-court",
+      "ocean",
+      "palm",
+      "patio-set",
+      "perimeter-corner",
+      "perimeter-straight",
+      "planter-curved",
+      "planter-straight",
+      "seawall",
+      "skyline-far",
+      "skyline-near",
+      "villa-east",
+      "villa-roof-east",
+      "villa-roof-west",
+      "villa-west",
+      "yacht"
+    ],
+    "viceEstateVisualLayerPresent": true,
+    "requiredAssetVisibility": {
+      "villa-west": {
+        "placements": 1,
+        "visible": 1
+      },
+      "villa-east": {
+        "placements": 1,
+        "visible": 1
+      },
+      "villa-roof-west": {
+        "placements": 1,
+        "visible": 1
+      },
+      "villa-roof-east": {
+        "placements": 1,
+        "visible": 1
+      },
+      "flamingo-fountain": {
+        "placements": 1,
+        "visible": 1
+      },
+      "bunker-dome": {
+        "placements": 8,
+        "visible": 8
+      },
+      "bunker-block": {
+        "placements": 8,
+        "visible": 8
+      },
+      "bunker-wedge": {
+        "placements": 4,
+        "visible": 4
+      },
+      "bunker-ramp": {
+        "placements": 1,
+        "visible": 1
+      },
+      "bunker-can": {
+        "placements": 2,
+        "visible": 2
+      },
+      "planter-curved": {
+        "placements": 4,
+        "visible": 4
+      },
+      "planter-straight": {
+        "placements": 2,
+        "visible": 2
+      },
+      "palm": {
+        "placements": 6,
+        "visible": 6
+      }
+    },
+    "centerRayCheck": {
+      "camera": [
+        -29.33963767302083,
+        2.5245837281082864,
+        4.9844991648414725
+      ],
+      "can0": {
+        "assetId": "bunker-can",
+        "bounds": {
+          "max": {
+            "x": -23.62999999523163,
+            "y": 3.307499885559082,
+            "z": 4.370000004768372
+          },
+          "min": {
+            "x": -26.37000000476837,
+            "y": 0,
+            "z": 1.6299999952316284
+          }
+        },
+        "hit": null,
+        "placementId": "can-0",
+        "visible": true
+      },
+      "forward": [
+        0.961890030592697,
+        -0.23405195628523623,
+        0.14137627384195126
+      ],
+      "nearestVisible": [
+        {
+          "assetId": "ground-court",
+          "bounds": {
+            "max": {
+              "x": 41,
+              "y": -0.02000000402331352,
+              "z": 28
+            },
+            "min": {
+              "x": -41,
+              "y": -0.17500000149011613,
+              "z": -28
+            }
+          },
+          "hit": {
+            "entry": 10.871875512249712,
+            "exit": 11.534121621732796
+          },
+          "placementId": "ground",
+          "visible": true
+        },
+        {
+          "assetId": "ocean",
+          "bounds": {
+            "max": {
+              "x": 300,
+              "y": -0.2999999985098839,
+              "z": 160
+            },
+            "min": {
+              "x": -300,
+              "y": -0.5000000014901161,
+              "z": -160
+            }
+          },
+          "hit": {
+            "entry": 12.068191060859515,
+            "exit": 12.922702196568608
+          },
+          "placementId": "ocean",
+          "visible": true
+        }
+      ]
+    }
+  },
+  "viceEstateAssets": {
+    "failed": 0,
+    "loaded": 31,
+    "status": "ready",
+    "total": 31,
+    "urls": [
+      "/assets/vice-estate/villa-west.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/villa-east.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/villa-roof-west.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/villa-roof-east.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/glass-bridge.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/flamingo-fountain.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/flamingo-fountain-lod1.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/planter-curved.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bunker-dome.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bunker-wedge.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bunker-block.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/perimeter-straight.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/perimeter-corner.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/ground-court.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/dock.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/yacht.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/palm.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/palm-lod1.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/floodlight.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/skyline-far.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/skyline-near.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/chrome-sphere.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/planter-straight.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bench-low.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/patio-set.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bunker-ramp.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/bunker-can.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/ocean.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/seawall.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/paint-splat-cyan.glb?v=kit-9d41bdf69d21",
+      "/assets/vice-estate/paint-splat-magenta.glb?v=kit-9d41bdf69d21"
+    ]
+  },
+  "visualLayer": {
+    "intentionallyOmitted": 34,
+    "name": "ViceEstateVisualLayer",
+    "placements": 94,
+    "purpose": "gameplay",
+    "rendererMode": "gltf",
+    "status": "ready"
+  },
+  "world": {
+    "local": {
+      "team": 1,
+      "x": -28,
+      "z": 4.5
+    },
+    "mode": "online"
+  },
+  "production": {
+    "entryBundle": "/assets/index-C4P2Q4Bw.js",
+    "serviceWorkerCache": "splat04-v2"
+  }
+}

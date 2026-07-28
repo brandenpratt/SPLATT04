@@ -154,6 +154,39 @@ export function assetIds(manifest: AssetManifest): Set<string> {
   return new Set(manifest.assets.map((a) => a.id));
 }
 
+export interface AssetVariantUrl {
+  assetId: string;
+  url: string;
+}
+
+/**
+ * Enumerate every GLB URL in a kit, including alternate LODs and mobile fallbacks.
+ *
+ * The result is de-duplicated by its content-versioned URL. This gives preloaders and
+ * runtime diagnostics one truthful inventory instead of counting only primary manifest
+ * entries (which would miss the flamingo and palm LOD files in the Vice Estate kit).
+ */
+export function enumerateAssetVariantUrls(manifest: AssetManifest): AssetVariantUrl[] {
+  const variants: AssetVariantUrl[] = [];
+  const seen = new Set<string>();
+
+  const add = (assetId: string, rawUrl: string | null | undefined) => {
+    if (!rawUrl) return;
+    const url = withVersion(manifest, rawUrl);
+    if (seen.has(url)) return;
+    seen.add(url);
+    variants.push({ assetId, url });
+  };
+
+  for (const asset of manifest.assets) {
+    add(asset.id, asset.url);
+    for (const lod of asset.lods ?? []) add(asset.id, lod.url);
+    add(asset.id, asset.mobileFallback);
+  }
+
+  return variants;
+}
+
 /** Resolve the URL to load for an asset, honouring device tier and distance. */
 export function resolveAssetUrl(
   manifest: AssetManifest,
