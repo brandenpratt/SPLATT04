@@ -33,12 +33,13 @@ was absent.
 | Art-review reuse | Pass | Same layer reports 128 placements, 0 omissions, `purpose=art-review` |
 | Mobile gameplay capture | Pass | 390×844 capture shows live paint, cover, fountain/flamingo edge, palms and planters |
 | Browser errors | Pass | `console-errors.json`: 0 errors, 0 warnings |
-| Live legacy rollback capture | Missing | Browser timebox ended before a separate `?renderer=legacy` runtime capture |
+| Live legacy rollback capture | Pass | `legacy-gameplay-1600x900.png`; active match at `?renderer=legacy`, 0 console errors/warnings |
 
-The legacy renderer path itself remains present and unit-tested:
+The legacy renderer path remains present, unit-tested, and now browser-verified:
 `?renderer=legacy` and `?renderer=gltf` are the only accepted values, `gltf` is
-the default, and a total GLB placement failure falls back to `legacy`. The
-production browser proof set does not claim a live legacy-route capture.
+the default, and a total GLB placement failure falls back to `legacy`. See
+`legacy-rollback-evidence.md` for the production identity, runtime-hook detail,
+console result, and normalized screenshot metadata.
 
 ## Runtime inventory
 
@@ -95,6 +96,8 @@ runtime texture objects include generated PMREM and paint/render targets.
 - `art-review-1600x900.png`: the shared layer at its authored review camera,
   with 128 placements.
 - `runtime-vs-art-review.png`: gameplay on the left and art review on the right.
+- `legacy-gameplay-1600x900.png`: active production gameplay using the preserved
+  procedural rollback renderer.
 
 The browser connection rendered captures at a device-scaled backing size
 (1280×720 for the nominal 1600×900 viewport and 312×675 for the nominal
