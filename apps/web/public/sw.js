@@ -9,6 +9,13 @@
  */
 
 const VERSION = 'splat04-v1';
+/**
+ * GLBs live in their own cache and are keyed by the `?v=` content version the asset
+ * manifest stamps onto every URL. A rebuilt kit changes that version, so the old entries
+ * become unreachable and are swept below — the service worker can never permanently serve
+ * a stale model, which is the failure mode plain cache-first would create.
+ */
+const ASSET_CACHE = 'splat04-assets';
 const SHELL = ['/', '/offline.html', '/manifest.webmanifest', '/icons/icon-192.png'];
 
 self.addEventListener('install', (event) => {
@@ -24,9 +31,27 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches
       .keys()
-      .then((keys) => Promise.all(keys.filter((key) => key !== VERSION).map((key) => caches.delete(key)))),
+      .then((keys) =>
+        Promise.all(
+          keys
+            .filter((key) => key !== VERSION && key !== ASSET_CACHE)
+            .map((key) => caches.delete(key)),
+        ),
+      ),
   );
 });
+
+/** Drop any cached GLB whose content version is no longer the one being requested. */
+async function sweepStaleAssets(currentVersion) {
+  const cache = await caches.open(ASSET_CACHE);
+  const requests = await cache.keys();
+  await Promise.all(
+    requests.map((request) => {
+      const version = new URL(request.url).searchParams.get('v');
+      return version && version !== currentVersion ? cache.delete(request) : Promise.resolve(false);
+    }),
+  );
+}
 
 self.addEventListener('message', (event) => {
   // The page asks for this explicitly, during intermission only.
@@ -51,6 +76,25 @@ self.addEventListener('fetch', (event) => {
           return response;
         })
         .catch(async () => (await caches.match('/')) ?? caches.match('/offline.html')),
+    );
+    return;
+  }
+
+  // Content-versioned GLBs: serve from cache when the version matches, otherwise fetch
+  // and sweep every older version of the kit out of the cache.
+  if (url.pathname.startsWith('/assets/') && url.pathname.endsWith('.glb')) {
+    const version = url.searchParams.get('v');
+    event.respondWith(
+      caches.open(ASSET_CACHE).then(async (cache) => {
+        const cached = await cache.match(request);
+        if (cached) return cached;
+        const response = await fetch(request);
+        if (response.ok) {
+          cache.put(request, response.clone());
+          if (version) await sweepStaleAssets(version);
+        }
+        return response;
+      }),
     );
     return;
   }

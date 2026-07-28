@@ -16,6 +16,11 @@ export const config = {
   snapshotRate: intFromEnv('SNAPSHOT_RATE', SNAPSHOT_RATE),
   /** Cells of paint delta allowed in a single snapshot before the rest waits a frame. */
   maxDeltaCellsPerSnapshot: 2400,
+  /**
+   * Developer commands (god mode, bot control, round control) are refused unless this is
+   * explicitly enabled server-side. Never turn it on for a public deployment.
+   */
+  debugEnabled: process.env.SPLAT04_DEBUG === '1',
 };
 
 export type Config = typeof config;

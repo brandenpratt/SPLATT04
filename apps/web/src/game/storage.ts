@@ -15,6 +15,8 @@ import {
 const SETTINGS_KEY = 'splat04.settings';
 
 export interface Settings {
+  /** Persisted camera choice. New guests start in third person. */
+  cameraMode: 'third' | 'first';
   quality: 'auto' | 'low' | 'high';
   sound: boolean;
   haptics: boolean;
@@ -25,6 +27,7 @@ export interface Settings {
 }
 
 export const DEFAULT_SETTINGS: Settings = {
+  cameraMode: 'third',
   quality: 'auto',
   sound: true,
   haptics: true,
@@ -97,11 +100,16 @@ export function loadSettings(): Settings {
   const raw = readJson(SETTINGS_KEY) as Partial<Settings> | null;
   const prefersReducedMotion =
     typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  return {
+  const merged: Settings = {
     ...DEFAULT_SETTINGS,
     reducedMotion: prefersReducedMotion,
     ...(raw ?? {}),
   };
+  // Guard against an older record holding a camera mode that no longer exists.
+  if (merged.cameraMode !== 'first' && merged.cameraMode !== 'third') {
+    merged.cameraMode = DEFAULT_SETTINGS.cameraMode;
+  }
+  return merged;
 }
 
 export function saveSettings(settings: Settings): void {

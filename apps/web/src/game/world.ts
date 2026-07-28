@@ -41,6 +41,7 @@ export interface RenderPlayer {
   aimZ: number;
   alive: boolean;
   boosting: boolean;
+  shielded: boolean;
   /** Visual-only, driven by the renderer. */
   bob: number;
   lean: number;
@@ -101,6 +102,31 @@ export class GameWorld {
   serverTimeOffset = 0;
   latencyMs = 0;
 
+  // --- diagnostics, read by the developer panel ---------------------------
+  serverTickRate = 20;
+  snapshotRate = 0;
+  inputSeq = 0;
+  ackedSeq = 0;
+  /** Timestamp of the local player's most recent outgoing shot, for view-model recoil. */
+  lastShotAt = 0;
+  private snapshotTimes: number[] = [];
+
+  /** Records a snapshot arrival so the panel can show the observed rate. */
+  noteSnapshot(now: number): void {
+    this.snapshotTimes.push(now);
+    while (this.snapshotTimes.length > 20) this.snapshotTimes.shift();
+    const span = this.snapshotTimes[this.snapshotTimes.length - 1] - this.snapshotTimes[0];
+    this.snapshotRate = span > 0 ? ((this.snapshotTimes.length - 1) * 1000) / span : 0;
+  }
+
+  /** Advisory only: the crosshair reddens when the muzzle is against cover. */
+  muzzleBlocked = false;
+  /** Mirrored from the server each snapshot, for the saturation HUD. */
+  saturation = 0;
+  shieldUntil = 0;
+  /** Team colour of the most recent hit taken, for the edge splat effect. */
+  lastHit: { team: number; at: number } | null = null;
+
   callout: { text: string; at: number } | null = null;
   pendingEvents: GameEvent[] = [];
 
@@ -144,6 +170,7 @@ export class GameWorld {
           aimZ: net.az,
           alive: net.a === 1,
           boosting: net.bs === 1,
+          shielded: net.sh === 1,
           bob: Math.random() * Math.PI * 2,
           lean: 0,
           recoil: 0,
@@ -158,6 +185,7 @@ export class GameWorld {
       player.marker = net.mk;
       player.tags = net.tg;
       player.connected = net.c === 1;
+      player.shielded = net.sh === 1;
       const wasAlive = player.buffer.length ? player.buffer[player.buffer.length - 1].alive : true;
       if (wasAlive && net.a === 0) player.splatBurst = 1;
 

@@ -105,12 +105,14 @@ background — use two separate windows placed side by side.
 
 ### Testing touch controls
 
-The on-screen sticks appear when the browser reports touch capability, a coarse pointer, or a
-viewport of 820px or less. So either:
+The on-screen sticks appear when the browser reports touch capability or a coarse pointer. So
+either:
 
-- open your browser's device/responsive mode and pick a phone preset, or
-- narrow the window to phone width, or
+- open your browser's device/responsive mode and pick a phone preset (this reports both), or
 - append **`?touch=1`** to force the touch UI on any device: `http://localhost:8787/?touch=1`
+
+Narrowing a desktop window is deliberately _not_ enough. The stick zones cover most of the
+screen, so showing them on a mouse-driven window would take aim away from the cursor.
 
 Left half of the screen is a floating move stick, right half is a floating aim stick that
 auto-fires while held, and the large lime button boosts.

@@ -9,6 +9,7 @@ import {
   MARKERS,
   MarkerId,
   PROTOCOL_VERSION,
+  isBotDifficulty,
   TeamId,
   encodeGrid,
   markerUnlocked,
@@ -281,6 +282,8 @@ export function createGameServer(options: GameServerOptions = {}): GameServer {
             markerUnlocked: (Object.keys(MARKERS) as MarkerId[]).filter((id) =>
               markerUnlocked(id, message.matchesCompleted, message.unlockAll === true),
             ),
+            botDifficulty: room.botDifficulty,
+            debugEnabled: config.debugEnabled,
           });
           break;
         }
@@ -292,6 +295,43 @@ export function createGameServer(options: GameServerOptions = {}): GameServer {
         case 'ping':
           send({ t: 'pong', time: message.time, serverTime: Date.now() });
           break;
+
+        case 'debug': {
+          // The gate. Without SPLAT04_DEBUG=1 on the server, these are silently dropped —
+          // a client cannot talk its way into god mode on someone else's room.
+          if (!config.debugEnabled) break;
+          if (!session.room || !session.playerId) break;
+          const room = session.room;
+          const playerId = session.playerId;
+
+          switch (message.action) {
+            case 'god':
+              room.setGodMode(playerId, message.value === true);
+              break;
+            case 'freezeBots':
+              room.setBotsFrozen(message.value === true);
+              break;
+            case 'removeBots':
+              room.removeBots(message.value === true);
+              break;
+            case 'difficulty':
+              if (isBotDifficulty(message.value)) room.setBotDifficulty(message.value);
+              break;
+            case 'restartRound':
+              room.restartRound();
+              break;
+            case 'addTime':
+              room.addTime(typeof message.value === 'number' ? message.value : 30);
+              break;
+            case 'clearPaint':
+              room.clearPaint();
+              break;
+            case 'teleport':
+              room.teleport(playerId, message.value === 'magenta' ? TeamId.Magenta : TeamId.Cyan);
+              break;
+          }
+          break;
+        }
       }
     });
 

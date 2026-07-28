@@ -1,5 +1,16 @@
 import {
   BOOST_COOLDOWN_MS,
+  BOT_MAX_FOCUS_PER_HUMAN,
+  BOT_SIGHT_RANGE,
+  BOT_TARGET_MEMORY_MS,
+  BOT_DIFFICULTIES,
+  BotDifficulty,
+  BotDifficultySpec,
+  DEFAULT_BOT_DIFFICULTY,
+  OBJECTIVE_RADIUS,
+  PLAYER_RADIUS,
+  ARENA_CENTRE,
+  isShielded,
   BotMode,
   Lane,
   MARKER_IDS,
@@ -13,6 +24,7 @@ import {
   cellIndex,
   colToWorld,
   hasLineOfSight,
+  isBlocked,
   nearestNavNode,
   rowToWorld,
   segmentClear,
@@ -23,19 +35,21 @@ import { GRID_COLS, GRID_ROWS } from '@splat04/shared';
 
 export interface BotPersonality {
   name: string;
-  /** How long before a bot reacts to something new, in ms. */
-  reactionMs: number;
   /** 0..1 — how eagerly it picks fights over painting. */
   aggression: number;
-  /** Radians of aim error at medium range. Bots are meant to be fallible. */
-  aimError: number;
   preferredLane: Lane;
   marker: MarkerId;
   /** 0..1 chance per decision to spend boost crossing open ground. */
   boostiness: number;
+  /**
+   * Stable 0..1 position inside the active difficulty band. Keeps bots individually
+   * distinct — one always reacts near the fast end, another near the slow end — without
+   * letting any of them escape the tier.
+   */
+  bias: number;
 }
 
-const LANES: Lane[] = ['waterfront', 'drive', 'party'];
+const LANES: Lane[] = ['waterfront', 'fountain', 'party'];
 
 /** Small, legible personality differences rather than one tuned optimum. */
 export function personalityFor(name: string, index: number): BotPersonality {
@@ -43,12 +57,11 @@ export function personalityFor(name: string, index: number): BotPersonality {
   const rand = mulberry32(seed);
   return {
     name,
-    reactionMs: 140 + Math.floor(rand() * 260),
     aggression: 0.25 + rand() * 0.6,
-    aimError: 0.05 + rand() * 0.14,
     preferredLane: LANES[(index + seed) % LANES.length],
     marker: MARKER_IDS[Math.floor(rand() * MARKER_IDS.length)],
     boostiness: 0.15 + rand() * 0.5,
+    bias: rand(),
   };
 }
 
@@ -57,7 +70,18 @@ export interface BotContext {
   grid: Uint8Array;
   /** An array, not an iterator: the brain traverses this several times per think(). */
   players: readonly PlayerState[];
+  /** Room-wide difficulty tier. */
+  difficulty: BotDifficulty;
+  /**
+   * How many bots are already targeting each player id, computed by the room before
+   * the think pass. Used to stop a pile-on: coordination has to live above the
+   * individual brain, because no single bot can see what the others picked.
+   */
+  focus: ReadonlyMap<string, number>;
 }
+
+/** Muzzle offset must match `createProjectile`, or bots will shoot through their own cover. */
+const MUZZLE_OFFSET = PLAYER_RADIUS + 0.35;
 
 /**
  * Lightweight finite-state machine over the pre-validated nav lattice.
@@ -68,14 +92,23 @@ export class BotBrain {
   private path: NavNode[] = [];
   private goalId = -1;
   private nextDecisionAt = 0;
-  private nextPerceptionAt = 0;
   private targetId: string | null = null;
+  /** When this bot may first shoot at its current target (reaction delay). */
+  private readyToFireAt = 0;
+  /** Last moment the current target was actually visible. */
+  private targetLastSeenAt = 0;
+  /** Current burst window and the pause that follows it. */
+  private burstUntil = 0;
+  private burstResumeAt = 0;
+  /** Aim is rotated toward the target at a capped rate rather than snapping. */
+  private aimAngle = 0;
   private lastAimX = 1;
   private lastAimZ = 0;
   private seq = 0;
   private stuckSince = 0;
   private lastX = 0;
   private lastZ = 0;
+  private aimWander = 0;
   private rand: () => number;
 
   constructor(
@@ -86,17 +119,19 @@ export class BotBrain {
   }
 
   /** Produce the same `PlayerInput` a human client would send. */
-  think(self: PlayerState, ctx: BotContext): PlayerInput {
+  think(self: PlayerState, ctx: BotContext, dtSeconds: number): PlayerInput {
     if (!self.alive) {
       this.path = [];
       this.goalId = -1;
+      this.targetId = null;
+      this.burstUntil = 0;
       return this.input(self, 0, 0, false, false);
     }
 
-    if (ctx.now >= this.nextPerceptionAt) {
-      this.nextPerceptionAt = ctx.now + this.personality.reactionMs;
-      this.perceive(self, ctx);
-    }
+    // Perception runs every tick now; the reaction delay is what gates shooting, so a
+    // coarse perception timer would only add a second, invisible source of latency.
+    this.perceive(self, ctx);
+
     if (ctx.now >= this.nextDecisionAt) {
       this.nextDecisionAt = ctx.now + 500 + this.rand() * 700;
       this.decide(self, ctx);
@@ -106,7 +141,7 @@ export class BotBrain {
 
     const target = this.targetId ? findPlayer(ctx.players, this.targetId) : null;
     const { moveX, moveZ } = this.steer(self, ctx);
-    const { aimX, aimZ, wantsFire } = this.aimAndFire(self, ctx, target);
+    const { aimX, aimZ, wantsFire } = this.aimAndFire(self, ctx, target, dtSeconds);
 
     const boost =
       this.mode === 'boost-reposition' &&
@@ -140,18 +175,88 @@ export class BotBrain {
     };
   }
 
+  private spec(ctx: BotContext): BotDifficultySpec {
+    return BOT_DIFFICULTIES[ctx.difficulty] ?? BOT_DIFFICULTIES[DEFAULT_BOT_DIFFICULTY];
+  }
+
+  /** Roll a personality value inside the difficulty tier's band. */
+  private band(ctx: BotContext, min: number, max: number): number {
+    return min + (max - min) * this.personality.bias;
+  }
+
+  /** The point paintballs actually leave from. Line of sight must be checked from here. */
+  private muzzle(self: PlayerState): { x: number; z: number } {
+    return {
+      x: self.x + Math.cos(this.aimAngle) * MUZZLE_OFFSET,
+      z: self.z + Math.sin(this.aimAngle) * MUZZLE_OFFSET,
+    };
+  }
+
+  private canSee(self: PlayerState, target: PlayerState): boolean {
+    // From the muzzle, not the body centre — otherwise bots "see" around their own cover.
+    const muzzle = this.muzzle(self);
+    return (
+      hasLineOfSight(muzzle.x, muzzle.z, target.x, target.z) &&
+      hasLineOfSight(self.x, self.z, target.x, target.z)
+    );
+  }
+
+  /**
+   * Pick a target from distance, visibility and exposure plus a small random weight.
+   *
+   * Humans get no special priority — that is the whole point. Spawn-shielded players are
+   * never chosen, and a human already covered by the focus cap is skipped unless they are
+   * standing on the objective.
+   */
   private perceive(self: PlayerState, ctx: BotContext): void {
+    const previous = this.targetId;
     let best: PlayerState | null = null;
-    let bestDist = Infinity;
-    for (const p of ctx.players) {
-      if (!p.alive || p.team === self.team || p.id === self.id) continue;
-      const dist = Math.hypot(p.x - self.x, p.z - self.z);
-      if (dist > 26 || dist >= bestDist) continue;
-      if (!hasLineOfSight(self.x, self.z, p.x, p.z)) continue;
-      best = p;
-      bestDist = dist;
+    let bestScore = -Infinity;
+
+    for (const candidate of ctx.players) {
+      if (!candidate.alive || candidate.team === self.team || candidate.id === self.id) continue;
+      if (isShielded(candidate, ctx.now)) continue;
+
+      const distance = Math.hypot(candidate.x - self.x, candidate.z - self.z);
+      if (distance > BOT_SIGHT_RANGE) continue;
+      if (!this.canSee(self, candidate)) continue;
+
+      if (!candidate.isBot && candidate.id !== previous) {
+        const onObjective =
+          Math.hypot(candidate.x - ARENA_CENTRE.x, candidate.z - ARENA_CENTRE.z) <=
+          OBJECTIVE_RADIUS;
+        const alreadyFocused = ctx.focus.get(candidate.id) ?? 0;
+        if (!onObjective && alreadyFocused >= BOT_MAX_FOCUS_PER_HUMAN) continue;
+      }
+
+      // Closer and more exposed targets score higher; the random weight stops every bot
+      // on a team converging on the same pick.
+      const exposure = 1 - areaOwnership(ctx.grid, candidate.x, candidate.z, 3, candidate.team);
+      const score = 30 - distance + exposure * 6 + this.rand() * 8;
+      if (score > bestScore) {
+        bestScore = score;
+        best = candidate;
+      }
     }
-    this.targetId = best ? best.id : null;
+
+    if (best) {
+      if (best.id !== previous) {
+        // Fresh acquisition: pay the reaction delay before this bot may shoot.
+        const spec = this.spec(ctx);
+        this.readyToFireAt = ctx.now + this.band(ctx, spec.reactionMsMin, spec.reactionMsMax);
+        this.burstUntil = 0;
+        this.burstResumeAt = 0;
+      }
+      this.targetId = best.id;
+      this.targetLastSeenAt = ctx.now;
+      return;
+    }
+
+    // Nothing visible: hold the old target briefly, then forget it entirely.
+    if (previous && ctx.now - this.targetLastSeenAt > BOT_TARGET_MEMORY_MS) {
+      this.targetId = null;
+      this.burstUntil = 0;
+    }
   }
 
   private decide(self: PlayerState, ctx: BotContext): void {
@@ -159,10 +264,13 @@ export class BotBrain {
     const nearbyEnemies = countEnemiesWithin(ctx.players, self, 12);
     const previousMode = this.mode;
 
+    const hunting = this.spec(ctx).hunting;
     if (target && nearbyEnemies >= 3 && this.personality.aggression < 0.6) {
       this.mode = 'retreat';
     } else if (target && Math.hypot(target.x - self.x, target.z - self.z) < 16) {
-      this.mode = this.rand() < this.personality.aggression + 0.35 ? 'hunt' : 'defend';
+      // Chill bots mostly keep painting even with someone in view.
+      this.mode =
+        this.rand() < this.personality.aggression * hunting + hunting * 0.4 ? 'hunt' : 'defend';
     } else {
       const ownHalfHeld = teamShareOfHalf(ctx.grid, self.team, ownHalfSign(self.team));
       if (ownHalfHeld < 0.35 && this.rand() < 0.6) this.mode = 'defend';
@@ -265,44 +373,89 @@ export class BotBrain {
     return { moveX: dx, moveZ: dz };
   }
 
+  /**
+   * Rotate toward the target at a capped angular speed, add tier-scaled aim error, and
+   * fire only in disciplined bursts from an unobstructed muzzle.
+   */
   private aimAndFire(
     self: PlayerState,
     ctx: BotContext,
     target: PlayerState | null,
+    dtSeconds: number,
   ): { aimX: number; aimZ: number; wantsFire: boolean } {
-    let aimX = this.lastAimX;
-    let aimZ = this.lastAimZ;
-    let wantsFire = false;
+    const spec = this.spec(ctx);
+    let desired = this.aimAngle;
+    let engaging = false;
 
     if (target && (this.mode === 'hunt' || this.mode === 'defend' || this.mode === 'retreat')) {
-      // Lead the target a little, then add personality-scaled error.
       const lead = 0.12;
-      const dx = target.x + target.vx * lead - self.x;
-      const dz = target.z + target.vz * lead - self.z;
-      const angle = Math.atan2(dz, dx) + (this.rand() - 0.5) * this.personality.aimError * 2;
-      aimX = Math.cos(angle);
-      aimZ = Math.sin(angle);
-      wantsFire = hasLineOfSight(self.x, self.z, target.x, target.z);
+      desired = Math.atan2(
+        target.z + target.vz * lead - self.z,
+        target.x + target.vx * lead - self.x,
+      );
+      engaging = true;
     } else {
       // Paint ahead of the run so the bot skates through its own colour.
-      const heading = Math.hypot(self.vx, self.vz) > 0.5 ? Math.atan2(self.vz, self.vx) : null;
       const waypoint = this.path[0];
-      const angle =
-        heading ??
-        (waypoint
-          ? Math.atan2(waypoint.z - self.z, waypoint.x - self.x)
-          : Math.atan2(this.lastAimZ, this.lastAimX));
-      aimX = Math.cos(angle);
-      aimZ = Math.sin(angle);
+      if (Math.hypot(self.vx, self.vz) > 0.5) desired = Math.atan2(self.vz, self.vx);
+      else if (waypoint) desired = Math.atan2(waypoint.z - self.z, waypoint.x - self.x);
+    }
+
+    // Capped turn: a bot cannot snap 180 degrees onto someone who just rounded a corner.
+    let delta = desired - this.aimAngle;
+    while (delta > Math.PI) delta -= Math.PI * 2;
+    while (delta < -Math.PI) delta += Math.PI * 2;
+    const maxTurn = ((spec.turnRateDegPerSecond * Math.PI) / 180) * dtSeconds;
+    this.aimAngle += Math.max(-maxTurn, Math.min(maxTurn, delta));
+
+    // Persistent, slowly drifting aim error rather than per-frame jitter.
+    const errorDeg = this.band(ctx, spec.aimErrorDegMin, spec.aimErrorDegMax);
+    this.aimWander += (this.rand() - 0.5) * 0.35;
+    this.aimWander = Math.max(-1, Math.min(1, this.aimWander));
+    const aimed = this.aimAngle + this.aimWander * ((errorDeg * Math.PI) / 180);
+
+    const aimX = Math.cos(aimed);
+    const aimZ = Math.sin(aimed);
+
+    let wantsFire = false;
+
+    if (engaging && target) {
+      const settled = Math.abs(delta) < 0.5; // roughly on target
+      const reacted = ctx.now >= this.readyToFireAt;
+      const visible = this.canSee(self, target);
+      if (visible) this.targetLastSeenAt = ctx.now;
+
+      if (reacted && settled && visible) {
+        if (ctx.now < this.burstUntil) {
+          wantsFire = true;
+        } else if (ctx.now >= this.burstResumeAt) {
+          // Open a new burst window, then force a pause.
+          const rounds = Math.round(this.band(ctx, spec.burstMin, spec.burstMax));
+          const burstMs = Math.max(120, rounds * 110);
+          this.burstUntil = ctx.now + burstMs;
+          this.burstResumeAt =
+            this.burstUntil + this.band(ctx, spec.burstCooldownMsMin, spec.burstCooldownMsMax);
+          wantsFire = true;
+        }
+      }
+    } else {
+      // Painting: keep laying colour down, but never into a wall or onto own paint.
       wantsFire = true;
     }
 
-    // Never hose a wall from point blank.
-    if (wantsFire && !segmentClear(self.x, self.z, self.x + aimX * 4, self.z + aimZ * 4, 0.3)) {
-      wantsFire = false;
+    // Never fire with a blocked muzzle — this is what stops corner and wall shots.
+    if (wantsFire) {
+      const muzzle = this.muzzle(self);
+      if (isBlocked(muzzle.x, muzzle.z, 0.05)) wantsFire = false;
+      else if (
+        !segmentClear(muzzle.x, muzzle.z, muzzle.x + aimX * 3.2, muzzle.z + aimZ * 3.2, 0.25)
+      ) {
+        wantsFire = false;
+      }
     }
+
     // And do not waste paint on floor this team already owns.
-    if (wantsFire && !target) {
+    if (wantsFire && !engaging) {
       const ahead = 6;
       if (
         areaOwnership(ctx.grid, self.x + aimX * ahead, self.z + aimZ * ahead, 2, self.team) > 0.8
@@ -310,6 +463,7 @@ export class BotBrain {
         wantsFire = this.rand() < 0.2;
       }
     }
+
     return { aimX, aimZ, wantsFire };
   }
 
@@ -330,11 +484,30 @@ export class BotBrain {
     }
   }
 
+  /** The room reads this to build its focus-fire map. */
+  get currentTargetId(): string | null {
+    return this.targetId;
+  }
+
+  /** Earliest moment this bot may shoot at its current target. Exposed for tests and debug. */
+  get readyAt(): number {
+    return this.readyToFireAt;
+  }
+
+  /** Current FSM state. Exposed for tests and the debug overlay. */
+  get currentMode(): BotMode {
+    return this.mode;
+  }
+
   resetForRound(): void {
     this.path = [];
     this.goalId = -1;
     this.nextDecisionAt = 0;
     this.targetId = null;
+    this.readyToFireAt = 0;
+    this.targetLastSeenAt = 0;
+    this.burstUntil = 0;
+    this.burstResumeAt = 0;
     this.mode = 'paint-route';
   }
 }

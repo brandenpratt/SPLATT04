@@ -23,7 +23,19 @@ import {
   setMarker as persistMarker,
 } from './game/storage.js';
 import { GameScene } from './scene/GameScene.js';
-import { BootOverlay } from './ui/BootOverlay.js';
+import { ArtReviewScene } from './scene/ArtReviewScene.js';
+import { CameraMode, nextCameraMode } from './game/camera.js';
+import {
+  DEFAULT_DEBUG_STATE,
+  DebugState,
+  isDebugAllowed,
+  readDebugFlags,
+  setServerDebugAllowed,
+} from './game/debug.js';
+import { DebugPanel } from './ui/DebugPanel.js';
+import { Crosshair } from './ui/Crosshair.js';
+import { SaturationOverlay } from './ui/SaturationOverlay.js';
+import { MainScreen } from './ui/MainScreen.js';
 import { Hud } from './ui/Hud.js';
 import { Intermission } from './ui/Intermission.js';
 import { SettingsOverlay } from './ui/Settings.js';
@@ -37,8 +49,21 @@ const UNLOCK_ALL = SEARCH?.get('unlockAll') === '1';
 /** Hard ceiling on the tutorial: nobody is stuck in the range waiting for a perfect shot. */
 const RANGE_FALLBACK_MS = 16_000;
 const CONNECT_GRACE_MS = 6_000;
+const DEBUG_FLAGS = readDebugFlags();
 
 export function App() {
+  // The art-review route is a completely separate scene: no gameplay, no networking, and
+  // none of the procedural arena. Checked before any game state is constructed.
+  const initialRoute = useMemo(
+    () => parseRoute(typeof location !== 'undefined' ? location.pathname : '/'),
+    [],
+  );
+  if (initialRoute.kind === 'art-review') return <ArtReviewScene />;
+
+  return <GameApp />;
+}
+
+function GameApp() {
   const world = useMemo(() => new GameWorld(), []);
   const input = useMemo(() => new InputController(), []);
   const hostRef = useRef<HTMLDivElement>(null);
@@ -57,6 +82,20 @@ export function App() {
   const [autoQuality, setAutoQuality] = useState<'low' | 'high'>('high');
   const [installPrompt, setInstallPrompt] = useState<Event | null>(null);
   const [targetsLeft, setTargetsLeft] = useState(3);
+  const [debug, setDebug] = useState<DebugState>(() => ({
+    ...DEFAULT_DEBUG_STATE,
+    god: DEBUG_FLAGS.god,
+    panelOpen: DEBUG_FLAGS.enabled,
+    botsRemoved: DEBUG_FLAGS.bots === 'off',
+    difficulty: DEBUG_FLAGS.bots && DEBUG_FLAGS.bots !== 'off' ? DEBUG_FLAGS.bots : 'arcade',
+  }));
+  const [fps, setFps] = useState(60);
+  const poorSamples = useRef(0);
+
+  /** Camera mode: URL flag wins for this session, otherwise the saved preference. */
+  const [cameraMode, setCameraMode] = useState<CameraMode>(
+    () => DEBUG_FLAGS.camera ?? loadSettings().cameraMode,
+  );
 
   const netRef = useRef<NetClient | null>(null);
   const localRef = useRef<LocalGame | null>(null);
@@ -143,6 +182,27 @@ export function App() {
       },
       {
         onStatus: setNetStatus,
+        onWelcome: (info) => {
+          // The server decides whether developer commands are honoured at all. Only once
+          // it has answered can the privileged URL flags be applied.
+          setServerDebugAllowed(info.debugEnabled);
+          if (!info.debugEnabled) return;
+          const flags = readDebugFlags();
+          setDebug((current) => ({
+            ...current,
+            panelOpen: current.panelOpen || flags.enabled,
+            god: current.god || flags.god,
+            botsRemoved: current.botsRemoved || flags.bots === 'off',
+            difficulty: flags.bots && flags.bots !== 'off' ? flags.bots : current.difficulty,
+          }));
+          if (flags.god) client.sendDebug('god', true);
+          if (flags.bots === 'off') client.sendDebug('removeBots', true);
+          else if (flags.bots) client.sendDebug('difficulty', flags.bots);
+        },
+        onHit: () => {
+          audio.play('thump', 0.4);
+          vibrate(18, settings.haptics);
+        },
         onCallout: (text) => {
           setCallout(text);
           audio.play('buzzer', 0.5);
@@ -189,6 +249,21 @@ export function App() {
     );
 
     netRef.current = client;
+    // Developer handle. Harmless in production (it exposes no privileged capability the
+    // server would honour) and invaluable for diagnosing client state from the console.
+    // Merge, never replace: the scene attaches the renderer handle to this same object.
+    const hook = ((window as unknown as Record<string, unknown>).__splat04 ?? {}) as Record<
+      string,
+      unknown
+    >;
+    Object.assign(hook, {
+      world,
+      client,
+      input,
+      flags: readDebugFlags(),
+      debugAllowed: () => isDebugAllowed(),
+    });
+    (window as unknown as Record<string, unknown>).__splat04 = hook;
     client.connect();
 
     // Graceful degradation: if the socket never opens, offer local practice.
@@ -215,22 +290,57 @@ export function App() {
     setStage('practice');
   }, [profile.selectedMarker, world]);
 
-  // Esc opens settings and releases gameplay input.
+  // Esc opens settings; V swaps camera; F3/backtick and F4 are developer tools.
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.code === 'Escape') {
         event.preventDefault();
         setShowSettings((current) => !current);
+        return;
+      }
+      if (event.code === 'KeyV') {
+        event.preventDefault();
+        switchCamera();
+        return;
+      }
+      if (!isDebugAllowed()) return;
+      if (event.code === 'F3' || event.code === 'Backquote') {
+        event.preventDefault();
+        setDebug((current) => ({ ...current, panelOpen: !current.panelOpen }));
+      }
+      if (event.code === 'F4') {
+        event.preventDefault();
+        setDebug((current) => ({ ...current, overheadCamera: !current.overheadCamera }));
       }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  /**
+   * Camera choice is presentation only, and must survive a respawn — so it lives in
+   * component state plus localStorage, never in anything the round lifecycle resets.
+   */
+  const switchCamera = useCallback(() => {
+    setCameraMode((current) => {
+      if (current === 'overhead') return current;
+      const next = nextCameraMode(current) === 'first' ? 'first' : 'third';
+      setSettings((s) => ({ ...s, cameraMode: next }));
+      // A camera swap must not leave a virtual stick stuck mid-drag.
+      input.releaseAll();
+      return next;
+    });
+  }, [input]);
 
   const overlayOpen = showSettings || showClaim || Boolean(roundEnd) || offerPractice || booting;
   useEffect(() => {
     input.enabled = !overlayOpen;
-    if (overlayOpen) input.releaseAll();
+    if (overlayOpen) {
+      input.releaseAll();
+      // Pointer lock must always be given back when a dialog opens.
+      input.releasePointerLock();
+    }
   }, [overlayOpen, input]);
 
   // Pause rendering and input while the tab is hidden.
@@ -267,11 +377,19 @@ export function App() {
   }, [roundEnd, world]);
 
   const handleQualitySample = useCallback(
-    (fps: number) => {
+    (sampled: number) => {
+      setFps(sampled);
+      const fps = sampled;
       if (settings.quality !== 'auto') return;
       setAutoQuality((current) => {
-        if (fps < 34 && current === 'high') return 'low';
-        if (fps > 52 && current === 'low') return 'high';
+        // Require two consecutive poor samples before dropping, so a single hitch — or a
+        // moment of compositor throttling — cannot latch the game into low quality.
+        if (fps < 40 && current === 'high') {
+          poorSamples.current += 1;
+          return poorSamples.current >= 2 ? 'low' : current;
+        }
+        poorSamples.current = 0;
+        if (fps > 55 && current === 'low') return 'high';
         return current;
       });
     },
@@ -289,6 +407,22 @@ export function App() {
     [input, profile.matchesCompleted, world],
   );
 
+  const effectiveCamera: CameraMode = debug.overheadCamera ? 'overhead' : cameraMode;
+
+  // Mouse-look is meaningless for the overhead debug camera, which aims with the cursor.
+  useEffect(() => {
+    input.mouseLookEnabled = effectiveCamera !== 'overhead';
+    if (effectiveCamera === 'overhead') input.releasePointerLock();
+  }, [effectiveCamera, input]);
+
+  // Keep the settings overlay and the live camera in step.
+  useEffect(() => {
+    if (settings.cameraMode !== cameraMode && cameraMode !== 'overhead') {
+      setCameraMode(settings.cameraMode);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [settings.cameraMode]);
+
   const practice = stage === 'practice';
   const boostReady = world.now() >= world.local.boostReadyAt;
 
@@ -302,6 +436,7 @@ export function App() {
           local={stage === 'online' ? null : localRef.current}
           settings={settings}
           quality={quality}
+          cameraMode={effectiveCamera}
           onQualitySample={handleQualitySample}
           onFire={() => audio.play('splat', 0.5)}
           onBoost={() => {
@@ -334,6 +469,51 @@ export function App() {
       )}
 
       {!booting && <Hud world={world} status={netStatus} callout={callout} practice={practice} />}
+      {!booting && <Crosshair world={world} mode={effectiveCamera} />}
+      {!booting && (
+        <SaturationOverlay
+          world={world}
+          onCritical={() => {
+            audio.play('splatted', 0.5);
+            vibrate([25, 30, 25], settings.haptics);
+          }}
+        />
+      )}
+
+      {isDebugAllowed() && debug.panelOpen && (
+        <DebugPanel
+          world={world}
+          state={debug}
+          cameraMode={effectiveCamera}
+          fps={fps}
+          onChange={(patch) => {
+            setDebug((current) => ({ ...current, ...patch }));
+            const client = netRef.current;
+            if (!client) return;
+            if (patch.god !== undefined) client.sendDebug('god', patch.god);
+            if (patch.botsFrozen !== undefined) client.sendDebug('freezeBots', patch.botsFrozen);
+            if (patch.botsRemoved !== undefined) client.sendDebug('removeBots', patch.botsRemoved);
+            if (patch.difficulty !== undefined) client.sendDebug('difficulty', patch.difficulty);
+          }}
+          actions={{
+            restartRound: () => netRef.current?.sendDebug('restartRound'),
+            addTime: (seconds) => netRef.current?.sendDebug('addTime', seconds),
+            clearPaint: () => netRef.current?.sendDebug('clearPaint'),
+            teleport: (team) => netRef.current?.sendDebug('teleport', team),
+          }}
+          onClose={() => setDebug((current) => ({ ...current, panelOpen: false }))}
+        />
+      )}
+
+      {touch && !overlayOpen && !booting && (
+        <button
+          className="camera-toggle"
+          onClick={switchCamera}
+          aria-label={`Switch to ${cameraMode === 'first' ? 'third' : 'first'} person view`}
+        >
+          {cameraMode === 'first' ? '1P' : '3P'}
+        </button>
+      )}
 
       {touch && !overlayOpen && (
         <TouchControls
@@ -346,7 +526,13 @@ export function App() {
         />
       )}
 
-      {booting && <BootOverlay guestName={profile.displayName} onDone={() => setBooting(false)} />}
+      {booting && (
+        <MainScreen
+          guestName={profile.displayName}
+          connected={Boolean(netStatus)}
+          onPlay={() => setBooting(false)}
+        />
+      )}
 
       {offerPractice && (
         <div className="overlay" role="dialog" aria-modal="true" aria-label="Connection problem">

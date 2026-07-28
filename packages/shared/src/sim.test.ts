@@ -179,8 +179,8 @@ describe('collision and bounds', () => {
     expect(Math.abs(p.z)).toBeLessThan(27);
   });
 
-  it('never lets a boosting player tunnel through the speedboat', () => {
-    const boat = OBSTACLES.find((o) => o.id === 'c_speedboat')!;
+  it('never lets a boosting player tunnel through the fountain', () => {
+    const boat = OBSTACLES.find((o) => o.id === 'fountain')!;
     const p = player({ x: boat.x - 12, z: boat.z });
     const input = { ...emptyInput(), moveX: 1, boostPressed: true };
     for (let t = 0; t < 60; t++) {
@@ -235,8 +235,8 @@ describe('projectiles', () => {
   });
 
   it('reports cover hits separately so they cannot move the score', () => {
-    const boat = OBSTACLES.find((o) => o.id === 'c_speedboat')!;
-    const owner = player({ x: boat.x - 10, z: boat.z });
+    const boat = OBSTACLES.find((o) => o.id === 'cyan-villa-pier-water')!;
+    const owner = player({ x: boat.x - 12, z: boat.z });
     const proj = createProjectile(1, owner, { ...fireRequest, range: 30 }, 0);
     let result = stepProjectile(proj, 0.05, [], 0);
     for (let t = 0; t < 100 && !result.dead; t++) result = stepProjectile(proj, 0.05, [], 0);

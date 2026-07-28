@@ -22,10 +22,14 @@ export interface NetHandlers {
     crewCode?: string;
     challenge?: { id: string; scoreToBeat: number; createdByName: string };
     markerUnlocked: MarkerId[];
+    botDifficulty: string;
+    debugEnabled: boolean;
   }) => void;
   onRoundEnd?: (result: RoundEndMessage) => void;
   onCallout?: (text: string) => void;
   onTag?: (byLocal: boolean, onLocal: boolean) => void;
+  /** A non-fatal saturation hit landed on the local player. */
+  onHit?: (team: number, saturation: number) => void;
   onStatus?: (status: NetStatus) => void;
 }
 
@@ -144,6 +148,7 @@ export class NetClient {
         this.world.serverTimeOffset = message.serverTime - Date.now();
         this.world.connected = true;
         this.world.mode = 'online';
+        this.world.saturation = 0;
         this.world.interpolationDelayMs = INTERPOLATION_DELAY_MS;
         this.roomId = message.roomId;
         sessionStorage.setItem(RECONNECT_TOKEN_KEY, message.reconnectToken);
@@ -154,12 +159,16 @@ export class NetClient {
           crewCode: message.crewCode,
           challenge: message.challenge,
           markerUnlocked: message.markerUnlocked,
+          botDifficulty: message.botDifficulty,
+          debugEnabled: message.debugEnabled === true,
         });
         break;
       }
 
       case 'snap': {
         const world = this.world;
+        world.noteSnapshot(Date.now());
+        world.ackedSeq = message.ack;
         world.coverage = message.coverage;
         world.phase = message.phase;
         world.phaseEndsAt = message.phaseEndsAt;
@@ -173,7 +182,11 @@ export class NetClient {
         }
         world.ingestPlayers(message.players, message.st);
         world.ingestProjectiles(message.projectiles, Date.now());
-        if (message.self) this.reconcile(message.self, message.ack);
+        if (message.self) {
+          world.saturation = message.self.sat;
+          world.shieldUntil = message.self.shield;
+          this.reconcile(message.self, message.ack);
+        }
 
         for (const event of message.events) {
           if (event.e === 'callout') this.handlers.onCallout?.(event.text);
@@ -181,6 +194,9 @@ export class NetClient {
             world.addCoverSplat(event.x, event.z, event.tm, Date.now());
           } else if (event.e === 'tag') {
             this.handlers.onTag?.(event.by === world.localId, event.on === world.localId);
+          } else if (event.e === 'hit' && event.on === world.localId) {
+            world.lastHit = { team: event.tm, at: Date.now() };
+            this.handlers.onHit?.(event.tm, event.sat);
           }
         }
         break;
@@ -240,6 +256,8 @@ export class NetClient {
   /** Called every frame with the current input; throttled to the send rate internally. */
   sendInput(input: Omit<PlayerInput, 'seq' | 'clientTime'>, nowLocal: number): PlayerInput {
     const full: PlayerInput = { ...input, seq: ++this.seq, clientTime: nowLocal };
+    this.world.inputSeq = this.seq;
+    if (input.firing) this.world.lastShotAt = nowLocal;
     if (this.connected && nowLocal - this.lastSendAt >= 1000 / 20) {
       this.lastSendAt = nowLocal;
       this.socket!.send(JSON.stringify({ t: 'input', input: full }));
@@ -248,6 +266,15 @@ export class NetClient {
       if (nowLocal - this.pingAt > 2000) this.ping();
     }
     return full;
+  }
+
+  /**
+   * Send a developer command. The server drops these unless it was started with
+   * `SPLAT04_DEBUG=1`, so this is a request, never an instruction.
+   */
+  sendDebug(action: string, value?: string | number | boolean): void {
+    if (!this.connected) return;
+    this.socket!.send(JSON.stringify({ t: 'debug', action, value }));
   }
 
   private ping(): void {

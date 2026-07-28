@@ -17,6 +17,17 @@ export function SettingsOverlay({ settings, onChange, onClose, onInstall, canIns
         <p className="overlay__sub">The broadcast is paused for you, not for anybody else.</p>
 
         <Segmented
+          label="Camera"
+          value={settings.cameraMode}
+          options={[
+            ['third', 'Third person'],
+            ['first', 'First person'],
+          ]}
+          onChange={(cameraMode) =>
+            onChange({ cameraMode: cameraMode as SettingsValue['cameraMode'] })
+          }
+        />
+        <Segmented
           label="Quality"
           value={settings.quality}
           options={[
@@ -68,6 +79,11 @@ export function SettingsOverlay({ settings, onChange, onClose, onInstall, canIns
           </button>
         </div>
 
+        <p className="note">
+          Press <strong>V</strong> at any time to swap between third and first person. Camera choice
+          is presentation only — it never changes your hitbox, fire rate or where your shots
+          actually go.
+        </p>
         <p className="note">
           Aim assist only nudges paintballs that were already close to on-target, and never more
           than a few degrees in total. Announcer speech uses your browser&rsquo;s own voice and is

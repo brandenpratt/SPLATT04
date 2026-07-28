@@ -54,10 +54,10 @@ describe('paint grid stamping', () => {
   });
 
   it('never paints cells sitting under cover', () => {
-    const boat = OBSTACLES.find((o) => o.id === 'c_speedboat')!;
+    const mansion = OBSTACLES.find((o) => o.id === 'cyan-villa-pier-water')!;
     const grid = createGrid();
-    stampCircle(grid, boat.x, boat.z, 4, PaintOwner.Cyan);
-    const idx = cellIndex(worldToCol(boat.x), worldToRow(boat.z));
+    stampCircle(grid, mansion.x, mansion.z, 4, PaintOwner.Cyan);
+    const idx = cellIndex(worldToCol(mansion.x), worldToRow(mansion.z));
     expect(PAINTABLE_MASK[idx]).toBe(0);
     expect(grid[idx]).toBe(PaintOwner.Neutral);
   });

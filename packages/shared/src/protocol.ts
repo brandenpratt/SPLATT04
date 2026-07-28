@@ -1,4 +1,4 @@
-import { MAX_CREW_CODE_LENGTH, MAX_DISPLAY_NAME_LENGTH } from './constants.js';
+import { BotDifficulty, MAX_CREW_CODE_LENGTH, MAX_DISPLAY_NAME_LENGTH } from './constants.js';
 import { isMarkerId } from './markers.js';
 import {
   Coverage,
@@ -40,7 +40,25 @@ export interface PingMessage {
   time: number;
 }
 
-export type ClientMessage = HelloMessage | InputMessage | PingMessage;
+/**
+ * Developer commands. The server ignores these entirely unless it was started with
+ * `SPLAT04_DEBUG=1`, so a public client can never alter a production room.
+ */
+export interface DebugMessage {
+  t: 'debug';
+  action:
+    | 'god'
+    | 'freezeBots'
+    | 'removeBots'
+    | 'difficulty'
+    | 'restartRound'
+    | 'addTime'
+    | 'clearPaint'
+    | 'teleport';
+  value?: string | number | boolean;
+}
+
+export type ClientMessage = HelloMessage | InputMessage | PingMessage | DebugMessage;
 
 // --- Server -> Client ------------------------------------------------------
 
@@ -61,6 +79,8 @@ export interface NetPlayer {
   tg: number;
   /** connected */
   c: 0 | 1;
+  /** spawn-shielded */
+  sh: 0 | 1;
 }
 
 export interface NetProjectile {
@@ -77,6 +97,8 @@ export interface NetProjectile {
 
 export type GameEvent =
   | { e: 'tag'; by: string; on: string; x: number; z: number; tm: TeamId }
+  /** A non-fatal saturation hit, so the victim's HUD can splat its edges. */
+  | { e: 'hit'; on: string; tm: TeamId; sat: number }
   | { e: 'cover'; x: number; z: number; tm: TeamId }
   | { e: 'spawn'; id: string; x: number; z: number }
   | { e: 'callout'; text: string }
@@ -99,6 +121,9 @@ export interface WelcomeMessage {
   crewCode?: string;
   challenge?: { id: string; scoreToBeat: number; createdByName: string };
   markerUnlocked: MarkerId[];
+  botDifficulty: BotDifficulty;
+  /** True when this server permits developer commands. */
+  debugEnabled: boolean;
 }
 
 export interface SnapshotMessage {
@@ -125,6 +150,10 @@ export interface SnapshotMessage {
     respawnAt: number;
     boostReadyAt: number;
     boostUntil: number;
+    /** Suit Saturation, authoritative. */
+    sat: number;
+    /** Spawn-shield expiry on the server clock. */
+    shield: number;
   };
 }
 
@@ -254,6 +283,25 @@ export function parseClientMessage(raw: unknown): ClientMessage | null {
     }
     case 'ping':
       return { t: 'ping', time: clampNumber(r.time, 0, Number.MAX_SAFE_INTEGER) };
+    case 'debug': {
+      const actions = [
+        'god',
+        'freezeBots',
+        'removeBots',
+        'difficulty',
+        'restartRound',
+        'addTime',
+        'clearPaint',
+        'teleport',
+      ];
+      if (typeof r.action !== 'string' || !actions.includes(r.action)) return null;
+      const value = r.value;
+      const safeValue =
+        typeof value === 'boolean' || typeof value === 'number' || typeof value === 'string'
+          ? value
+          : undefined;
+      return { t: 'debug', action: r.action as DebugMessage['action'], value: safeValue };
+    }
     default:
       return null;
   }

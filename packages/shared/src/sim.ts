@@ -14,6 +14,7 @@ import {
   PROJECTILE_RADIUS,
 } from './constants.js';
 import { MARKERS } from './markers.js';
+import { dropSpawnShield } from './saturation.js';
 import { PaintOwner, PlayerInput, PlayerState, ProjectileState, TeamId } from './types.js';
 
 const DEG = Math.PI / 180;
@@ -138,6 +139,8 @@ export function tryFire(
   const out: FireRequest[] = [];
 
   const emit = () => {
+    // Firing forfeits spawn protection immediately — it shields, it does not enable.
+    dropSpawnShield(player);
     const ramp = Math.min(player.spreadHeat, marker.spreadRampMax);
     const spread = (marker.spreadDegrees + ramp) * DEG;
     const angle = Math.atan2(player.aimZ, player.aimX) + (rng() - 0.5) * spread;
@@ -389,6 +392,9 @@ export function createPlayerState(
     splatted: 0,
     cellsPainted: 0,
     connected: true,
+    saturation: 0,
+    lastSaturatedAt: 0,
+    shieldUntil: 0,
   };
 }
 

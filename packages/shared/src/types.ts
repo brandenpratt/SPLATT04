@@ -55,6 +55,12 @@ export interface PlayerState {
   splatted: number;
   cellsPainted: number;
   connected: boolean;
+  /** Suit Saturation, 0..SATURATION_MAX. At full the player is tagged. */
+  saturation: number;
+  /** Timestamp of the last saturation gain, used for the recovery delay. */
+  lastSaturatedAt: number;
+  /** Spawn-protection expiry; zeroed the moment the player fires. */
+  shieldUntil: number;
 }
 
 export interface ProjectileState {

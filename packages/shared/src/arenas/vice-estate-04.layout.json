@@ -1,0 +1,4212 @@
+{
+  "schemaVersion": 1,
+  "id": "vice-estate-04",
+  "name": "VICE ESTATE 04",
+  "status": "provisional",
+  "referenceLocked": false,
+  "units": "meters",
+  "_note": "Composition derived from the master estate reference using the documented placement scaffold. Coordinates remain PROVISIONAL until the reference PNG is on disk and the overlay comparison can be generated.",
+  "dimensions": {
+    "width": 82,
+    "depth": 56,
+    "groundY": 0
+  },
+  "paintGrid": {
+    "cols": 136,
+    "rows": 92
+  },
+  "reviewCamera": {
+    "position": [
+      0,
+      26.0,
+      78.0
+    ],
+    "target": [
+      0,
+      0,
+      -8.0
+    ],
+    "focalLengthMm": 30.0,
+    "sensorWidthMm": 36
+  },
+  "placements": [
+    {
+      "id": "ground",
+      "asset": "ground-court",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "paintReceiver": true,
+      "castShadow": false
+    },
+    {
+      "id": "villa-cyan",
+      "asset": "villa-west",
+      "transform": {
+        "position": [
+          -20.0,
+          0,
+          -16
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "cyan",
+      "landmark": true,
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "villa-cyan-roof",
+      "asset": "villa-roof-west",
+      "transform": {
+        "position": [
+          -20.0,
+          11.1,
+          -16
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "cyan",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": true
+    },
+    {
+      "id": "villa-magenta",
+      "asset": "villa-east",
+      "transform": {
+        "position": [
+          20.0,
+          0,
+          -16
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "magenta",
+      "landmark": true,
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "villa-magenta-roof",
+      "asset": "villa-roof-east",
+      "transform": {
+        "position": [
+          20.0,
+          11.1,
+          -16
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "magenta",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": true
+    },
+    {
+      "id": "bridge",
+      "asset": "glass-bridge",
+      "transform": {
+        "position": [
+          0,
+          8.5,
+          -17
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "neutral",
+      "landmark": true,
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": true
+    },
+    {
+      "id": "fountain",
+      "asset": "flamingo-fountain",
+      "transform": {
+        "position": [
+          0,
+          0,
+          1
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "landmark": true,
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "chrome-sphere",
+      "asset": "chrome-sphere",
+      "transform": {
+        "position": [
+          12,
+          0,
+          -8
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "planter-0",
+      "asset": "planter-curved",
+      "transform": {
+        "position": [
+          -10,
+          0,
+          -6
+        ],
+        "rotationY": 0.5,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "planter-1",
+      "asset": "planter-curved",
+      "transform": {
+        "position": [
+          10.5,
+          0,
+          -5
+        ],
+        "rotationY": -0.5,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "planter-2",
+      "asset": "planter-curved",
+      "transform": {
+        "position": [
+          -12,
+          0,
+          9
+        ],
+        "rotationY": 0.9,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "planter-3",
+      "asset": "planter-curved",
+      "transform": {
+        "position": [
+          11,
+          0,
+          9.5
+        ],
+        "rotationY": -0.9,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "planter-4",
+      "asset": "planter-straight",
+      "transform": {
+        "position": [
+          -4,
+          0,
+          -9
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "planter-5",
+      "asset": "planter-straight",
+      "transform": {
+        "position": [
+          5,
+          0,
+          13
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "dome-0",
+      "asset": "bunker-dome",
+      "transform": {
+        "position": [
+          -30,
+          0,
+          -4
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "dome-1",
+      "asset": "bunker-dome",
+      "transform": {
+        "position": [
+          -27,
+          0,
+          10
+        ],
+        "rotationY": 0.6,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "dome-2",
+      "asset": "bunker-dome",
+      "transform": {
+        "position": [
+          -18,
+          0,
+          16
+        ],
+        "rotationY": 1.2,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "party",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "dome-3",
+      "asset": "bunker-dome",
+      "transform": {
+        "position": [
+          29,
+          0,
+          -3
+        ],
+        "rotationY": 1.7999999999999998,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "dome-4",
+      "asset": "bunker-dome",
+      "transform": {
+        "position": [
+          26,
+          0,
+          11
+        ],
+        "rotationY": 2.4,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "party",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "dome-5",
+      "asset": "bunker-dome",
+      "transform": {
+        "position": [
+          17,
+          0,
+          17
+        ],
+        "rotationY": 3,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "party",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "dome-6",
+      "asset": "bunker-dome",
+      "transform": {
+        "position": [
+          -16,
+          0,
+          -2
+        ],
+        "rotationY": 3.5999999999999996,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "dome-7",
+      "asset": "bunker-dome",
+      "transform": {
+        "position": [
+          15,
+          0,
+          2
+        ],
+        "rotationY": 4.2,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "block-0",
+      "asset": "bunker-block",
+      "transform": {
+        "position": [
+          -34,
+          0,
+          4
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "block-1",
+      "asset": "bunker-block",
+      "transform": {
+        "position": [
+          -22,
+          0,
+          -9
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "block-2",
+      "asset": "bunker-block",
+      "transform": {
+        "position": [
+          -8,
+          0,
+          19
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "party",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "block-3",
+      "asset": "bunker-block",
+      "transform": {
+        "position": [
+          33,
+          0,
+          5
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "block-4",
+      "asset": "bunker-block",
+      "transform": {
+        "position": [
+          21,
+          0,
+          -9
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "block-5",
+      "asset": "bunker-block",
+      "transform": {
+        "position": [
+          7,
+          0,
+          20
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "party",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "block-6",
+      "asset": "bunker-block",
+      "transform": {
+        "position": [
+          -31,
+          0,
+          -11
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "block-7",
+      "asset": "bunker-block",
+      "transform": {
+        "position": [
+          30,
+          0,
+          -11
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "wedge-0",
+      "asset": "bunker-wedge",
+      "transform": {
+        "position": [
+          -14,
+          0,
+          6
+        ],
+        "rotationY": -0.5,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "wedge-1",
+      "asset": "bunker-wedge",
+      "transform": {
+        "position": [
+          13,
+          0,
+          6
+        ],
+        "rotationY": 0.5,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "wedge-2",
+      "asset": "bunker-wedge",
+      "transform": {
+        "position": [
+          -6,
+          0,
+          -14
+        ],
+        "rotationY": -0.5,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "wedge-3",
+      "asset": "bunker-wedge",
+      "transform": {
+        "position": [
+          6,
+          0,
+          -14
+        ],
+        "rotationY": 0.5,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "ramp-cyan",
+      "asset": "bunker-ramp",
+      "transform": {
+        "position": [
+          -35,
+          0,
+          -6
+        ],
+        "rotationY": 0.25,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "west-staging",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "can-0",
+      "asset": "bunker-can",
+      "transform": {
+        "position": [
+          -25,
+          0,
+          3
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "can-1",
+      "asset": "bunker-can",
+      "transform": {
+        "position": [
+          24,
+          0,
+          3
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "bench",
+      "asset": "bench-low",
+      "transform": {
+        "position": [
+          -6,
+          0,
+          6
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "patio",
+      "asset": "patio-set",
+      "transform": {
+        "position": [
+          -28,
+          0,
+          6
+        ],
+        "rotationY": 0.4,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "west-staging",
+      "side": "cyan",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": true
+    },
+    {
+      "id": "fence-n-0",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          -37,
+          0,
+          -28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-s-0",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          -37,
+          0,
+          28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "party",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-n-1",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          -29,
+          0,
+          -28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-s-1",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          -29,
+          0,
+          28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "party",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-n-2",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          -21,
+          0,
+          -28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-s-2",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          -21,
+          0,
+          28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "party",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-n-3",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          -13,
+          0,
+          -28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-s-3",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          -13,
+          0,
+          28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "party",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-n-4",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          -5,
+          0,
+          -28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-s-4",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          -5,
+          0,
+          28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "party",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-n-5",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          3,
+          0,
+          -28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-s-5",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          3,
+          0,
+          28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "party",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-n-6",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          11,
+          0,
+          -28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-s-6",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          11,
+          0,
+          28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "party",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-n-7",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          19,
+          0,
+          -28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-s-7",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          19,
+          0,
+          28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "party",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-n-8",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          27,
+          0,
+          -28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-s-8",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          27,
+          0,
+          28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "party",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-n-9",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          35,
+          0,
+          -28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-s-9",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          35,
+          0,
+          28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "party",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-w-0",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          -41,
+          0,
+          -24
+        ],
+        "rotationY": 1.5707963267948966,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "west-staging",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-e-0",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          41,
+          0,
+          -24
+        ],
+        "rotationY": 1.5707963267948966,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "east-staging",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-w-1",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          -41,
+          0,
+          -16
+        ],
+        "rotationY": 1.5707963267948966,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "west-staging",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-e-1",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          41,
+          0,
+          -16
+        ],
+        "rotationY": 1.5707963267948966,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "east-staging",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-w-2",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          -41,
+          0,
+          -8
+        ],
+        "rotationY": 1.5707963267948966,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "west-staging",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-e-2",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          41,
+          0,
+          -8
+        ],
+        "rotationY": 1.5707963267948966,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "east-staging",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-w-3",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          -41,
+          0,
+          0
+        ],
+        "rotationY": 1.5707963267948966,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "west-staging",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-e-3",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          41,
+          0,
+          0
+        ],
+        "rotationY": 1.5707963267948966,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "east-staging",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-w-4",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          -41,
+          0,
+          8
+        ],
+        "rotationY": 1.5707963267948966,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "west-staging",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-e-4",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          41,
+          0,
+          8
+        ],
+        "rotationY": 1.5707963267948966,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "east-staging",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-w-5",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          -41,
+          0,
+          16
+        ],
+        "rotationY": 1.5707963267948966,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "west-staging",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-e-5",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          41,
+          0,
+          16
+        ],
+        "rotationY": 1.5707963267948966,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "east-staging",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-w-6",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          -41,
+          0,
+          24
+        ],
+        "rotationY": 1.5707963267948966,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "west-staging",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-e-6",
+      "asset": "perimeter-straight",
+      "transform": {
+        "position": [
+          41,
+          0,
+          24
+        ],
+        "rotationY": 1.5707963267948966,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "east-staging",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-corner-0",
+      "asset": "perimeter-corner",
+      "transform": {
+        "position": [
+          -41,
+          0,
+          -28
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-corner-1",
+      "asset": "perimeter-corner",
+      "transform": {
+        "position": [
+          41,
+          0,
+          -28
+        ],
+        "rotationY": -1.5707963267948966,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-corner-2",
+      "asset": "perimeter-corner",
+      "transform": {
+        "position": [
+          41,
+          0,
+          28
+        ],
+        "rotationY": 3.141592653589793,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "fence-corner-3",
+      "asset": "perimeter-corner",
+      "transform": {
+        "position": [
+          -41,
+          0,
+          28
+        ],
+        "rotationY": 1.5707963267948966,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": true,
+      "castShadow": true
+    },
+    {
+      "id": "splat-0",
+      "asset": "paint-splat-cyan",
+      "transform": {
+        "position": [
+          -3.318116869777441,
+          0.02,
+          9.294429808855057
+        ],
+        "rotationY": 5.173116431236267,
+        "scale": [
+          3.8674142599105834,
+          1,
+          3.8674142599105834
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-1",
+      "asset": "paint-splat-magenta",
+      "transform": {
+        "position": [
+          16.38424062728882,
+          0.02,
+          13.728941202163696
+        ],
+        "rotationY": 4.147918601036072,
+        "scale": [
+          3.5645864248275756,
+          1,
+          3.5645864248275756
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-2",
+      "asset": "paint-splat-cyan",
+      "transform": {
+        "position": [
+          -6.255876064300537,
+          0.02,
+          0.7271305918693542
+        ],
+        "rotationY": 0.2797781276702881,
+        "scale": [
+          2.034963369369507,
+          1,
+          2.034963369369507
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-3",
+      "asset": "paint-splat-magenta",
+      "transform": {
+        "position": [
+          19.092865109443665,
+          0.02,
+          -15.61126160621643
+        ],
+        "rotationY": 3.312033176422119,
+        "scale": [
+          3.8788878500461577,
+          1,
+          3.8788878500461577
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-4",
+      "asset": "paint-splat-cyan",
+      "transform": {
+        "position": [
+          -8.234758377075195,
+          0.02,
+          -9.229705393314362
+        ],
+        "rotationY": 1.2796758604049683,
+        "scale": [
+          2.0567341566085817,
+          1,
+          2.0567341566085817
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-5",
+      "asset": "paint-splat-magenta",
+      "transform": {
+        "position": [
+          10.343117356300354,
+          0.02,
+          -4.74777090549469
+        ],
+        "rotationY": 0.8287636661529542,
+        "scale": [
+          3.096749746799469,
+          1,
+          3.096749746799469
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-6",
+      "asset": "paint-splat-cyan",
+      "transform": {
+        "position": [
+          -29.182932019233704,
+          0.02,
+          12.529682874679565
+        ],
+        "rotationY": 2.827763333320618,
+        "scale": [
+          3.8431288957595826,
+          1,
+          3.8431288957595826
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-7",
+      "asset": "paint-splat-magenta",
+      "transform": {
+        "position": [
+          16.281647205352783,
+          0.02,
+          22.4904944896698
+        ],
+        "rotationY": 1.7932466900348665,
+        "scale": [
+          1.792225956916809,
+          1,
+          1.792225956916809
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-8",
+      "asset": "paint-splat-cyan",
+      "transform": {
+        "position": [
+          -27.562868118286133,
+          0.02,
+          22.023810386657715
+        ],
+        "rotationY": 1.4827062416076662,
+        "scale": [
+          3.1333180427551266,
+          1,
+          3.1333180427551266
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-9",
+      "asset": "paint-splat-magenta",
+      "transform": {
+        "position": [
+          15.017031788825989,
+          0.02,
+          -17.375333547592163
+        ],
+        "rotationY": 3.661901445388794,
+        "scale": [
+          2.4893084108829497,
+          1,
+          2.4893084108829497
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-10",
+      "asset": "paint-splat-cyan",
+      "transform": {
+        "position": [
+          -14.577672004699707,
+          0.02,
+          -12.038387775421143
+        ],
+        "rotationY": 3.496120114326477,
+        "scale": [
+          2.45138333439827,
+          1,
+          2.45138333439827
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-11",
+      "asset": "paint-splat-magenta",
+      "transform": {
+        "position": [
+          24.18727159500122,
+          0.02,
+          -4.060614824295044
+        ],
+        "rotationY": 4.550975842475891,
+        "scale": [
+          2.0396952867507934,
+          1,
+          2.0396952867507934
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-12",
+      "asset": "paint-splat-cyan",
+      "transform": {
+        "position": [
+          -27.675224781036377,
+          0.02,
+          -5.80335545539856
+        ],
+        "rotationY": 2.4629568147659304,
+        "scale": [
+          2.350358510017395,
+          1,
+          2.350358510017395
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-13",
+      "asset": "paint-splat-magenta",
+      "transform": {
+        "position": [
+          6.304413318634033,
+          0.02,
+          11.086656749248505
+        ],
+        "rotationY": 0.6240825462341308,
+        "scale": [
+          3.3713725090026854,
+          1,
+          3.3713725090026854
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-14",
+      "asset": "paint-splat-cyan",
+      "transform": {
+        "position": [
+          -19.586211323738098,
+          0.02,
+          20.852611780166626
+        ],
+        "rotationY": 2.1443634939193728,
+        "scale": [
+          2.3880409002304077,
+          1,
+          2.3880409002304077
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-15",
+      "asset": "paint-splat-magenta",
+      "transform": {
+        "position": [
+          8.42914342880249,
+          0.02,
+          -4.142637550830841
+        ],
+        "rotationY": 2.830698915719986,
+        "scale": [
+          1.8605937480926513,
+          1,
+          1.8605937480926513
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-16",
+      "asset": "paint-splat-cyan",
+      "transform": {
+        "position": [
+          -36.750378131866455,
+          0.02,
+          -4.073468446731567
+        ],
+        "rotationY": 0.34053055286407474,
+        "scale": [
+          3.378572201728821,
+          1,
+          3.378572201728821
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-17",
+      "asset": "paint-splat-magenta",
+      "transform": {
+        "position": [
+          7.467763543128967,
+          0.02,
+          -9.352252125740051
+        ],
+        "rotationY": 5.729805229902268,
+        "scale": [
+          1.6352694630622864,
+          1,
+          1.6352694630622864
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-18",
+      "asset": "paint-splat-cyan",
+      "transform": {
+        "position": [
+          -29.503989219665527,
+          0.02,
+          11.499205112457275
+        ],
+        "rotationY": 5.962751226425171,
+        "scale": [
+          3.942280340194702,
+          1,
+          3.942280340194702
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-19",
+      "asset": "paint-splat-magenta",
+      "transform": {
+        "position": [
+          21.62033748626709,
+          0.02,
+          3.735617160797119
+        ],
+        "rotationY": 6.253796464651823,
+        "scale": [
+          1.4239369869232177,
+          1,
+          1.4239369869232177
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-20",
+      "asset": "paint-splat-cyan",
+      "transform": {
+        "position": [
+          -12.263590812683105,
+          0.02,
+          11.526272296905518
+        ],
+        "rotationY": 2.097648149728775,
+        "scale": [
+          1.832768201828003,
+          1,
+          1.832768201828003
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-21",
+      "asset": "paint-splat-magenta",
+      "transform": {
+        "position": [
+          8.143970966339111,
+          0.02,
+          1.2463533282279968
+        ],
+        "rotationY": 1.2242417335510254,
+        "scale": [
+          2.0984021186828614,
+          1,
+          2.0984021186828614
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-22",
+      "asset": "paint-splat-cyan",
+      "transform": {
+        "position": [
+          -22.056933522224426,
+          0.02,
+          10.872629404067993
+        ],
+        "rotationY": 2.55756772518158,
+        "scale": [
+          3.809214186668396,
+          1,
+          3.809214186668396
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-23",
+      "asset": "paint-splat-magenta",
+      "transform": {
+        "position": [
+          22.05153799057007,
+          0.02,
+          -3.7393510341644287
+        ],
+        "rotationY": 4.404059348106385,
+        "scale": [
+          3.174403929710388,
+          1,
+          3.174403929710388
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-24",
+      "asset": "paint-splat-cyan",
+      "transform": {
+        "position": [
+          -37.77180624008179,
+          0.02,
+          12.648979187011719
+        ],
+        "rotationY": 3.997779235839844,
+        "scale": [
+          2.109653091430664,
+          1,
+          2.109653091430664
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-25",
+      "asset": "paint-splat-magenta",
+      "transform": {
+        "position": [
+          30.74126434326172,
+          0.02,
+          -17.701011657714844
+        ],
+        "rotationY": 6.186015696525574,
+        "scale": [
+          3.5359120190143587,
+          1,
+          3.5359120190143587
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-26",
+      "asset": "paint-splat-cyan",
+      "transform": {
+        "position": [
+          -12.807456970214844,
+          0.02,
+          1.4009628295898438
+        ],
+        "rotationY": 5.794597639832646,
+        "scale": [
+          1.4074039459228516,
+          1,
+          1.4074039459228516
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-27",
+      "asset": "paint-splat-magenta",
+      "transform": {
+        "position": [
+          18.94739818572998,
+          0.02,
+          -10.45070219039917
+        ],
+        "rotationY": 5.944215227365494,
+        "scale": [
+          1.8487761974334715,
+          1,
+          1.8487761974334715
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-28",
+      "asset": "paint-splat-cyan",
+      "transform": {
+        "position": [
+          -21.714008808135986,
+          0.02,
+          -1.7567455768585205
+        ],
+        "rotationY": 0.7826320695877076,
+        "scale": [
+          3.1154668092727658,
+          1,
+          3.1154668092727658
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-29",
+      "asset": "paint-splat-magenta",
+      "transform": {
+        "position": [
+          12.410031914710999,
+          0.02,
+          -8.174020767211914
+        ],
+        "rotationY": 0.09118366241455078,
+        "scale": [
+          2.2159093856811523,
+          1,
+          2.2159093856811523
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-30",
+      "asset": "paint-splat-cyan",
+      "transform": {
+        "position": [
+          -33.92664812505245,
+          0.02,
+          -12.102008819580078
+        ],
+        "rotationY": 0.6545901441574097,
+        "scale": [
+          3.461302262544632,
+          1,
+          3.461302262544632
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-31",
+      "asset": "paint-splat-magenta",
+      "transform": {
+        "position": [
+          28.05119001865387,
+          0.02,
+          -1.5854754447937012
+        ],
+        "rotationY": 3.5616413402557376,
+        "scale": [
+          3.8924537181854246,
+          1,
+          3.8924537181854246
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-32",
+      "asset": "paint-splat-cyan",
+      "transform": {
+        "position": [
+          -6.7836103439331055,
+          0.02,
+          4.411771714687347
+        ],
+        "rotationY": 0.5473872041702271,
+        "scale": [
+          3.6957740068435667,
+          1,
+          3.6957740068435667
+        ]
+      },
+      "lane": "fountain",
+      "side": "cyan",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "splat-33",
+      "asset": "paint-splat-magenta",
+      "transform": {
+        "position": [
+          23.323747277259827,
+          0.02,
+          9.923572540283203
+        ],
+        "rotationY": 5.485956497192383,
+        "scale": [
+          2.7037391662597656,
+          1,
+          2.7037391662597656
+        ]
+      },
+      "lane": "fountain",
+      "side": "magenta",
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "ocean",
+      "asset": "ocean",
+      "transform": {
+        "position": [
+          0,
+          -0.4,
+          0
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "neutral",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": false,
+      "backdrop": true
+    },
+    {
+      "id": "seawall",
+      "asset": "seawall",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -31
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "neutral",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": true
+    },
+    {
+      "id": "dock",
+      "asset": "dock",
+      "transform": {
+        "position": [
+          4,
+          0,
+          -35
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "neutral",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": true
+    },
+    {
+      "id": "yacht",
+      "asset": "yacht",
+      "transform": {
+        "position": [
+          9,
+          0,
+          -42
+        ],
+        "rotationY": 0.18,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "waterfront",
+      "side": "neutral",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": true
+    },
+    {
+      "id": "palm-0",
+      "asset": "palm",
+      "transform": {
+        "position": [
+          -49,
+          0,
+          -20
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": true
+    },
+    {
+      "id": "palm-1",
+      "asset": "palm",
+      "transform": {
+        "position": [
+          -47,
+          0,
+          -6
+        ],
+        "rotationY": 1.1,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": true
+    },
+    {
+      "id": "palm-2",
+      "asset": "palm",
+      "transform": {
+        "position": [
+          -50,
+          0,
+          12
+        ],
+        "rotationY": 2.2,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": true
+    },
+    {
+      "id": "palm-3",
+      "asset": "palm",
+      "transform": {
+        "position": [
+          49,
+          0,
+          -18
+        ],
+        "rotationY": 3.3000000000000003,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": true
+    },
+    {
+      "id": "palm-4",
+      "asset": "palm",
+      "transform": {
+        "position": [
+          48,
+          0,
+          4
+        ],
+        "rotationY": 4.4,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": true
+    },
+    {
+      "id": "palm-5",
+      "asset": "palm",
+      "transform": {
+        "position": [
+          50,
+          0,
+          16
+        ],
+        "rotationY": 5.5,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": true
+    },
+    {
+      "id": "floodlight-0",
+      "asset": "floodlight",
+      "transform": {
+        "position": [
+          -45,
+          0,
+          -26
+        ],
+        "rotationY": 0.523919347685199,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "floodlight-1",
+      "asset": "floodlight",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -34
+        ],
+        "rotationY": 1.5707963267948966,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "floodlight-2",
+      "asset": "floodlight",
+      "transform": {
+        "position": [
+          45,
+          0,
+          -26
+        ],
+        "rotationY": 2.617673305904594,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "floodlight-3",
+      "asset": "floodlight",
+      "transform": {
+        "position": [
+          -45,
+          0,
+          24
+        ],
+        "rotationY": -0.4899573262537283,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "floodlight-4",
+      "asset": "floodlight",
+      "transform": {
+        "position": [
+          45,
+          0,
+          24
+        ],
+        "rotationY": -2.651635327336065,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": false
+    },
+    {
+      "id": "skyline-far",
+      "asset": "skyline-far",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -2400
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": false,
+      "backdrop": true
+    },
+    {
+      "id": "skyline-near",
+      "asset": "skyline-near",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -2000
+        ],
+        "rotationY": 0,
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "lane": "fountain",
+      "side": "neutral",
+      "inaccessible": true,
+      "paintReceiver": false,
+      "castShadow": false,
+      "backdrop": true
+    }
+  ],
+  "colliders": [
+    {
+      "id": "villa-cyan-body",
+      "shape": {
+        "kind": "box",
+        "x": -20.0,
+        "z": -16,
+        "hx": 10,
+        "hz": 7
+      },
+      "height": 8.4,
+      "cover": "full",
+      "placement": "villa-cyan"
+    },
+    {
+      "id": "villa-magenta-body",
+      "shape": {
+        "kind": "box",
+        "x": 20.0,
+        "z": -16,
+        "hx": 10.5,
+        "hz": 7
+      },
+      "height": 8.4,
+      "cover": "full",
+      "placement": "villa-magenta"
+    },
+    {
+      "id": "fountain-basin",
+      "shape": {
+        "kind": "circle",
+        "x": 0,
+        "z": 1,
+        "r": 4.6
+      },
+      "height": 1,
+      "cover": "low",
+      "placement": "fountain"
+    },
+    {
+      "id": "chrome-sphere-body",
+      "shape": {
+        "kind": "circle",
+        "x": 12,
+        "z": -8,
+        "r": 2.6
+      },
+      "height": 3,
+      "cover": "medium",
+      "placement": "chrome-sphere"
+    },
+    {
+      "id": "planter-0-body",
+      "shape": {
+        "kind": "circle",
+        "x": -10,
+        "z": -6,
+        "r": 2.3
+      },
+      "height": 1.25,
+      "cover": "low",
+      "placement": "planter-0"
+    },
+    {
+      "id": "planter-1-body",
+      "shape": {
+        "kind": "circle",
+        "x": 10.5,
+        "z": -5,
+        "r": 2.3
+      },
+      "height": 1.25,
+      "cover": "low",
+      "placement": "planter-1"
+    },
+    {
+      "id": "planter-2-body",
+      "shape": {
+        "kind": "circle",
+        "x": -12,
+        "z": 9,
+        "r": 2.3
+      },
+      "height": 1.25,
+      "cover": "low",
+      "placement": "planter-2"
+    },
+    {
+      "id": "planter-3-body",
+      "shape": {
+        "kind": "circle",
+        "x": 11,
+        "z": 9.5,
+        "r": 2.3
+      },
+      "height": 1.25,
+      "cover": "low",
+      "placement": "planter-3"
+    },
+    {
+      "id": "planter-4-body",
+      "shape": {
+        "kind": "box",
+        "x": -4,
+        "z": -9,
+        "hx": 2.6,
+        "hz": 1.1
+      },
+      "height": 1.25,
+      "cover": "low",
+      "placement": "planter-4"
+    },
+    {
+      "id": "planter-5-body",
+      "shape": {
+        "kind": "box",
+        "x": 5,
+        "z": 13,
+        "hx": 2.6,
+        "hz": 1.1
+      },
+      "height": 1.25,
+      "cover": "low",
+      "placement": "planter-5"
+    },
+    {
+      "id": "dome-0-body",
+      "shape": {
+        "kind": "circle",
+        "x": -30,
+        "z": -4,
+        "r": 2.3
+      },
+      "height": 2,
+      "cover": "medium",
+      "placement": "dome-0"
+    },
+    {
+      "id": "dome-1-body",
+      "shape": {
+        "kind": "circle",
+        "x": -27,
+        "z": 10,
+        "r": 2.3
+      },
+      "height": 2,
+      "cover": "medium",
+      "placement": "dome-1"
+    },
+    {
+      "id": "dome-2-body",
+      "shape": {
+        "kind": "circle",
+        "x": -18,
+        "z": 16,
+        "r": 2.3
+      },
+      "height": 2,
+      "cover": "medium",
+      "placement": "dome-2"
+    },
+    {
+      "id": "dome-3-body",
+      "shape": {
+        "kind": "circle",
+        "x": 29,
+        "z": -3,
+        "r": 2.3
+      },
+      "height": 2,
+      "cover": "medium",
+      "placement": "dome-3"
+    },
+    {
+      "id": "dome-4-body",
+      "shape": {
+        "kind": "circle",
+        "x": 26,
+        "z": 11,
+        "r": 2.3
+      },
+      "height": 2,
+      "cover": "medium",
+      "placement": "dome-4"
+    },
+    {
+      "id": "dome-5-body",
+      "shape": {
+        "kind": "circle",
+        "x": 17,
+        "z": 17,
+        "r": 2.3
+      },
+      "height": 2,
+      "cover": "medium",
+      "placement": "dome-5"
+    },
+    {
+      "id": "dome-6-body",
+      "shape": {
+        "kind": "circle",
+        "x": -16,
+        "z": -2,
+        "r": 2.3
+      },
+      "height": 2,
+      "cover": "medium",
+      "placement": "dome-6"
+    },
+    {
+      "id": "dome-7-body",
+      "shape": {
+        "kind": "circle",
+        "x": 15,
+        "z": 2,
+        "r": 2.3
+      },
+      "height": 2,
+      "cover": "medium",
+      "placement": "dome-7"
+    },
+    {
+      "id": "block-0-body",
+      "shape": {
+        "kind": "box",
+        "x": -34,
+        "z": 4,
+        "hx": 2.1,
+        "hz": 2.6
+      },
+      "height": 2.5,
+      "cover": "full",
+      "placement": "block-0"
+    },
+    {
+      "id": "block-1-body",
+      "shape": {
+        "kind": "box",
+        "x": -22,
+        "z": -9,
+        "hx": 2.1,
+        "hz": 2.6
+      },
+      "height": 2.5,
+      "cover": "full",
+      "placement": "block-1"
+    },
+    {
+      "id": "block-2-body",
+      "shape": {
+        "kind": "box",
+        "x": -8,
+        "z": 19,
+        "hx": 2.1,
+        "hz": 2.6
+      },
+      "height": 2.5,
+      "cover": "full",
+      "placement": "block-2"
+    },
+    {
+      "id": "block-3-body",
+      "shape": {
+        "kind": "box",
+        "x": 33,
+        "z": 5,
+        "hx": 2.1,
+        "hz": 2.6
+      },
+      "height": 2.5,
+      "cover": "full",
+      "placement": "block-3"
+    },
+    {
+      "id": "block-4-body",
+      "shape": {
+        "kind": "box",
+        "x": 21,
+        "z": -9,
+        "hx": 2.1,
+        "hz": 2.6
+      },
+      "height": 2.5,
+      "cover": "full",
+      "placement": "block-4"
+    },
+    {
+      "id": "block-5-body",
+      "shape": {
+        "kind": "box",
+        "x": 7,
+        "z": 20,
+        "hx": 2.1,
+        "hz": 2.6
+      },
+      "height": 2.5,
+      "cover": "full",
+      "placement": "block-5"
+    },
+    {
+      "id": "block-6-body",
+      "shape": {
+        "kind": "box",
+        "x": -31,
+        "z": -11,
+        "hx": 2.1,
+        "hz": 2.6
+      },
+      "height": 2.5,
+      "cover": "full",
+      "placement": "block-6"
+    },
+    {
+      "id": "block-7-body",
+      "shape": {
+        "kind": "box",
+        "x": 30,
+        "z": -11,
+        "hx": 2.1,
+        "hz": 2.6
+      },
+      "height": 2.5,
+      "cover": "full",
+      "placement": "block-7"
+    },
+    {
+      "id": "wedge-0-body",
+      "shape": {
+        "kind": "box",
+        "x": -14,
+        "z": 6,
+        "hx": 1.7,
+        "hz": 1.7
+      },
+      "height": 1.7,
+      "cover": "medium",
+      "placement": "wedge-0"
+    },
+    {
+      "id": "wedge-1-body",
+      "shape": {
+        "kind": "box",
+        "x": 13,
+        "z": 6,
+        "hx": 1.7,
+        "hz": 1.7
+      },
+      "height": 1.7,
+      "cover": "medium",
+      "placement": "wedge-1"
+    },
+    {
+      "id": "wedge-2-body",
+      "shape": {
+        "kind": "box",
+        "x": -6,
+        "z": -14,
+        "hx": 1.7,
+        "hz": 1.7
+      },
+      "height": 1.7,
+      "cover": "medium",
+      "placement": "wedge-2"
+    },
+    {
+      "id": "wedge-3-body",
+      "shape": {
+        "kind": "box",
+        "x": 6,
+        "z": -14,
+        "hx": 1.7,
+        "hz": 1.7
+      },
+      "height": 1.7,
+      "cover": "medium",
+      "placement": "wedge-3"
+    },
+    {
+      "id": "ramp-cyan-body",
+      "shape": {
+        "kind": "box",
+        "x": -35,
+        "z": -6,
+        "hx": 3,
+        "hz": 4.2
+      },
+      "height": 2.6,
+      "cover": "full",
+      "placement": "ramp-cyan"
+    },
+    {
+      "id": "can-0-body",
+      "shape": {
+        "kind": "circle",
+        "x": -25,
+        "z": 3,
+        "r": 1.3
+      },
+      "height": 2.7,
+      "cover": "full",
+      "placement": "can-0"
+    },
+    {
+      "id": "can-1-body",
+      "shape": {
+        "kind": "circle",
+        "x": 24,
+        "z": 3,
+        "r": 1.3
+      },
+      "height": 2.7,
+      "cover": "full",
+      "placement": "can-1"
+    },
+    {
+      "id": "bench-body",
+      "shape": {
+        "kind": "box",
+        "x": -6,
+        "z": 6,
+        "hx": 2.2,
+        "hz": 0.7
+      },
+      "height": 0.7,
+      "cover": "low",
+      "placement": "bench"
+    },
+    {
+      "id": "fence-n-0-body",
+      "shape": {
+        "kind": "box",
+        "x": -37,
+        "z": -28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-n-0"
+    },
+    {
+      "id": "fence-s-0-body",
+      "shape": {
+        "kind": "box",
+        "x": -37,
+        "z": 28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-s-0"
+    },
+    {
+      "id": "fence-n-1-body",
+      "shape": {
+        "kind": "box",
+        "x": -29,
+        "z": -28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-n-1"
+    },
+    {
+      "id": "fence-s-1-body",
+      "shape": {
+        "kind": "box",
+        "x": -29,
+        "z": 28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-s-1"
+    },
+    {
+      "id": "fence-n-2-body",
+      "shape": {
+        "kind": "box",
+        "x": -21,
+        "z": -28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-n-2"
+    },
+    {
+      "id": "fence-s-2-body",
+      "shape": {
+        "kind": "box",
+        "x": -21,
+        "z": 28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-s-2"
+    },
+    {
+      "id": "fence-n-3-body",
+      "shape": {
+        "kind": "box",
+        "x": -13,
+        "z": -28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-n-3"
+    },
+    {
+      "id": "fence-s-3-body",
+      "shape": {
+        "kind": "box",
+        "x": -13,
+        "z": 28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-s-3"
+    },
+    {
+      "id": "fence-n-4-body",
+      "shape": {
+        "kind": "box",
+        "x": -5,
+        "z": -28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-n-4"
+    },
+    {
+      "id": "fence-s-4-body",
+      "shape": {
+        "kind": "box",
+        "x": -5,
+        "z": 28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-s-4"
+    },
+    {
+      "id": "fence-n-5-body",
+      "shape": {
+        "kind": "box",
+        "x": 3,
+        "z": -28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-n-5"
+    },
+    {
+      "id": "fence-s-5-body",
+      "shape": {
+        "kind": "box",
+        "x": 3,
+        "z": 28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-s-5"
+    },
+    {
+      "id": "fence-n-6-body",
+      "shape": {
+        "kind": "box",
+        "x": 11,
+        "z": -28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-n-6"
+    },
+    {
+      "id": "fence-s-6-body",
+      "shape": {
+        "kind": "box",
+        "x": 11,
+        "z": 28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-s-6"
+    },
+    {
+      "id": "fence-n-7-body",
+      "shape": {
+        "kind": "box",
+        "x": 19,
+        "z": -28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-n-7"
+    },
+    {
+      "id": "fence-s-7-body",
+      "shape": {
+        "kind": "box",
+        "x": 19,
+        "z": 28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-s-7"
+    },
+    {
+      "id": "fence-n-8-body",
+      "shape": {
+        "kind": "box",
+        "x": 27,
+        "z": -28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-n-8"
+    },
+    {
+      "id": "fence-s-8-body",
+      "shape": {
+        "kind": "box",
+        "x": 27,
+        "z": 28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-s-8"
+    },
+    {
+      "id": "fence-n-9-body",
+      "shape": {
+        "kind": "box",
+        "x": 35,
+        "z": -28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-n-9"
+    },
+    {
+      "id": "fence-s-9-body",
+      "shape": {
+        "kind": "box",
+        "x": 35,
+        "z": 28,
+        "hx": 4,
+        "hz": 0.8
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-s-9"
+    },
+    {
+      "id": "fence-w-0-body",
+      "shape": {
+        "kind": "box",
+        "x": -41,
+        "z": -24,
+        "hx": 0.8,
+        "hz": 4
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-w-0"
+    },
+    {
+      "id": "fence-e-0-body",
+      "shape": {
+        "kind": "box",
+        "x": 41,
+        "z": -24,
+        "hx": 0.8,
+        "hz": 4
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-e-0"
+    },
+    {
+      "id": "fence-w-1-body",
+      "shape": {
+        "kind": "box",
+        "x": -41,
+        "z": -16,
+        "hx": 0.8,
+        "hz": 4
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-w-1"
+    },
+    {
+      "id": "fence-e-1-body",
+      "shape": {
+        "kind": "box",
+        "x": 41,
+        "z": -16,
+        "hx": 0.8,
+        "hz": 4
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-e-1"
+    },
+    {
+      "id": "fence-w-2-body",
+      "shape": {
+        "kind": "box",
+        "x": -41,
+        "z": -8,
+        "hx": 0.8,
+        "hz": 4
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-w-2"
+    },
+    {
+      "id": "fence-e-2-body",
+      "shape": {
+        "kind": "box",
+        "x": 41,
+        "z": -8,
+        "hx": 0.8,
+        "hz": 4
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-e-2"
+    },
+    {
+      "id": "fence-w-3-body",
+      "shape": {
+        "kind": "box",
+        "x": -41,
+        "z": 0,
+        "hx": 0.8,
+        "hz": 4
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-w-3"
+    },
+    {
+      "id": "fence-e-3-body",
+      "shape": {
+        "kind": "box",
+        "x": 41,
+        "z": 0,
+        "hx": 0.8,
+        "hz": 4
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-e-3"
+    },
+    {
+      "id": "fence-w-4-body",
+      "shape": {
+        "kind": "box",
+        "x": -41,
+        "z": 8,
+        "hx": 0.8,
+        "hz": 4
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-w-4"
+    },
+    {
+      "id": "fence-e-4-body",
+      "shape": {
+        "kind": "box",
+        "x": 41,
+        "z": 8,
+        "hx": 0.8,
+        "hz": 4
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-e-4"
+    },
+    {
+      "id": "fence-w-5-body",
+      "shape": {
+        "kind": "box",
+        "x": -41,
+        "z": 16,
+        "hx": 0.8,
+        "hz": 4
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-w-5"
+    },
+    {
+      "id": "fence-e-5-body",
+      "shape": {
+        "kind": "box",
+        "x": 41,
+        "z": 16,
+        "hx": 0.8,
+        "hz": 4
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-e-5"
+    },
+    {
+      "id": "fence-w-6-body",
+      "shape": {
+        "kind": "box",
+        "x": -41,
+        "z": 24,
+        "hx": 0.8,
+        "hz": 4
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-w-6"
+    },
+    {
+      "id": "fence-e-6-body",
+      "shape": {
+        "kind": "box",
+        "x": 41,
+        "z": 24,
+        "hx": 0.8,
+        "hz": 4
+      },
+      "height": 1.9,
+      "cover": "medium",
+      "placement": "fence-e-6"
+    }
+  ],
+  "spawns": {
+    "cyan": [
+      {
+        "id": "spawn-cyan-0",
+        "x": -27.2,
+        "z": 20.5,
+        "facing": 0
+      },
+      {
+        "id": "spawn-cyan-1",
+        "x": -26,
+        "z": 22,
+        "facing": 0
+      },
+      {
+        "id": "spawn-cyan-2",
+        "x": -24.8,
+        "z": 23.5,
+        "facing": 0
+      },
+      {
+        "id": "spawn-cyan-3",
+        "x": -23.6,
+        "z": 25,
+        "facing": 0
+      }
+    ],
+    "magenta": [
+      {
+        "id": "spawn-magenta-0",
+        "x": 27.2,
+        "z": 20.5,
+        "facing": 0
+      },
+      {
+        "id": "spawn-magenta-1",
+        "x": 26,
+        "z": 22,
+        "facing": 0
+      },
+      {
+        "id": "spawn-magenta-2",
+        "x": 24.8,
+        "z": 23.5,
+        "facing": 0
+      },
+      {
+        "id": "spawn-magenta-3",
+        "x": 23.6,
+        "z": 25,
+        "facing": 0
+      }
+    ]
+  },
+  "navAnchors": [
+    {
+      "id": "nav-0",
+      "x": -36,
+      "z": -22,
+      "lane": "waterfront",
+      "role": "route"
+    },
+    {
+      "id": "nav-4",
+      "x": -8,
+      "z": -22,
+      "lane": "waterfront",
+      "role": "route"
+    },
+    {
+      "id": "nav-5",
+      "x": -1,
+      "z": -22,
+      "lane": "waterfront",
+      "role": "route"
+    },
+    {
+      "id": "nav-6",
+      "x": 6,
+      "z": -22,
+      "lane": "waterfront",
+      "role": "route"
+    },
+    {
+      "id": "nav-10",
+      "x": 34,
+      "z": -22,
+      "lane": "waterfront",
+      "role": "route"
+    },
+    {
+      "id": "nav-11",
+      "x": -36,
+      "z": -16.5,
+      "lane": "waterfront",
+      "role": "route"
+    },
+    {
+      "id": "nav-15",
+      "x": -8,
+      "z": -16.5,
+      "lane": "waterfront",
+      "role": "route"
+    },
+    {
+      "id": "nav-16",
+      "x": -1,
+      "z": -16.5,
+      "lane": "waterfront",
+      "role": "route"
+    },
+    {
+      "id": "nav-17",
+      "x": 6,
+      "z": -16.5,
+      "lane": "waterfront",
+      "role": "route"
+    },
+    {
+      "id": "nav-21",
+      "x": 34,
+      "z": -16.5,
+      "lane": "waterfront",
+      "role": "route"
+    },
+    {
+      "id": "nav-22",
+      "x": -36,
+      "z": -11,
+      "lane": "waterfront",
+      "role": "route"
+    },
+    {
+      "id": "nav-26",
+      "x": -8,
+      "z": -11,
+      "lane": "waterfront",
+      "role": "route"
+    },
+    {
+      "id": "nav-27",
+      "x": -1,
+      "z": -11,
+      "lane": "waterfront",
+      "role": "route"
+    },
+    {
+      "id": "nav-28",
+      "x": 6,
+      "z": -11,
+      "lane": "waterfront",
+      "role": "route"
+    },
+    {
+      "id": "nav-32",
+      "x": 34,
+      "z": -11,
+      "lane": "waterfront",
+      "role": "route"
+    },
+    {
+      "id": "nav-35",
+      "x": -22,
+      "z": -5.5,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-36",
+      "x": -15,
+      "z": -5.5,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-38",
+      "x": -1,
+      "z": -5.5,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-39",
+      "x": 6,
+      "z": -5.5,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-41",
+      "x": 20,
+      "z": -5.5,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-42",
+      "x": 27,
+      "z": -5.5,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-43",
+      "x": 34,
+      "z": -5.5,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-44",
+      "x": -36,
+      "z": 0,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-45",
+      "x": -29,
+      "z": 0,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-46",
+      "x": -22,
+      "z": 0,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-48",
+      "x": -8,
+      "z": 0,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-50",
+      "x": 6,
+      "z": 0,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-52",
+      "x": 20,
+      "z": 0,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-53",
+      "x": 27,
+      "z": 0,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-54",
+      "x": 34,
+      "z": 0,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-56",
+      "x": -29,
+      "z": 5.5,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-57",
+      "x": -22,
+      "z": 5.5,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-61",
+      "x": 6,
+      "z": 5.5,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-63",
+      "x": 20,
+      "z": 5.5,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-64",
+      "x": 27,
+      "z": 5.5,
+      "lane": "fountain",
+      "role": "route"
+    },
+    {
+      "id": "nav-66",
+      "x": -36,
+      "z": 11,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-68",
+      "x": -22,
+      "z": 11,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-69",
+      "x": -15,
+      "z": 11,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-70",
+      "x": -8,
+      "z": 11,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-71",
+      "x": -1,
+      "z": 11,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-72",
+      "x": 6,
+      "z": 11,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-74",
+      "x": 20,
+      "z": 11,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-76",
+      "x": 34,
+      "z": 11,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-77",
+      "x": -36,
+      "z": 16.5,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-78",
+      "x": -29,
+      "z": 16.5,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-79",
+      "x": -22,
+      "z": 16.5,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-80",
+      "x": -15,
+      "z": 16.5,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-82",
+      "x": -1,
+      "z": 16.5,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-83",
+      "x": 6,
+      "z": 16.5,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-84",
+      "x": 13,
+      "z": 16.5,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-85",
+      "x": 20,
+      "z": 16.5,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-86",
+      "x": 27,
+      "z": 16.5,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-87",
+      "x": 34,
+      "z": 16.5,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-88",
+      "x": -36,
+      "z": 22,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-89",
+      "x": -29,
+      "z": 22,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-90",
+      "x": -22,
+      "z": 22,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-91",
+      "x": -15,
+      "z": 22,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-93",
+      "x": -1,
+      "z": 22,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-95",
+      "x": 13,
+      "z": 22,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-96",
+      "x": 20,
+      "z": 22,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-97",
+      "x": 27,
+      "z": 22,
+      "lane": "party",
+      "role": "route"
+    },
+    {
+      "id": "nav-98",
+      "x": 34,
+      "z": 22,
+      "lane": "party",
+      "role": "route"
+    }
+  ],
+  "pickups": [
+    {
+      "id": "node-fountain",
+      "kind": "sponsor-node",
+      "x": 0,
+      "z": 1,
+      "activeAtSeconds": [
+        30,
+        65
+      ]
+    },
+    {
+      "id": "node-waterfront",
+      "kind": "sponsor-node",
+      "x": 0,
+      "z": -22,
+      "activeAtSeconds": [
+        30,
+        65
+      ]
+    }
+  ],
+  "paintableSurfaces": [
+    {
+      "id": "surface-court",
+      "kind": "grid",
+      "bounds": {
+        "minX": -41,
+        "maxX": 41,
+        "minZ": -28,
+        "maxZ": 28
+      },
+      "material": "terrazzo"
+    }
+  ],
+  "scenicZones": [
+    {
+      "id": "zone-villa-cyan-upper",
+      "reason": "Villa upper storey is scenery; there is no route up.",
+      "bounds": {
+        "minX": -34,
+        "maxX": -14,
+        "minZ": -23,
+        "maxZ": -9
+      },
+      "minY": 4.2
+    },
+    {
+      "id": "zone-villa-magenta-upper",
+      "reason": "Villa upper storey is scenery; there is no route up.",
+      "bounds": {
+        "minX": 13.5,
+        "maxX": 34.5,
+        "minZ": -23,
+        "maxZ": -9
+      },
+      "minY": 4.2
+    },
+    {
+      "id": "zone-bridge",
+      "reason": "Decorative glass bridge between the villas. Cannot be entered.",
+      "bounds": {
+        "minX": -14,
+        "maxX": 14,
+        "minZ": -19,
+        "maxZ": -15
+      },
+      "minY": 4.5
+    },
+    {
+      "id": "zone-bay",
+      "reason": "Waterfront scenery beyond the north boundary.",
+      "bounds": {
+        "minX": -300,
+        "maxX": 300,
+        "minZ": -300,
+        "maxZ": -28
+      }
+    }
+  ],
+  "waterfront": {
+    "boundaryZ": -28,
+    "seawallZ": -31,
+    "polygon": [
+      {
+        "x": -300,
+        "z": -31
+      },
+      {
+        "x": 300,
+        "z": -31
+      },
+      {
+        "x": 300,
+        "z": -300
+      },
+      {
+        "x": -300,
+        "z": -300
+      }
+    ]
+  }
+}

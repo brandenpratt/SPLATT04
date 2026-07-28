@@ -24,6 +24,10 @@ export function TouchControls({ input, boostReady, onBoost }: Props) {
 
   const bind = (stick: StickState) => ({
     onPointerDown: (event: React.PointerEvent<HTMLDivElement>) => {
+      // A narrow desktop window shows these zones too (so responsive-mode testing works),
+      // but a mouse must never grab a virtual stick — it would hijack aim from the
+      // ground-plane cursor. Only touch and pen drive the sticks.
+      if (event.pointerType === 'mouse') return;
       event.currentTarget.setPointerCapture(event.pointerId);
       input.beginStick(stick, event.pointerId, event.clientX, event.clientY);
       pump();

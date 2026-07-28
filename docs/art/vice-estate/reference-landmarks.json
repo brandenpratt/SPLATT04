@@ -1,0 +1,235 @@
+{
+  "reference": "docs/references/vice-estate-master.png",
+  "referenceSize": [
+    1672,
+    941
+  ],
+  "notes": [
+    "`image` is a normalized (u, v) coordinate read off the estate master, origin top-left.",
+    "`world` is the matching point in game space (metres, Y-up, -Z away from the camera).",
+    "Anchors are deliberately limited to large unambiguous structure. Paint, players, palm",
+    "fronds, shadows and small props are excluded \u2014 they are too variable to fit a camera to.",
+    "`kind` separates the structural anchors that the camera acceptance gate is scored on",
+    "from context anchors that are reported but not scored.",
+    "The two near perimeter corners are outside the reference frame: the estate is cropped at the bottom. They are kept as context anchors so the omission is explicit, but the camera is never scored on them.",
+    "The camera is fitted only to anchors whose world position is structurally certain (arena footprint corners, fountain centre, horizon). Villa, bridge and orb anchors are proxy geometry the reference disagrees with, so their residuals are read as a correction list for Phase A rather than fed back into the camera.",
+    "The far perimeter corners are hidden behind the villas in the reference; what is visible at the frame edges is side fence at unknown depth. They are annotated as best-effort and must not be treated as certain constraints \u2014 fitting a camera to them alone produced a self-consistent but wrong result."
+  ],
+  "anchors": [
+    {
+      "id": "perimeter-near-left",
+      "kind": "context",
+      "image": [
+        0.0628,
+        0.9086
+      ],
+      "world": [
+        -41.0,
+        2.0,
+        28.0
+      ],
+      "description": "Near-left perimeter fence corner, outer top edge \u2014 falls below the reference frame edge; recorded for completeness but excluded from camera scoring",
+      "offFrame": true
+    },
+    {
+      "id": "perimeter-near-right",
+      "kind": "context",
+      "image": [
+        0.8702,
+        0.9267
+      ],
+      "world": [
+        41.0,
+        2.0,
+        28.0
+      ],
+      "description": "Near-right perimeter fence corner, outer top edge \u2014 falls below the reference frame edge; recorded for completeness but excluded from camera scoring",
+      "offFrame": true
+    },
+    {
+      "id": "perimeter-far-left",
+      "kind": "structural",
+      "image": [
+        0.015,
+        0.3348
+      ],
+      "world": [
+        -41.0,
+        2.0,
+        -28.0
+      ],
+      "description": "Far-left perimeter fence corner, outer top edge"
+    },
+    {
+      "id": "perimeter-far-right",
+      "kind": "structural",
+      "image": [
+        0.988,
+        0.4251
+      ],
+      "world": [
+        41.0,
+        2.0,
+        -28.0
+      ],
+      "description": "Far-right perimeter fence corner, outer top edge"
+    },
+    {
+      "id": "villa-west-roof-outer-left",
+      "kind": "structural",
+      "image": [
+        0.1752,
+        0.2126
+      ],
+      "world": [
+        -29.3,
+        12.175,
+        -7.675
+      ],
+      "description": "West villa roof, front-left top corner"
+    },
+    {
+      "id": "villa-west-roof-outer-right",
+      "kind": "structural",
+      "image": [
+        0.4126,
+        0.1647
+      ],
+      "world": [
+        -10.7,
+        12.175,
+        -7.675
+      ],
+      "description": "West villa roof, front-right top corner"
+    },
+    {
+      "id": "villa-east-roof-outer-left",
+      "kind": "structural",
+      "image": [
+        0.6777,
+        0.2126
+      ],
+      "world": [
+        10.2,
+        12.175,
+        -8.375
+      ],
+      "description": "East villa roof, front-left top corner"
+    },
+    {
+      "id": "villa-east-roof-outer-right",
+      "kind": "structural",
+      "image": [
+        0.936,
+        0.2551
+      ],
+      "world": [
+        29.8,
+        12.175,
+        -8.375
+      ],
+      "description": "East villa roof, front-right top corner"
+    },
+    {
+      "id": "fountain-center",
+      "kind": "structural",
+      "image": [
+        0.5114,
+        0.6376
+      ],
+      "world": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "description": "Chrome fountain basin centre, water level"
+    },
+    {
+      "id": "chrome-orb-center",
+      "kind": "structural",
+      "image": [
+        0.61,
+        0.3879
+      ],
+      "world": [
+        12.0,
+        2.5,
+        -8.0
+      ],
+      "description": "Chrome orb centre on its lit dais"
+    },
+    {
+      "id": "bridge-attach-left",
+      "kind": "structural",
+      "image": [
+        0.4277,
+        0.2657
+      ],
+      "world": [
+        -11.0,
+        8.5,
+        -17.0
+      ],
+      "description": "Glass bridge, west attachment"
+    },
+    {
+      "id": "bridge-attach-right",
+      "kind": "structural",
+      "image": [
+        0.6609,
+        0.2848
+      ],
+      "world": [
+        11.0,
+        8.5,
+        -17.0
+      ],
+      "description": "Glass bridge, east attachment"
+    },
+    {
+      "id": "dock-end",
+      "kind": "context",
+      "image": [
+        0.6238,
+        0.136
+      ],
+      "world": [
+        4.0,
+        0.6,
+        -46.0
+      ],
+      "description": "Seaward end of the dock"
+    },
+    {
+      "id": "yacht-center",
+      "kind": "context",
+      "image": [
+        0.6609,
+        0.1488
+      ],
+      "world": [
+        9.0,
+        1.5,
+        -42.0
+      ],
+      "description": "Yacht hull centre"
+    },
+    {
+      "id": "horizon-center",
+      "kind": "context",
+      "image": [
+        0.5,
+        0.0659
+      ],
+      "world": null,
+      "horizon": true,
+      "description": "Water/sky transition at image centre. Projected as a point at camera height and effectively infinite range, so it lands on the true horizon line."
+    }
+  ],
+  "acceptance": {
+    "fountainMaxPercentOfDiagonal": 2.0,
+    "villaRoofMaxPercentOfDiagonal": 3.0,
+    "perimeterMaxPercentOfDiagonal": 4.0,
+    "structuralMeanMaxPercentOfDiagonal": 3.0
+  }
+}

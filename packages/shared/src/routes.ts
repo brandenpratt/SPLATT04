@@ -6,6 +6,8 @@ export type Route =
   | { kind: 'arena'; slug: string }
   | { kind: 'crew'; code: string }
   | { kind: 'challenge'; id: string }
+  /** Isolated art-review scene for the Blender kit. Never part of the match flow. */
+  | { kind: 'art-review'; arena: string }
   | { kind: 'unknown' };
 
 /**
@@ -23,6 +25,12 @@ export function parseRoute(pathname: string): Route {
     const slug = (parts[1] ?? '').toLowerCase();
     // Only one arena ships in the prototype; an unknown slug is not a valid arena route.
     if (slug === '' || slug === ARENA_SLUG) return { kind: 'arena', slug: ARENA_SLUG };
+    return { kind: 'unknown' };
+  }
+  if (parts[0] === 'art-review') {
+    const arena = (parts[1] ?? '').toLowerCase();
+    if (arena === '' || arena === 'vice-estate')
+      return { kind: 'art-review', arena: 'vice-estate' };
     return { kind: 'unknown' };
   }
   if (parts[0] === 'c') {
@@ -46,4 +54,8 @@ export function challengeUrl(origin: string, id: string): string {
 
 export function arenaUrl(origin: string, slug: string = ARENA_SLUG): string {
   return `${origin.replace(/\/$/, '')}/play/${slug}`;
+}
+
+export function artReviewUrl(origin: string, arena = 'vice-estate'): string {
+  return `${origin.replace(/\/$/, '')}/art-review/${arena}`;
 }

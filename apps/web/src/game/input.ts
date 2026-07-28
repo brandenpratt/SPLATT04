@@ -1,4 +1,5 @@
 import { MarkerId } from '@splat04/shared';
+import { PITCH_MAX, PITCH_MIN } from './camera.js';
 
 export interface InputSnapshot {
   moveX: number;
@@ -30,12 +31,25 @@ const STICK_RADIUS = 54;
 export class InputController {
   private keys = new Set<string>();
   private mouseDown = false;
-  /** Mouse position projected onto the ground plane, in world units. Written by the scene. */
+  /** World aim point resolved from the camera crosshair each frame, written by the scene. */
   groundX = 0;
   groundZ = 0;
-  /** Normalised aim direction derived from `groundX/groundZ` each frame. */
+  /** Normalised aim direction derived from the aim point each frame. */
   aimWorldX = 1;
   aimWorldZ = 0;
+
+  /**
+   * Mouse-look state. Yaw is the direction the player faces; pitch only tilts the camera
+   * and is folded back into the aim point by the scene's crosshair raycast.
+   */
+  yaw = 0;
+  pitch = -0.22;
+  lookSensitivity = 0.0022;
+  /** True while the pointer is locked to the canvas. */
+  pointerLocked = false;
+  /** Set false for the overhead debug camera, which uses cursor aiming instead. */
+  mouseLookEnabled = true;
+
   private boostLatch = false;
 
   readonly moveStick: StickState = {
@@ -74,6 +88,20 @@ export class InputController {
     const onMouseDown = (event: MouseEvent) => {
       if (!this.enabled || event.button !== 0) return;
       this.mouseDown = true;
+      // Clicking the arena grabs the pointer for mouse-look.
+      if (this.mouseLookEnabled && !this.pointerLocked) this.requestPointerLock(target);
+    };
+
+    const onPointerLockChange = () => {
+      this.pointerLocked = document.pointerLockElement === target;
+      if (!this.pointerLocked) this.mouseDown = false;
+    };
+
+    const onMouseMove = (event: MouseEvent) => {
+      if (!this.enabled || !this.pointerLocked || !this.mouseLookEnabled) return;
+      this.yaw -= event.movementX * this.lookSensitivity;
+      this.pitch -= event.movementY * this.lookSensitivity;
+      this.pitch = Math.max(PITCH_MIN, Math.min(PITCH_MAX, this.pitch));
     };
     const onMouseUp = () => {
       this.mouseDown = false;
@@ -91,6 +119,8 @@ export class InputController {
       }
     };
 
+    document.addEventListener('pointerlockchange', onPointerLockChange);
+    window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('keydown', onKeyDown, { passive: false });
     window.addEventListener('keyup', onKeyUp);
     target.addEventListener('mousedown', onMouseDown);
@@ -101,6 +131,8 @@ export class InputController {
     window.addEventListener('touchmove', onTouchMove, { passive: false });
 
     this.listeners = [
+      () => document.removeEventListener('pointerlockchange', onPointerLockChange),
+      () => window.removeEventListener('mousemove', onMouseMove),
       () => window.removeEventListener('keydown', onKeyDown),
       () => window.removeEventListener('keyup', onKeyUp),
       () => target.removeEventListener('mousedown', onMouseDown),
@@ -116,6 +148,24 @@ export class InputController {
     for (const off of this.listeners) off();
     this.listeners = [];
     this.releaseAll();
+  }
+
+  /** Called when an overlay opens: gameplay must never hold the pointer hostage. */
+  releasePointerLock(): void {
+    if (typeof document !== 'undefined' && document.pointerLockElement) {
+      document.exitPointerLock();
+    }
+    this.pointerLocked = false;
+  }
+
+  private requestPointerLock(target: HTMLElement): void {
+    try {
+      const result = target.requestPointerLock() as unknown as Promise<void> | undefined;
+      if (result && typeof result.catch === 'function') result.catch(() => {});
+    } catch {
+      // Pointer lock can be refused (iframes, user gesture rules). Aim still works from
+      // the last known yaw, so this is never fatal.
+    }
   }
 
   releaseAll(): void {
@@ -160,16 +210,33 @@ export class InputController {
   // --- per-frame snapshot --------------------------------------------------
 
   sample(): InputSnapshot {
-    let moveX = 0;
-    let moveZ = 0;
-    if (this.keys.has('KeyA') || this.keys.has('ArrowLeft')) moveX -= 1;
-    if (this.keys.has('KeyD') || this.keys.has('ArrowRight')) moveX += 1;
-    if (this.keys.has('KeyW') || this.keys.has('ArrowUp')) moveZ -= 1;
-    if (this.keys.has('KeyS') || this.keys.has('ArrowDown')) moveZ += 1;
+    // Local intent first: forward/back and strafe, relative to where the camera looks.
+    let forward = 0;
+    let strafe = 0;
+    if (this.keys.has('KeyA') || this.keys.has('ArrowLeft')) strafe -= 1;
+    if (this.keys.has('KeyD') || this.keys.has('ArrowRight')) strafe += 1;
+    if (this.keys.has('KeyW') || this.keys.has('ArrowUp')) forward += 1;
+    if (this.keys.has('KeyS') || this.keys.has('ArrowDown')) forward -= 1;
 
     if (this.moveStick.active) {
-      moveX = this.moveStick.x;
-      moveZ = this.moveStick.z;
+      strafe = this.moveStick.x;
+      forward = -this.moveStick.z;
+    }
+
+    // Rotate intent into world space. Yaw 0 faces -Z, matching the camera's forward.
+    const sin = Math.sin(this.yaw);
+    const cos = Math.cos(this.yaw);
+    const forwardX = -sin;
+    const forwardZ = -cos;
+    const rightX = cos;
+    const rightZ = -sin;
+
+    let moveX = forwardX * forward + rightX * strafe;
+    let moveZ = forwardZ * forward + rightZ * strafe;
+    const magnitude = Math.hypot(moveX, moveZ);
+    if (magnitude > 1) {
+      moveX /= magnitude;
+      moveZ /= magnitude;
     }
 
     let aimX = this.aimWorldX;
@@ -179,9 +246,10 @@ export class InputController {
     if (this.aimStick.active) {
       const length = Math.hypot(this.aimStick.x, this.aimStick.z);
       if (length > 0.25) {
-        aimX = this.aimStick.x / length;
-        aimZ = this.aimStick.z / length;
-        // Auto-fire while the right stick is engaged in a valid direction.
+        // On touch the right stick steers the camera itself; the scene then resolves the
+        // crosshair exactly as it does for a mouse, so both inputs share one aim path.
+        this.yaw -= this.aimStick.x * 0.045;
+        this.pitch = Math.max(PITCH_MIN, Math.min(PITCH_MAX, this.pitch - this.aimStick.z * 0.02));
         firing = true;
       }
     }
@@ -218,15 +286,15 @@ const GAMEPLAY_KEYS = new Set([
 /**
  * Whether to show the on-screen sticks.
  *
- * Real touch capability is the main signal, but a coarse pointer or a phone-sized
- * viewport counts too — that is what makes the controls appear in a desktop browser's
- * responsive/device mode. `?touch=1` forces them on for testing on any device.
+ * Gated on genuine touch capability or a coarse pointer — a browser's responsive/device
+ * mode reports both, so that is all that is needed to test on a desktop. Deliberately
+ * *not* gated on viewport width: the stick zones cover most of the screen, and a narrow
+ * desktop window is still driven by a mouse. `?touch=1` forces them on for testing.
  */
 export function isTouchDevice(): boolean {
   if (typeof window === 'undefined') return false;
   if (new URLSearchParams(window.location.search).get('touch') === '1') return true;
   const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const coarsePointer = window.matchMedia?.('(pointer: coarse)').matches ?? false;
-  const phoneSized = window.innerWidth <= 820;
-  return hasTouch || coarsePointer || phoneSized;
+  return hasTouch || coarsePointer;
 }

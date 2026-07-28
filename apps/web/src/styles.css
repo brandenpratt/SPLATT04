@@ -5,13 +5,15 @@
 :root {
   --cyan: #12e2f0;
   --magenta: #ff2fa4;
+  /* Toxic lime is reserved for objectives, confirmations and final-ten warnings. */
   --lime: #c8ff2f;
-  --panel: rgba(6, 10, 20, 0.82);
-  --panel-solid: #0a1020;
-  --chrome-hi: #ffffff;
-  --chrome-mid: #b9c4d2;
-  --chrome-lo: #59657a;
-  --ink: #f2f6ff;
+  /* Smoked broadcast panels rather than flat black boxes. */
+  --panel: rgba(10, 13, 20, 0.72);
+  --panel-solid: #0b0e15;
+  --chrome-hi: #dfe5ee;
+  --chrome-mid: #8b94a4;
+  --chrome-lo: #3a4150;
+  --ink: #e6ebf5;
   --shadow: 0 6px 0 rgba(0, 0, 0, 0.45);
   --heading: 'Arial Black', 'Impact', 'Haettenschweiler', 'Trebuchet MS', system-ui, sans-serif;
   --body: 'Trebuchet MS', 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -211,12 +213,15 @@ input:focus-visible {
 .scorebar {
   display: flex;
   align-items: stretch;
-  min-width: min(560px, 92vw);
-  height: 46px;
-  border: 2px solid #050a12;
-  border-radius: 3px;
+  /* Smaller coverage display: the match, not the furniture, is the subject. */
+  min-width: min(400px, 80vw);
+  height: 34px;
+  border: 1px solid var(--chrome-lo);
+  border-radius: 2px;
   overflow: hidden;
-  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.5);
+  background: rgba(10, 13, 20, 0.72);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 .scorebar__side {
@@ -227,22 +232,24 @@ input:focus-visible {
   padding: 0 0.7rem;
   font-family: var(--heading);
   font-style: italic;
-  font-size: 1.35rem;
-  color: #04121a;
+  font-size: 1rem;
+  color: var(--ink);
   transition: flex-grow 0.25s ease;
   overflow: hidden;
-  min-width: 74px;
+  min-width: 62px;
 }
 
 .scorebar__side--cyan {
-  background: linear-gradient(to bottom, #9ff6ff, var(--cyan) 55%, #0796a3);
+  /* A thin light strip, not a solid slab of team colour. */
+  background: linear-gradient(to bottom, rgba(18, 226, 240, 0.16), rgba(18, 226, 240, 0.06));
+  box-shadow: inset 0 -2px 0 var(--cyan);
   justify-content: flex-start;
 }
 
 .scorebar__side--magenta {
-  background: linear-gradient(to bottom, #ffa9d6, var(--magenta) 55%, #b80069);
+  background: linear-gradient(to bottom, rgba(255, 47, 164, 0.16), rgba(255, 47, 164, 0.06));
+  box-shadow: inset 0 -2px 0 var(--magenta);
   justify-content: flex-end;
-  color: #fff;
 }
 
 .scorebar__side--neutral {
@@ -256,11 +263,7 @@ input:focus-visible {
   content: '';
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    -45deg,
-    rgba(255, 255, 255, 0.22) 0 4px,
-    transparent 4px 10px
-  );
+  background: repeating-linear-gradient(-45deg, rgba(18, 226, 240, 0.2) 0 3px, transparent 3px 9px);
   pointer-events: none;
 }
 
@@ -268,22 +271,22 @@ input:focus-visible {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.6px);
-  background-size: 9px 9px;
+  background-image: radial-gradient(rgba(255, 47, 164, 0.3) 1.4px, transparent 1.5px);
+  background-size: 8px 8px;
   pointer-events: none;
 }
 
 .clock {
   font-family: var(--heading);
-  font-size: 1.5rem;
-  padding: 0 0.9rem;
+  font-size: 1.15rem;
+  padding: 0 0.7rem;
   display: flex;
   align-items: center;
-  background: linear-gradient(to bottom, #1a2438, #080d18);
+  background: rgba(4, 6, 11, 0.6);
   color: var(--ink);
-  border-left: 2px solid #050a12;
-  border-right: 2px solid #050a12;
-  min-width: 74px;
+  border-left: 1px solid var(--chrome-lo);
+  border-right: 1px solid var(--chrome-lo);
+  min-width: 58px;
   justify-content: center;
   font-variant-numeric: tabular-nums;
 }
@@ -389,19 +392,21 @@ input:focus-visible {
   transform: translateX(-50%);
   font-family: var(--heading);
   font-style: italic;
-  font-size: clamp(1.6rem, 5.5vw, 3rem);
-  color: var(--lime);
-  text-shadow:
-    0 0 18px rgba(200, 255, 47, 0.65),
-    3px 3px 0 #0a1220;
-  animation: callout-in 0.28s ease-out;
+  font-size: clamp(0.9rem, 2.4vw, 1.35rem);
+  letter-spacing: 0.22em;
+  color: #060a12;
+  background: var(--lime);
+  padding: 0.3rem 1.1rem;
+  border-left: 3px solid #060a12;
+  border-right: 3px solid #060a12;
+  animation: callout-in 0.18s ease-out;
   white-space: nowrap;
   pointer-events: none;
 }
 
 @keyframes callout-in {
   from {
-    transform: translateX(-50%) scale(1.5);
+    transform: translateX(-50%) scaleX(0.3);
     opacity: 0;
   }
 }
@@ -432,17 +437,17 @@ input:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  opacity: 0.5;
+  opacity: 0.3;
   font-family: var(--heading);
-  font-size: 0.6rem;
+  font-size: 0.58rem;
   letter-spacing: 0.1em;
   pointer-events: none;
 }
 
 .sponsor {
-  padding: 0.22rem 0.45rem;
-  background: rgba(6, 10, 20, 0.7);
-  border-left: 3px solid var(--lime);
+  padding: 0.2rem 0.42rem;
+  background: rgba(10, 13, 20, 0.55);
+  border-left: 2px solid var(--chrome-lo);
 }
 
 /* --- overlays ----------------------------------------------------------- */
@@ -924,4 +929,343 @@ input:focus-visible {
   .sponsors {
     display: none;
   }
+}
+
+/* --- crosshair ---------------------------------------------------------- */
+
+.crosshair {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  z-index: 11;
+  pointer-events: none;
+}
+
+.crosshair__dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  margin: -1.5px 0 0 -1.5px;
+  background: var(--lime);
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+}
+
+.crosshair__arm {
+  position: absolute;
+  background: var(--lime);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+}
+
+.crosshair__arm--n,
+.crosshair__arm--s {
+  left: 50%;
+  width: 2px;
+  height: 7px;
+  margin-left: -1px;
+}
+
+.crosshair__arm--n {
+  top: 0;
+}
+.crosshair__arm--s {
+  bottom: 0;
+}
+
+.crosshair__arm--w,
+.crosshair__arm--e {
+  top: 50%;
+  height: 2px;
+  width: 7px;
+  margin-top: -1px;
+}
+
+.crosshair__arm--w {
+  left: 0;
+}
+.crosshair__arm--e {
+  right: 0;
+}
+
+/* Muzzle against cover: the shot would hit that cover, whatever the camera can see. */
+.crosshair--blocked .crosshair__dot,
+.crosshair--blocked .crosshair__arm {
+  background: #ff4d4d;
+}
+
+/* --- suit saturation ---------------------------------------------------- */
+
+.saturation {
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  pointer-events: none;
+  /* Centre stays completely clear — this is a shooter. */
+}
+
+.saturation__edge {
+  position: absolute;
+  opacity: calc(var(--sat) * 0.92);
+  background: var(--sat-colour);
+  filter: blur(6px);
+  transition: opacity 0.25s linear;
+}
+
+.saturation__edge--top,
+.saturation__edge--bottom {
+  left: -4%;
+  right: -4%;
+  height: calc(6% + var(--sat) * 16%);
+  -webkit-mask-image: radial-gradient(120% 100% at 50% 0%, #000 30%, transparent 72%);
+  mask-image: radial-gradient(120% 100% at 50% 0%, #000 30%, transparent 72%);
+}
+
+.saturation__edge--top {
+  top: 0;
+}
+
+.saturation__edge--bottom {
+  bottom: 0;
+  transform: scaleY(-1);
+}
+
+.saturation__edge--left,
+.saturation__edge--right {
+  top: -4%;
+  bottom: -4%;
+  width: calc(5% + var(--sat) * 14%);
+  -webkit-mask-image: radial-gradient(100% 120% at 0% 50%, #000 30%, transparent 72%);
+  mask-image: radial-gradient(100% 120% at 0% 50%, #000 30%, transparent 72%);
+}
+
+.saturation__edge--left {
+  left: 0;
+}
+
+.saturation__edge--right {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.saturation--critical .saturation__edge {
+  animation: soak-pulse 0.7s ease-in-out infinite;
+}
+
+@keyframes soak-pulse {
+  50% {
+    opacity: calc(var(--sat) * 0.62);
+  }
+}
+
+.saturation__warning {
+  position: absolute;
+  left: 50%;
+  bottom: 22%;
+  transform: translateX(-50%);
+  font-family: var(--heading);
+  font-style: italic;
+  font-size: 1rem;
+  letter-spacing: 0.16em;
+  color: #fff;
+  text-shadow:
+    0 0 10px var(--sat-colour),
+    2px 2px 0 #0a1220;
+}
+
+/* --- camera toggle (touch) ---------------------------------------------- */
+
+.camera-toggle {
+  position: absolute;
+  right: calc(0.7rem + var(--safe-right));
+  top: calc(4.2rem + var(--safe-top));
+  z-index: 16;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  font-family: var(--heading);
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: rgba(10, 16, 32, 0.85);
+  border: 2px solid var(--chrome-lo);
+  pointer-events: auto;
+}
+
+/* --- developer panel ---------------------------------------------------- */
+
+.debug {
+  position: absolute;
+  left: calc(0.6rem + var(--safe-left));
+  top: calc(0.6rem + var(--safe-top));
+  z-index: 30;
+  width: 260px;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 0.5rem 0.7rem 0.8rem;
+  background: rgba(4, 8, 16, 0.94);
+  border: 2px solid var(--lime);
+  font-family: ui-monospace, 'Courier New', monospace;
+  font-size: 0.72rem;
+  color: var(--ink);
+}
+
+.debug__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--heading);
+  letter-spacing: 0.1em;
+  color: var(--lime);
+  margin-bottom: 0.4rem;
+}
+
+.debug__close {
+  background: none;
+  border: 0;
+  color: var(--ink);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.debug__section {
+  border-top: 1px solid rgba(200, 255, 47, 0.25);
+  padding-top: 0.4rem;
+  margin-top: 0.4rem;
+}
+
+.debug__title {
+  font-family: var(--heading);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  opacity: 0.75;
+  margin-bottom: 0.25rem;
+}
+
+.debug__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.1rem 0;
+}
+
+.debug__row code {
+  color: var(--lime);
+}
+
+.debug__toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.12rem 0;
+  cursor: pointer;
+}
+
+.debug__buttons,
+.debug__seg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0.3rem 0;
+}
+
+.debug__buttons button,
+.debug__seg button {
+  flex: 1;
+  min-width: 68px;
+  min-height: 30px;
+  padding: 0.25rem 0.35rem;
+  font-family: inherit;
+  font-size: 0.68rem;
+  color: var(--ink);
+  background: rgba(20, 28, 48, 0.9);
+  border: 1px solid var(--chrome-lo);
+}
+
+.debug__seg button[aria-pressed='true'] {
+  background: var(--lime);
+  color: #0b1220;
+}
+
+/* --- art review (isolated Blender kit scene) ---------------------------- */
+
+.art-review {
+  position: fixed;
+  inset: 0;
+  background: #12101a;
+}
+
+.art-review canvas {
+  display: block;
+}
+
+.art-review__hud {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 20;
+  padding: 0.7rem 0.9rem;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(6, 8, 14, 0.85), transparent);
+}
+
+.art-review__title {
+  font-family: var(--heading);
+  font-style: italic;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.art-review__badge {
+  font-family: var(--body);
+  font-style: normal;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  background: var(--lime);
+  color: #0b1220;
+}
+
+/* A blockout must never be mistaken for finished art. */
+.art-review__badge--provisional {
+  background: #ffb020;
+  color: #1a1206;
+}
+
+.art-review__meta {
+  margin-top: 0.35rem;
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  font-family: ui-monospace, 'Courier New', monospace;
+  font-size: 0.72rem;
+  opacity: 0.85;
+}
+
+.art-review__button {
+  pointer-events: auto;
+  font-family: inherit;
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  color: var(--ink);
+  background: rgba(20, 28, 48, 0.9);
+  border: 1px solid var(--chrome-lo);
+}
+
+.art-review__errors {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+  font-family: ui-monospace, 'Courier New', monospace;
+  font-size: 0.7rem;
+  color: #ff8a8a;
 }

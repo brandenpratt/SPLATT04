@@ -9,31 +9,39 @@ import { TeamId } from './types.js';
  * Visual height is decorative and never gameplay-relevant.
  */
 
-export const ARENA_WIDTH = 82; // east-west, X
-export const ARENA_DEPTH = 54; // north-south, Z
+// Tightened from 82x54: with a close third-person camera you see far less of the arena,
+// so the estate is compact enough that action is always a few seconds away.
+export const ARENA_WIDTH = 72; // east-west, X
+export const ARENA_DEPTH = 50; // north-south, Z
 export const ARENA_HALF_WIDTH = ARENA_WIDTH / 2;
 export const ARENA_HALF_DEPTH = ARENA_DEPTH / 2;
 
-/** Paint grid resolution, chosen so cells are near-square at the 82x54 footprint. */
-export const GRID_COLS = 128;
+/** Paint grid resolution, chosen so cells stay near-square at the 72x50 footprint. */
+export const GRID_COLS = 120;
 export const GRID_ROWS = 84;
-export const CELL_WIDTH = ARENA_WIDTH / GRID_COLS; // 0.6406
-export const CELL_DEPTH = ARENA_DEPTH / GRID_ROWS; // 0.6429
+export const CELL_WIDTH = ARENA_WIDTH / GRID_COLS; // 0.60
+export const CELL_DEPTH = ARENA_DEPTH / GRID_ROWS; // 0.595
 
 export type ObstacleStyle =
-  | 'villa'
+  | 'mansion'
+  | 'mansion-wing'
+  | 'garage'
+  | 'archway-pier'
   | 'cabana'
   | 'hedge'
   | 'bar'
-  | 'boat'
+  | 'flamingo'
+  | 'fountain'
+  | 'sculpture'
   | 'wedge'
   | 'planter'
+  | 'curved-planter'
   | 'couch'
   | 'car'
   | 'speaker'
   | 'champagne';
 
-export type Lane = 'waterfront' | 'drive' | 'party';
+export type Lane = 'waterfront' | 'fountain' | 'party';
 
 interface ObstacleBase {
   id: string;
@@ -85,65 +93,104 @@ function circle(
   return { kind: 'circle', id, style, lane, x, z, r, height };
 }
 
-/** Reflect an obstacle across the X axis so both team halves are exactly fair. */
-function mirror(o: Obstacle): Obstacle {
-  const id = o.id.replace(/^w_/, 'e_');
-  return o.kind === 'box' ? { ...o, id, x: -o.x } : { ...o, id, x: -o.x };
+/**
+ * The estate, authored explicitly rather than mirrored.
+ *
+ * The two mansion masses, the garages and the party-lane props are deliberately *not*
+ * exact reflections of each other — the brief calls for equivalent-but-distinct halves,
+ * and asymmetry makes each side legible at a glance. Fairness comes from equal cover
+ * volume and equal spawn protection, not from geometric symmetry.
+ */
+/**
+ * VICE ESTATE 04, laid out as a competitive paintball field.
+ *
+ * Every bunker is authored once for the cyan half and mirrored through 180 degrees —
+ * `(x, z) -> (-x, -z)`. Point symmetry is what makes a field fair: each team gets the same
+ * home, the same snake run and corner, the same three doritos and the same mid, handed to
+ * the opposite flank. An earlier version of this table was hand-authored as two
+ * deliberately different halves, which reads well in a screenshot and plays unfairly.
+ *
+ * Play runs along X. Each villa sits behind its own team's home with a garage gap between
+ * its two piers — that gap is the spawn and the only way through the building, which is
+ * what keeps the arena flat while the villas still read as two-storey architecture.
+ *
+ * Lanes follow Z: the snake flank is `party`, the dorito flank is `waterfront`, and the
+ * contested middle is `fountain`.
+ */
+type HalfSpec = [string, ObstacleStyle, Lane, number, number, number, number, number];
+
+// id, style, lane, x, z, hx, hz, height
+const CYAN_HALF: HalfSpec[] = [
+  ['home', 'cabana', 'fountain', -24, 0, 2.0, 4.5, 2.6],
+  ['back-party', 'cabana', 'party', -19.5, 10.5, 1.5, 1.5, 2.3],
+  ['back-water', 'cabana', 'waterfront', -19.5, -10.5, 1.5, 1.5, 2.3],
+  ['snake', 'bar', 'party', -10.5, 15.5, 5.0, 0.85, 1.35],
+  ['snake-corner', 'cabana', 'party', -16.0, 13.2, 1.3, 1.3, 2.0],
+  ['snake-mid', 'cabana', 'party', -2.5, 13.0, 1.2, 1.2, 1.9],
+  ['dorito-1', 'wedge', 'waterfront', -14.0, -10.0, 1.5, 1.5, 2.1],
+  ['dorito-2', 'wedge', 'waterfront', -8.5, -13.0, 1.4, 1.4, 2.0],
+  ['dorito-3', 'wedge', 'waterfront', -3.0, -15.0, 1.3, 1.3, 1.9],
+  ['mid-low', 'bar', 'fountain', -7.5, 6.5, 2.7, 0.8, 1.4],
+  ['mid-high', 'cabana', 'fountain', -8.0, -5.0, 1.6, 1.6, 2.4],
+  ['wing', 'cabana', 'fountain', -13.0, 0, 1.2, 1.2, 2.2],
+  ['planter-water', 'curved-planter', 'waterfront', -16.5, -5.5, 3.0, 1.2, 1.15],
+  ['planter-party', 'curved-planter', 'party', -4.0, 9.5, 2.75, 1.2, 1.15],
+  ['planter-mid', 'curved-planter', 'fountain', -11.0, 2.5, 2.5, 1.2, 1.15],
+  // Villa piers. The 6 m gap between them at z -6..0 is the garage route and the spawn.
+  ['villa-pier-water', 'mansion', 'waterfront', -32.5, -9.5, 3.0, 3.5, 11.0],
+  ['villa-pier-party', 'mansion-wing', 'party', -32.5, 3.5, 3.0, 3.5, 11.0],
+  ['orb-dais', 'sculpture', 'waterfront', -19.5, -16.5, 2.6, 2.6, 4.0],
+];
+
+function mirrored(spec: HalfSpec, team: 'cyan' | 'magenta'): BoxObstacle {
+  const [id, style, lane, x, z, hx, hz, height] = spec;
+  const flip = team === 'magenta';
+  return box(
+    `${team}-${id}`,
+    style,
+    // The mirrored half also swaps flanks: a team's snake side is the other's dorito side.
+    flip && lane !== 'fountain' ? (lane === 'party' ? 'waterfront' : 'party') : lane,
+    flip ? -x : x,
+    flip ? -z : z,
+    hx,
+    hz,
+    height,
+  );
 }
 
-/** Objects authored on the west half; each gets an exact eastern twin. */
-const WEST_SIDE: Obstacle[] = [
-  // --- Waterfront Lane (north, beside the bay) -----------------------------
-  box('w_villa_bay', 'villa', 'waterfront', -26, -22, 5.5, 2.6, 3.4),
-  box('w_villa_corner', 'villa', 'waterfront', -36, -20.5, 3.0, 2.2, 3.1),
-  circle('w_hedge_a', 'hedge', 'waterfront', -15, -15.5, 1.9, 1.5),
-  circle('w_hedge_b', 'hedge', 'waterfront', -20, -12.5, 1.5, 1.4),
-  box('w_bar', 'bar', 'waterfront', -7, -13.5, 3.0, 0.9, 1.15),
-
-  // --- Circular Drive (centre) --------------------------------------------
-  box('w_wedge', 'wedge', 'drive', -8, 0, 1.5, 1.5, 1.7),
-  circle('w_planter_n', 'planter', 'drive', -22, -4.5, 2.0, 1.6),
-  circle('w_planter_s', 'planter', 'drive', -22, 4.5, 2.0, 1.6),
-  box('w_spawn_shield', 'wedge', 'drive', -30, 0, 1.6, 3.2, 1.9),
-
-  // --- Party Lane (south, service/party side) ------------------------------
-  box('w_couch', 'couch', 'party', -17, 14.5, 3.2, 1.2, 1.25),
-  box('w_speaker_a', 'speaker', 'party', -13.5, 20.5, 1.1, 1.1, 2.6),
-  box('w_speaker_b', 'speaker', 'party', -8.5, 20.5, 1.1, 1.1, 2.6),
-  circle('w_champagne_a', 'champagne', 'party', -11, 11, 1.35, 2.2),
-  circle('w_champagne_b', 'champagne', 'party', -24, 17.5, 1.35, 2.2),
-  box('w_villa_party', 'villa', 'party', -30, 22, 5.0, 2.6, 3.2),
+const ESTATE: Obstacle[] = [
+  ...CYAN_HALF.map((spec) => mirrored(spec, 'cyan')),
+  ...CYAN_HALF.map((spec) => mirrored(spec, 'magenta')),
+  // The hero landmark sits on the axis of symmetry and belongs to neither half.
+  circle('fountain', 'fountain', 'fountain', 0, 0, 5.0, 8.0),
 ];
 
-/** Objects that sit on the centre line and belong to neither team. */
-const CENTRE: Obstacle[] = [
-  // The landmark: an inflatable speedboat lying sideways across the circular drive.
-  // Long axis runs north-south so both teams can wrap the bow and the stern.
-  box('c_speedboat', 'boat', 'drive', 0, 0, 2.3, 7.6, 2.5),
-  box('c_cabana', 'cabana', 'waterfront', 0, -19.5, 3.2, 2.4, 3.0),
-  box('c_sportscar', 'car', 'party', 0, 17.5, 3.8, 1.6, 1.5),
-];
 
-export const OBSTACLES: Obstacle[] = [...WEST_SIDE, ...WEST_SIDE.map(mirror), ...CENTRE];
+export const OBSTACLES: Obstacle[] = ESTATE;
 
+/**
+ * Spawn points sit in each garage's shadow, so no spawn has line of sight to the
+ * central courtyard. `arena.test.ts` asserts both properties.
+ */
 export const SPAWNS: Record<TeamId, Array<{ x: number; z: number }>> = {
+  // The start box sits in front of each villa. The wide `home` bunker screens it from the
+  // courtyard, and open ground north and south of it gives every spawn two exits.
   [TeamId.Cyan]: [
-    { x: -36.5, z: -8 },
-    { x: -36.5, z: -3 },
-    { x: -36.5, z: 3 },
-    { x: -36.5, z: 8 },
-    { x: -33, z: -12 },
-    { x: -33, z: 12 },
+    { x: -28, z: -4.5 },
+    { x: -28, z: -1.5 },
+    { x: -28, z: 1.5 },
+    { x: -28, z: 4.5 },
   ],
   [TeamId.Magenta]: [
-    { x: 36.5, z: -8 },
-    { x: 36.5, z: -3 },
-    { x: 36.5, z: 3 },
-    { x: 36.5, z: 8 },
-    { x: 33, z: -12 },
-    { x: 33, z: 12 },
+    { x: 28, z: 4.5 },
+    { x: 28, z: 1.5 },
+    { x: 28, z: -1.5 },
+    { x: 28, z: -4.5 },
   ],
 };
+
+/** The central objective: the flamingo fountain. */
+export const ARENA_CENTRE = { x: 0, z: 0 };
 
 // ---------------------------------------------------------------------------
 // Collision
@@ -277,15 +324,17 @@ export interface NavNode {
 }
 
 export function laneForZ(z: number): Lane {
-  if (z < -9) return 'waterfront';
-  if (z > 9) return 'party';
-  return 'drive';
+  if (z < -9.5) return 'waterfront';
+  if (z > 8.5) return 'party';
+  return 'fountain';
 }
 
-const NAV_STEP_X = 5.3;
-const NAV_STEP_Z = 5.1;
-const NAV_LINK_DISTANCE = 8;
-const NAV_CLEARANCE = PLAYER_RADIUS + 0.35;
+// Denser than the old 82x54 court: the estate has narrower routes (mansion archways,
+// gaps between fountain planters) and a coarse lattice simply could not see through them.
+const NAV_STEP_X = 3.6;
+const NAV_STEP_Z = 3.5;
+const NAV_LINK_DISTANCE = 5.6;
+const NAV_CLEARANCE = PLAYER_RADIUS + 0.22;
 
 /**
  * A lattice rather than hand-placed waypoints: every node and every edge is validated
@@ -317,7 +366,49 @@ function buildNavGraph(): NavNode[] {
       b.neighbours.push(a.id);
     }
   }
-  return nodes;
+
+  // Drop anything not connected to the main body of the map. A pocket behind a mansion
+  // that no player can walk to is a bot trap, not a waypoint, so it must never survive
+  // into the shipped graph.
+  return keepLargestComponent(nodes);
+}
+
+function keepLargestComponent(nodes: NavNode[]): NavNode[] {
+  const component = new Int32Array(nodes.length).fill(-1);
+  const sizes: number[] = [];
+
+  for (const node of nodes) {
+    if (component[node.id] !== -1) continue;
+    const label = sizes.length;
+    let size = 0;
+    const queue = [node.id];
+    component[node.id] = label;
+    while (queue.length > 0) {
+      const current = queue.shift()!;
+      size++;
+      for (const next of nodes[current].neighbours) {
+        if (component[next] === -1) {
+          component[next] = label;
+          queue.push(next);
+        }
+      }
+    }
+    sizes.push(size);
+  }
+
+  const main = sizes.indexOf(Math.max(...sizes));
+  const kept = nodes.filter((n) => component[n.id] === main);
+
+  // Reindex so `NAV_NODES[id]` stays a direct lookup after pruning.
+  const remap = new Map<number, number>();
+  kept.forEach((node, index) => remap.set(node.id, index));
+  return kept.map((node, index) => ({
+    ...node,
+    id: index,
+    neighbours: node.neighbours
+      .map((n) => remap.get(n))
+      .filter((n): n is number => n !== undefined),
+  }));
 }
 
 /** Conservative swept test: samples the segment inflated by `radius`. */

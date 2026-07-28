@@ -68,9 +68,9 @@ function Water({ z, lowPower }: { z: number; lowPower: boolean }) {
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
-      uShallow: { value: new THREE.Color('#5df0e4') },
-      uDeep: { value: new THREE.Color('#0f8fd6') },
-      uSun: { value: new THREE.Color('#ffd9a8') },
+      uShallow: { value: new THREE.Color('#2f7f88') },
+      uDeep: { value: new THREE.Color('#12354f') },
+      uSun: { value: new THREE.Color('#d99a6a') },
     }),
     [],
   );
@@ -243,9 +243,11 @@ function Palms({
 function SkyDome() {
   const uniforms = useMemo(
     () => ({
-      uTop: { value: new THREE.Color('#2a3f7a') },
-      uMid: { value: new THREE.Color('#ff8f6b') },
-      uBottom: { value: new THREE.Color('#ffd7a8') },
+      // Late sunset sliding into early night: deep navy overhead, a narrow warm band on
+      // the horizon. The old full-height orange was doing most of the "toy box" damage.
+      uTop: { value: new THREE.Color('#101a33') },
+      uMid: { value: new THREE.Color('#48405e') },
+      uBottom: { value: new THREE.Color('#c9704a') },
     }),
     [],
   );
@@ -274,8 +276,9 @@ function SkyDome() {
           varying vec3 vPos;
           void main() {
             float h = clamp(vPos.y / 300.0, -1.0, 1.0);
-            vec3 colour = mix(uBottom, uMid, smoothstep(-0.2, 0.18, h));
-            colour = mix(colour, uTop, smoothstep(0.15, 0.75, h));
+            // Narrow warm band right at the horizon, then straight into dusk.
+            vec3 colour = mix(uBottom, uMid, smoothstep(-0.06, 0.12, h));
+            colour = mix(colour, uTop, smoothstep(0.08, 0.45, h));
             gl_FragColor = vec4(colour, 1.0);
             #include <colorspace_fragment>
           }

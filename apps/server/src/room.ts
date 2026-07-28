@@ -19,6 +19,14 @@ import {
   ROUND_SECONDS,
   RESPAWN_SECONDS,
   RoundPhase,
+  BotDifficulty,
+  DEFAULT_BOT_DIFFICULTY,
+  SATURATION_SPLASH_RADIUS_SCALE,
+  applyDirectHit,
+  applySplash,
+  grantSpawnShield,
+  isShielded,
+  recoverSaturation,
   SPAWNS,
   TeamId,
   cellsToPercent,
@@ -51,6 +59,8 @@ export interface ServerPlayer extends PlayerState {
   disconnectedAt: number;
   unlockAll: boolean;
   matchesCompleted: number;
+  /** Developer invulnerability. Only ever set through an authorised debug command. */
+  godMode: boolean;
   challengeId: string | null;
   round: {
     tags: number;
@@ -78,6 +88,12 @@ export class Room {
   phase: RoundPhase = 'active';
   phaseEndsAt: number;
   coverage: Coverage = { cyan: 0, magenta: 0, neutral: 100 };
+
+  /** Room-wide bot difficulty. Public clients cannot change this on a production server. */
+  botDifficulty: BotDifficulty = DEFAULT_BOT_DIFFICULTY;
+  /** Debug affordance: freeze or remove bots entirely (local development only). */
+  botsFrozen = false;
+  botsRemoved = false;
 
   private dirty = new Set<number>();
   private events: GameEvent[] = [];
@@ -144,6 +160,7 @@ export class Room {
   }
 
   private fillWithBots(): void {
+    if (this.botsRemoved) return;
     let index = 0;
     while (this.players.size < ROOM_SIZE) {
       const team = this.pickTeam();
@@ -169,6 +186,7 @@ export class Room {
       disconnectedAt: 0,
       unlockAll: true,
       matchesCompleted: 99,
+      godMode: false,
       challengeId: null,
       round: { tags: 0, splatted: 0, cellsGained: 0, assists: 0, presentAtStart: true },
       lastShotAt: 0,
@@ -228,6 +246,7 @@ export class Room {
       disconnectedAt: 0,
       unlockAll: options.unlockAll,
       matchesCompleted: options.matchesCompleted,
+      godMode: false,
       challengeId: options.challengeId ?? null,
       round: {
         tags: 0,
@@ -355,15 +374,37 @@ export class Room {
     // roster repeatedly, and a live map iterator would be exhausted after one pass.
     const roster = Array.from(this.players.values());
 
+    // Count who each bot is currently targeting, so the focus-fire cap can be enforced
+    // across the team. No individual brain can see this on its own.
+    const focus = new Map<string, number>();
+    for (const player of this.players.values()) {
+      const targetId = player.brain?.currentTargetId;
+      if (targetId) focus.set(targetId, (focus.get(targetId) ?? 0) + 1);
+    }
+
     for (const player of roster) {
+      recoverSaturation(player, now, dtSeconds);
       if (!player.alive) {
         if (now >= player.respawnAt) this.respawn(player, now);
         continue;
       }
 
-      const input = player.brain
-        ? player.brain.think(player, { now, grid: this.grid, players: roster })
-        : player.lastInput;
+      const input =
+        player.brain && !this.botsFrozen
+          ? player.brain.think(
+              player,
+              {
+                now,
+                grid: this.grid,
+                players: roster,
+                difficulty: this.botDifficulty,
+                focus,
+              },
+              dtSeconds,
+            )
+          : player.brain
+            ? emptyInput(player.marker)
+            : player.lastInput;
 
       // During intermission players may skate around, but nobody shoots.
       stepPlayer(player, input, dtSeconds, ctx);
@@ -408,7 +449,40 @@ export class Room {
       if (result.splash) paint(result.splash);
 
       if (result.tagged) {
-        this.splat(result.tagged as ServerPlayer, owner ?? null);
+        const victim = result.tagged as ServerPlayer;
+        const hit = victim.godMode ? { applied: 0, tagged: false } : applyDirectHit(victim, now);
+        if (hit.applied > 0) {
+          this.events.push({
+            e: 'hit',
+            on: victim.id,
+            tm: projectile.team,
+            sat: victim.saturation,
+          });
+        }
+        // A soaked suit is what tags a player, not the single paintball.
+        if (hit.tagged) this.splat(victim, owner ?? null);
+      }
+
+      // Anyone standing near a floor splash takes reduced saturation too, so sustained
+      // area fire pressures a target even without clean hits.
+      if (result.splash) {
+        const reach = result.splash.radius * SATURATION_SPLASH_RADIUS_SCALE;
+        for (const nearby of roster) {
+          const candidate = nearby as ServerPlayer;
+          if (!candidate.alive || candidate.team === projectile.team) continue;
+          const distance = Math.hypot(candidate.x - result.splash.x, candidate.z - result.splash.z);
+          if (distance >= reach || candidate.godMode) continue;
+          const hit = applySplash(candidate, distance, result.splash.radius, now);
+          if (hit.applied > 0) {
+            this.events.push({
+              e: 'hit',
+              on: candidate.id,
+              tm: projectile.team,
+              sat: candidate.saturation,
+            });
+          }
+          if (hit.tagged) this.splat(candidate, owner ?? null);
+        }
       }
       if (result.coverHit) {
         // Cosmetic only — cover cells are excluded from the paintable mask.
@@ -475,6 +549,8 @@ export class Room {
     player.nextFireAt = now;
     player.burstRemaining = 0;
     player.spreadHeat = 0;
+    // Two seconds of protection, forfeited the instant they fire.
+    grantSpawnShield(player, now);
     this.events.push({ e: 'spawn', id: player.id, x: spawn.x, z: spawn.z });
   }
 
@@ -552,6 +628,7 @@ export class Room {
       player.nextFireAt = 0;
       player.burstRemaining = 0;
       player.spreadHeat = 0;
+      grantSpawnShield(player, now);
       const spawn = this.spawnPointFor(player.team, index++);
       player.x = spawn.x;
       player.z = spawn.z;
@@ -612,6 +689,7 @@ export class Room {
         mk: p.marker,
         tg: p.round.tags,
         c: p.send || p.isBot ? 1 : 0,
+        sh: isShielded(p, now) ? 1 : 0,
       });
     }
     return out;
@@ -673,6 +751,8 @@ export class Room {
           respawnAt: player.respawnAt,
           boostReadyAt: player.boostReadyAt,
           boostUntil: player.boostUntil,
+          sat: Math.round(player.saturation * 10) / 10,
+          shield: player.shieldUntil,
         },
       });
     }
@@ -703,6 +783,59 @@ export class Room {
   /** Test seam: force the current phase to end on the next tick. */
   forcePhaseEnd(): void {
     this.phaseEndsAt = 0;
+  }
+
+  // --- developer commands ---------------------------------------------------
+  // Callable only from a socket the server has already authorised; see `app.ts`.
+
+  setGodMode(playerId: string, enabled: boolean): void {
+    const player = this.players.get(playerId);
+    if (player) player.godMode = enabled;
+  }
+
+  setBotsFrozen(frozen: boolean): void {
+    this.botsFrozen = frozen;
+  }
+
+  setBotDifficulty(difficulty: BotDifficulty): void {
+    this.botDifficulty = difficulty;
+  }
+
+  /** Strip every bot out of the room, leaving the humans alone in the arena. */
+  removeBots(removed: boolean): void {
+    this.botsRemoved = removed;
+    if (removed) {
+      for (const [id, player] of this.players) if (player.isBot) this.players.delete(id);
+    } else {
+      this.fillWithBots();
+    }
+  }
+
+  restartRound(): void {
+    this.startRound(this.now());
+  }
+
+  addTime(seconds: number): void {
+    this.phaseEndsAt += seconds * 1000;
+  }
+
+  clearPaint(): void {
+    this.grid.fill(0);
+    this.dirty.clear();
+    this.coverage = computeCoverage(this.grid);
+    this.broadcast({ t: 'gridReset' });
+  }
+
+  teleport(playerId: string, team: TeamId): void {
+    const player = this.players.get(playerId);
+    if (!player) return;
+    const spawn = this.spawnPointFor(team, 0);
+    player.x = spawn.x;
+    player.z = spawn.z;
+    player.vx = 0;
+    player.vz = 0;
+    player.alive = true;
+    grantSpawnShield(player, this.now());
   }
 }
 

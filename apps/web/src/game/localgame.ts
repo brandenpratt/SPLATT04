@@ -240,6 +240,7 @@ export class LocalGame {
         mk: p.marker,
         tg: p.tags,
         c: 1 as const,
+        sh: now < p.shieldUntil ? (1 as const) : (0 as const),
       })),
       now,
     );
